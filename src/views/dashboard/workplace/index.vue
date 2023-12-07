@@ -150,4 +150,5 @@ export default {
     margin-left: 0;
     margin-top: 16px;
   }
-}</style>
+}
+</style>
