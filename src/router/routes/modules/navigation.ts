@@ -23,11 +23,11 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'info',
-      name: 'info',
-      component: () => import('@/views/navigation/info/index.vue'),
+      path: 'personal',
+      name: 'personal',
+      component: () => import('@/views/navigation/personal/index.vue'),
       meta: {
-        locale: 'menu.navigation.info',
+        locale: 'menu.navigation.personal',
         requiresAuth: true,
         roles: ['*'],
       },

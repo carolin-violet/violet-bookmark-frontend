@@ -12,7 +12,7 @@ export default {
   'menu.server.monitor': '实时监控-服务端',
   'menu.navigation': '收藏站点',
   'menu.navigation.list': '用户列表',
-  'menu.navigation.info': '个人收藏',
+  'menu.navigation.personal': '个人收藏',
   'menu.list': '列表页',
   'menu.result': '结果页',
   'menu.exception': '异常页',
