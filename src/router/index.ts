@@ -23,6 +23,22 @@ const router = createRouter({
         requiresAuth: false,
       },
     },
+    {
+      path: '/preview',
+      name: 'preview',
+      component: () => import('@/views/preview/index.vue'),
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    // {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: () => import('@/views/navigation/personal/category/index.vue'),
+    //   meta: {
+    //     requiresAuth: false,
+    //   },
+    // },
     ...appRoutes,
     REDIRECT_MAIN,
     NOT_FOUND_ROUTE,
