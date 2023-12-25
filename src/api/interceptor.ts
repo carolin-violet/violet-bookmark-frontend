@@ -26,7 +26,8 @@ axios.interceptors.request.use(
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      // config.headers.token = `Bearer ${token}`;
+      config.headers.token = token;
     }
     return config;
   },
@@ -48,7 +49,7 @@ axios.interceptors.response.use(
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (
         [50008, 50012, 50014].includes(res.code) &&
-        response.config.url !== '/api/user/info'
+        response.config.url !== '/user/info'
       ) {
         Modal.error({
           title: 'Confirm logout',

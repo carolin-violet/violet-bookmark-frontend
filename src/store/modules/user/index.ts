@@ -12,22 +12,14 @@ import useAppStore from '../app';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    name: undefined,
-    avatar: undefined,
-    job: undefined,
-    organization: undefined,
-    location: undefined,
-    email: undefined,
-    introduction: undefined,
-    personalWebsite: undefined,
-    jobName: undefined,
-    organizationName: undefined,
-    locationName: undefined,
-    phone: undefined,
-    registrationDate: undefined,
-    accountId: undefined,
-    certification: undefined,
+    id: undefined,
+    username: undefined,
+    password: undefined,
     role: '',
+    gender: undefined,
+    email: undefined,
+    open: undefined,
+    create_time: undefined,
   }),
 
   getters: {

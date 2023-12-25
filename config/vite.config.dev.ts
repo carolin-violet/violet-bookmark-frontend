@@ -10,6 +10,12 @@ export default mergeConfig(
       fs: {
         strict: true,
       },
+      proxy: {
+        '/violet-navigation': {
+          target: 'http://127.0.0.1:9990',
+          changeOrigin: true,
+        },
+      },
     },
     plugins: [
       eslint({
