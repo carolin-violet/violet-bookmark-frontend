@@ -1,27 +1,40 @@
 import axios from 'axios';
-import type { RouteRecordNormalized } from 'vue-router';
-import { UserState } from '@/store/modules/user/types';
 
-export interface LoginData {
-  username: string;
-  password: string;
+export interface Navigation {
+  id: string;
+  cat_id: string;
+  name: string;
+  url: string;
+  description: string;
+  ladder: number;
 }
 
-export interface LoginRes {
-  token: string;
-}
-export function login(data: LoginData) {
-  return axios.post<LoginRes>('/api/user/login', data);
+// 将Navigation所有字段定义为可选
+export type INavListItem = Partial<Navigation>;
+
+export interface NavigationParam {
+  pageNum?: number;
+  pageSize?: number;
+  name?: string;
 }
 
-export function logout() {
-  return axios.post<LoginRes>('/api/user/logout');
+export interface NavigationRes {
+  list: Navigation[];
+  total: number;
 }
 
-export function getUserInfo() {
-  return axios.post<UserState>('/api/user/info');
+export function getNavigationList(params: NavigationParam) {
+  return axios.get<NavigationRes>('/navigation/list', { params });
 }
 
-export function getMenuList() {
-  return axios.post<RouteRecordNormalized[]>('/api/user/menu');
+export function getNavigation(id: string) {
+  return axios.get<Navigation>(`/navigation/${id}`);
+}
+
+export function updateNavigation(data: Navigation) {
+  return axios.put<Navigation>(`/navigation/${data.id}`, data);
+}
+
+export function delNavigation(id: string) {
+  return axios.delete<null>(`/navigation/${id}`);
 }

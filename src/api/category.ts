@@ -1,27 +1,27 @@
 import axios from 'axios';
-import type { RouteRecordNormalized } from 'vue-router';
-import { UserState } from '@/store/modules/user/types';
 
-export interface LoginData {
-  username: string;
-  password: string;
+/** 导航分类类型 */
+export interface CATEGORY {
+  id: string;
+  user_id: string;
+  name: string;
+  parent_id: string;
+  create_time: string;
+}
+export type ICategoryListItem = Partial<CATEGORY>;
+
+export function getCategoryList(parent_id: string = '-1') {
+  return axios.get<CATEGORY[]>('/category/list', {
+    params: {
+      parent_id,
+    },
+  });
 }
 
-export interface LoginRes {
-  token: string;
-}
-export function login(data: LoginData) {
-  return axios.post<LoginRes>('/api/user/login', data);
+export function updateCategory(data: CATEGORY) {
+  return axios.put<CATEGORY>(`/category/${data.id}`, data);
 }
 
-export function logout() {
-  return axios.post<LoginRes>('/api/user/logout');
-}
-
-export function getUserInfo() {
-  return axios.post<UserState>('/api/user/info');
-}
-
-export function getMenuList() {
-  return axios.post<RouteRecordNormalized[]>('/api/user/menu');
+export function delCategory(id: String) {
+  return axios.delete<null>(`/category/${id}`);
 }

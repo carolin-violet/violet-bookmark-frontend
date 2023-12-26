@@ -24,12 +24,16 @@
               <!-- <a-image show-loader :src="`https://www.google.com/s2/favicons?domain=${item.url}`" alt="" width="14" height="14" /> -->
               <img :src="`https://www.google.com/s2/favicons?domain=${item.url}`" alt="" width="14" height="14" >
               <span :style="{ color: item.ladder ? 'red' : 'blue' }" :title="item.description">{{ item.name }}</span>
-              <icon-edit />
-              <icon-delete />
+              <icon-edit @click.prevent="handleEdit(item)" />
+              <a-popconfirm content="确认删除该导航？" type="warning" @ok="handleDelete(item)">
+                <icon-delete @click.prevent="handleDelete(item)" />
+              </a-popconfirm>
             </a-space>
           </a-link>
         </a-grid-item>
       </a-grid>
+
+      <a-pagination :total="total" show-total show-page-size @change="handlePageChange" @page-size-change="handlePageSizeChange"/>
     </div>
 
     <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="false" :nav="curNav"/>
@@ -37,32 +41,68 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { Ref } from 'vue'
-import type { INavListItem, ICategoryListItem } from '../type'
+import type { INavListItem, Navigation, NavigationParam } from '@/api/navigation'
+import type { ICategoryListItem } from '@/api/category'
+import { getNavigationList, delNavigation } from '@/api/navigation';
+import useLoading from '@/hooks/loading';
 import info from './info.vue'
 
-const navList: Ref<INavListItem[]> = ref([
-  { id: '1', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: true },
-  { id: '2', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-  { id: '3', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-  { id: '4', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-  { id: '5', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-  { id: '6', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: true },
-  { id: '7', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: true },
-  { id: '8', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-  { id: '9', name: 'xxxxxxxxxxxxxxx', url: 'baidu.com', description: 'xxx', ladder: false },
-])
+const { loading, setLoading } = useLoading(true);
+const navList: Ref<Navigation[]> = ref([])
 
 const categoryList: Ref<ICategoryListItem[]> = ref([])
 
 const modalVisible: Ref<boolean> = ref(false)
 const curNav: Ref<INavListItem> = ref({})
+const params: Ref<NavigationParam> = ref({
+  pageNum: 1,
+  pageSize: 10,
+  name: ''
+})
+const total: Ref<number> = ref(0)
+
+const getDataList = () => {
+  setLoading(true);
+  getNavigationList(params.value).then(res => {
+    navList.value = res.data.list
+    total.value = res.data.total
+  }).finally(() => {
+    setLoading(false);
+  })
+}
 
 const handleCreate = () => {
   curNav.value = {}
   modalVisible.value = true
 }
+
+const handleEdit = (nav: INavListItem) => {
+  curNav.value = nav
+  modalVisible.value = true
+}
+
+const handleDelete = (nav: Navigation) => {
+  setLoading(true);
+  delNavigation(nav.id).finally(() => {
+    setLoading(false);
+  })
+}
+
+const handlePageChange = (page: number) => {
+  params.value.pageNum = page
+  getDataList()
+}
+
+const handlePageSizeChange = (pageSize: number) => {
+  params.value.pageSize = pageSize
+  getDataList()
+}
+
+onMounted(() => {
+  getDataList()
+})
 </script>
 
 <style lang="less" scoped>

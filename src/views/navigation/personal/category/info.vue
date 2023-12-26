@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
 import type { Ref, PropType } from 'vue'
-import type { ICategoryListItem } from '../type'
+import type { ICategoryListItem } from '@/api/category'
 
 const props = defineProps({
   visible: {

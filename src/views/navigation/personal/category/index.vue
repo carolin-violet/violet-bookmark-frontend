@@ -31,7 +31,8 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import type { Ref } from 'vue'
-import type { INodeDataItem, ICategoryListItem } from '../type'
+import type { ICategoryListItem } from '@/api/category'
+import type { INodeDataItem } from '../type'
 import info from './info.vue'
 
 const searchKey: Ref<string> = ref('')

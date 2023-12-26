@@ -26,7 +26,8 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
 import type { PropType, Ref } from 'vue'
-import type { INavListItem, INodeDataItem } from '../type'
+import type { INavListItem } from '@/api/navigation'
+import type { INodeDataItem } from '../type'
 
 const props = defineProps({
   visible: {

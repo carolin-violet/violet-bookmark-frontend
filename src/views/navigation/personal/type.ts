@@ -1,21 +1,4 @@
-/** 导航站点类型 */
-export interface INavListItem {
-  id?: string;
-  cat_id?: String;
-  name?: string;
-  url?: string;
-  description?: string;
-  ladder?: boolean;
-}
-
-/** 导航分类类型 */
-export interface ICategoryListItem {
-  id?: string;
-  user_id?: string;
-  name?: string;
-  parent_id?: string;
-  create_time?: string;
-}
+import type { INavListItem } from '@/api/navigation';
 
 /** 树节点类型 */
 export interface INodeDataItem {
