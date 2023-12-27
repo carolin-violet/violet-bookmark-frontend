@@ -18,18 +18,22 @@
         <template #title="nodeData">{{ nodeData.name }}</template>
         <template #extra="nodeData">
           <icon-edit style="position: absolute; right: 24px; font-size: 12px; top: 10px; color: #3370ff;"  @click="handleEdit(nodeData)" />
-          <icon-delete style="position: absolute; right: 8px; font-size: 12px; top: 10px; color: #3370ff;"  @click="handleDelete(nodeData)" />
+          <a-popconfirm content="确认删除该导航？" type="warning" @ok="handleDelete(nodeData)">
+            <icon-delete style="position: absolute; right: 8px; font-size: 12px; top: 10px; color: #3370ff;" />
+          </a-popconfirm>
         </template>
       </a-tree>
     </a-space>
 
 
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="false" :nav="curCategory"/>
+    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="false" :nav="curCategory" :option="option"/>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { Message } from '@arco-design/web-vue';
+import { ref, computed, onMounted } from 'vue';
+import { getCategoryList, delCategory } from '@/api/category';
 import type { Ref } from 'vue'
 import type { ICategoryListItem } from '@/api/category'
 import type { INodeDataItem } from '../type'
@@ -82,20 +86,28 @@ const searchData = (keyword: string): INodeDataItem[] => {
 
 // 返回给树组件的数据
 const treeData = computed(() => {
-  console.log('xxx', searchData(searchKey.value))
   if (!searchKey.value) return originTreeData.value;
   return searchData(searchKey.value);
 })
 
+const option = computed(() => originTreeData.value.map(({ id, name }) => ({ id, name })))
+
+const getData = () => {
+  getCategoryList('-1').then(res => {
+    originTreeData.value = res.data
+  })
+}
+
 // 动态加载数据
-const loadMore = (nodeData: any): Promise<void> => {
+const loadMore = (nodeData: INodeDataItem): Promise<void> => {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      nodeData.children = [
-        { name: `leaf`, id: `${nodeData.key}-1`, isLeaf: true },
-      ];
-      resolve();
-    }, 1000);
+    getCategoryList(nodeData.id).then((res) => {
+      nodeData.children = res.data.map((item: INodeDataItem) => {
+        item.isLeaf = true
+        return item
+      })
+      resolve()
+    })
   });
 };
 
@@ -104,15 +116,27 @@ const handleSelect = (selectedKeys: Array<string | number>, data: any): void => 
 }
 
 const handleEdit = (nodeData: INodeDataItem): void => {
-  console.log('xx', nodeData)
+  curCategory.value = nodeData
+  modalVisible.value = true
 }
 const handleDelete = (nodeData: INodeDataItem): void => {
-  console.log('xx', nodeData)
+  delCategory(nodeData.id)
+    .then(() => {
+      Message.success({
+        content: '删除成功!'
+      })
+      getData()
+    })
 }
 
 const handleAdd = (): void => {
-
+  curCategory.value = {}
+  modalVisible.value = true
 }
+
+onMounted(() => {
+  getData()
+})
 </script>
 <style lang="less" scoped>
 .category-container {

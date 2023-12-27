@@ -41,6 +41,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Message } from '@arco-design/web-vue';
 import { ref, onMounted } from 'vue';
 import type { Ref } from 'vue'
 import type { INavListItem, Navigation, NavigationParam } from '@/api/navigation'
@@ -85,9 +86,15 @@ const handleEdit = (nav: INavListItem) => {
 
 const handleDelete = (nav: Navigation) => {
   setLoading(true);
-  delNavigation(nav.id).finally(() => {
-    setLoading(false);
-  })
+  delNavigation(nav.id)
+    .then(() => {
+      Message.success({
+        content: '删除成功!'
+      })
+    })
+    .finally(() => {
+      setLoading(false);
+    })
 }
 
 const handlePageChange = (page: number) => {

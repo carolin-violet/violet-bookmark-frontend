@@ -10,18 +10,27 @@ export interface CATEGORY {
 }
 export type ICategoryListItem = Partial<CATEGORY>;
 
-export function getCategoryList(parent_id: string = '-1') {
+export interface CategoryOption {
+  id: string;
+  name: string;
+}
+
+export function getCategoryList(parentId: string) {
   return axios.get<CATEGORY[]>('/category/list', {
     params: {
-      parent_id,
+      parent_id: parentId,
     },
   });
+}
+
+export function createCategory(data: CategoryOption) {
+  return axios.post<CATEGORY>('/category', data);
 }
 
 export function updateCategory(data: CATEGORY) {
   return axios.put<CATEGORY>(`/category/${data.id}`, data);
 }
 
-export function delCategory(id: String) {
+export function delCategory(id: string) {
   return axios.delete<null>(`/category/${id}`);
 }
