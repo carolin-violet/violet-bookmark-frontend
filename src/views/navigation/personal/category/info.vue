@@ -38,7 +38,7 @@ const props = defineProps({
   }
 })
 
-const formRef = ref(null!)
+const formRef: Ref<any> = ref(null)
 
 const emit = defineEmits(['update:visible'])
 

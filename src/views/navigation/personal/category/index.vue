@@ -34,9 +34,8 @@
 import { Message } from '@arco-design/web-vue';
 import { ref, computed, onMounted } from 'vue';
 import { getCategoryList, delCategory } from '@/api/category';
-import type { Ref } from 'vue'
-import type { ICategoryListItem } from '@/api/category'
-import type { INodeDataItem } from '../type'
+import type { Ref, ComputedRef } from 'vue'
+import type { ICategoryListItem, CategoryOption } from '@/api/category'
 import info from './info.vue'
 
 const searchKey: Ref<string> = ref('')
@@ -44,27 +43,12 @@ const modalVisible: Ref<boolean> = ref(false)
 const curCategory: Ref<ICategoryListItem> = ref({})
 
 // 原始数据
-const originTreeData: Ref<INodeDataItem[]> = ref([
-  {
-    name: '分类 0-0',
-    id: '0-0',
-  },
-  {
-    name: '分类 0-1',
-    id: '0-1',
-    children: [
-      {
-        name: '分类 0-1-1',
-        id: '0-1-1'
-      }
-    ],
-  },
-])
+const originTreeData: Ref<ICategoryListItem[]> = ref([])
 
 // 筛选数据
-const searchData = (keyword: string): INodeDataItem[] => {
-  const loop = (data: INodeDataItem[]) => {
-    const result: INodeDataItem[] = [];
+const searchData = (keyword: string): ICategoryListItem[] => {
+  const loop = (data: ICategoryListItem[]) => {
+    const result: ICategoryListItem[] = [];
     data.forEach(item => {
       if (item.name && item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
         result.push({ ...item });
@@ -90,7 +74,7 @@ const treeData = computed(() => {
   return searchData(searchKey.value);
 })
 
-const option = computed(() => originTreeData.value.map(({ id, name }) => ({ id, name })))
+const option: ComputedRef<CategoryOption[]> = computed(() => originTreeData.value.map(({ id, name }) => ({ id, name })))
 
 const getData = () => {
   getCategoryList('-1').then(res => {
@@ -99,10 +83,10 @@ const getData = () => {
 }
 
 // 动态加载数据
-const loadMore = (nodeData: INodeDataItem): Promise<void> => {
+const loadMore = (nodeData: ICategoryListItem): Promise<void> => {
   return new Promise((resolve) => {
-    getCategoryList(nodeData.id).then((res) => {
-      nodeData.children = res.data.map((item: INodeDataItem) => {
+    getCategoryList(nodeData.id!).then((res) => {
+      nodeData.children = res.data.map((item: ICategoryListItem) => {
         item.isLeaf = true
         return item
       })
@@ -115,12 +99,12 @@ const handleSelect = (selectedKeys: Array<string | number>, data: any): void => 
   console.log('nodeData', data)
 }
 
-const handleEdit = (nodeData: INodeDataItem): void => {
+const handleEdit = (nodeData: ICategoryListItem): void => {
   curCategory.value = nodeData
   modalVisible.value = true
 }
-const handleDelete = (nodeData: INodeDataItem): void => {
-  delCategory(nodeData.id)
+const handleDelete = (nodeData: ICategoryListItem): void => {
+  delCategory(nodeData.id!)
     .then(() => {
       Message.success({
         content: '删除成功!'
