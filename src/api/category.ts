@@ -2,6 +2,18 @@ import axios from 'axios';
 import type { INavListItem } from '@/api/navigation';
 
 /** 导航分类类型 */
+
+export interface ICategoryListItem {
+  id?: string;
+  user_id?: string;
+  name?: string;
+  parent_id?: string | number;
+  create_time?: string;
+  children?: ICategoryListItem[];
+  navigation?: INavListItem[];
+  isLeaf?: boolean;
+}
+
 export interface CATEGORY {
   id: string;
   user_id: string;
@@ -12,7 +24,6 @@ export interface CATEGORY {
   navigation: INavListItem[];
   isLeaf: boolean;
 }
-export type ICategoryListItem = Partial<CATEGORY>;
 
 export interface CategoryOption {
   id?: string;

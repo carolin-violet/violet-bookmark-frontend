@@ -2,13 +2,13 @@
   <a-layout>
     <a-layout-header>
       <a-space>
-        <a-button type="primary">
+        <a-button type="primary" @click="handleImport">
           <template #icon>
             <icon-upload />
           </template>
           <template #default>导入数据</template>
         </a-button>
-        <a-button type="primary">
+        <a-button type="primary" @click="handleExport">
           <template #icon>
             <icon-download />
           </template>
@@ -35,6 +35,8 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+// import { saveAs } from 'file-saver';
+import { exportData } from '@/api/file'
 import Navigation from './nav/index.vue'
 import Category from './category/index.vue'
 
@@ -45,5 +47,15 @@ const toSite = () => {
     path: '/preview'
   })
   window.open(routeData.href, '_blank')
+}
+
+const handleImport = () => {
+
+}
+
+const handleExport = () => {
+  exportData().then((res) => {
+    // saveAs(res, 'data.json')
+  })
 }
 </script>
