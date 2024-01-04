@@ -29,6 +29,9 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
       typescript: {
         project: path.resolve(__dirname, './tsconfig.json'),
