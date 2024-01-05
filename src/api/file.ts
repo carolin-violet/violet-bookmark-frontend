@@ -4,9 +4,7 @@ const { CancelToken } = axios;
 export const source = CancelToken.source();
 
 export function exportData() {
-  return axios.get<any>('/file/export', {
-    responseType: 'blob',
-  });
+  return axios.get<any>('/file/export');
 }
 
 export function importData(data: any, progressHandler: any) {

@@ -28,7 +28,8 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-// import { saveAs } from 'file-saver';
+// import FileSaver from 'file-saver'
+import save from '@/utils/save'
 import { exportData, importData, source } from '@/api/file'
 import Navigation from './nav/index.vue'
 import Category from './category/index.vue'
@@ -43,8 +44,11 @@ const toSite = () => {
 }
 
 const handleExport = () => {
-  exportData().then((res) => {
-    // saveAs(res, 'data.json')
+  exportData().then((res: any) => {
+    // FileSaver.saveAs(res, 'data.json')
+    const json = JSON.stringify({ data: res.data })
+    save(json, 'data.json', 'application/json')
+
   })
 }
 
