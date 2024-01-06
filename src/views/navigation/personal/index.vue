@@ -1,7 +1,7 @@
 <template>
   <a-layout>
-    <a-layout-sider :width="300">
-      <a-space direction="vertical">
+    <a-layout-sider class="left-block" :width="300">
+      <a-space style="width: 100%; height: 100%; padding: 8px; background-color: white;" direction="vertical">
         <a-upload :custom-request="customRequest" />
         <a-button type="primary" @click="handleExport">
           <template #icon>
@@ -82,3 +82,11 @@ const customRequest = (option: any) => {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.left-block {
+  padding: 16px 20px;
+  padding-bottom: 0;
+  background-color: var(--color-fill-2);
+}
+</style>

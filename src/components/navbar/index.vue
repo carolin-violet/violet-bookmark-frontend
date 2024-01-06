@@ -209,7 +209,7 @@ const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
 const locales = [...LOCALE_OPTIONS];
 const avatar = computed(() => {
   // return userStore.avatar;
-  return '@/assets/images/avatar.jpeg'
+  return 'https://raw.githubusercontent.com/carolin-violet/navigation/master/src/assets/images/avatar.jpeg'
 });
 const theme = computed(() => {
   return appStore.theme;
