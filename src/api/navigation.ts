@@ -16,6 +16,7 @@ export interface NavigationParam {
   pageNum?: number;
   pageSize?: number;
   name?: string;
+  cat_id?: string;
 }
 
 export interface NavigationRes {
@@ -27,8 +28,8 @@ export function getNavigationList(params: NavigationParam) {
   return axios.get<NavigationRes>('/navigation/list', { params });
 }
 
-export function getNavigation(id: string) {
-  return axios.get<Navigation>(`/navigation/${id}`);
+export function createNavigation(data: Navigation) {
+  return axios.post<Navigation>('/navigation', data);
 }
 
 export function updateNavigation(data: Navigation) {

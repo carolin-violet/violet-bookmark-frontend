@@ -1,13 +1,13 @@
 <template>
-  <a-modal v-model:visible="visible" :title="isEdit ? '编辑分类' : '添加分类'" @ok="handleConfirm">
-    <a-form :model="form">
-      <a-form-item field="name" label="导航名称">
+  <a-modal v-model:visible="visible" :title="isEdit ? '编辑分类' : '添加分类'" :on-before-ok="handleConfirm">
+    <a-form ref="formRef" :model="form"  :rules="rules">
+      <a-form-item field="name" label="导航名称" validate-trigger="change">
         <a-input v-model="form.name" allow-clear />
       </a-form-item>
-      <a-form-item field="url" label="导航地址">
+      <a-form-item field="url" label="导航地址" validate-trigger="change">
         <a-input v-model="form.url" allow-clear />
       </a-form-item>
-      <a-form-item field="description" label="导航描述">
+      <a-form-item field="description" label="导航描述" validate-trigger="change">
         <a-textarea  v-model="form.description" :auto-size="{ minRows: 2, maxRows: 5 }" allow-clear />
       </a-form-item>
       <a-form-item field="ladder" label="是否被墙">
@@ -16,18 +16,16 @@
           <a-radio :value="0">否</a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item field="cat_id" label="导航类别">
-        <a-cascader v-model="form.cat_id" :options="categoryList" :style="{ width: '320px' }" placeholder="请选择二级分类" allow-clear />
-      </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script lang="ts" setup>
+import { Message } from '@arco-design/web-vue';
 import { ref, computed, onMounted } from 'vue';
+import { createNavigation, updateNavigation } from '@/api/navigation'
 import type { PropType, Ref } from 'vue'
 import type { INavListItem } from '@/api/navigation'
-import type { INodeDataItem } from '../type'
 
 const props = defineProps({
   visible: {
@@ -41,10 +39,52 @@ const props = defineProps({
   nav: {
     type: Object as PropType<INavListItem>,
     required: false
+  },
+  cat_id: {
+    type: String,
+    required: true
   }
 })
 
-const emit = defineEmits(['update:visible'])
+const rules = {
+  name: [
+    {
+      required: true,
+      message: '请输入导航名称',
+    },
+    {
+      minLength: 0,
+      maxLength: 32,
+      message: '导航名称长度为0-32',
+    }
+  ],
+  url: [
+    {
+      required: true,
+      message: '请输入导航地址',
+    },
+    {
+      minLength: 0,
+      maxLength: 255,
+      message: '导航地址长度为0-255',
+    }
+  ],
+  description: [
+    {
+      minLength: 0,
+      maxLength: 100,
+      message: '描述长度为0-100',
+    }
+  ],
+  ladder: [
+    {
+      required: true,
+      message: '请选择是否需要梯子',
+    },
+  ],
+}
+
+const emit = defineEmits(['update:visible', 'updateNavigation'])
 
 const visible = computed({
   get() {
@@ -56,14 +96,34 @@ const visible = computed({
 })
 
 const form: Ref<INavListItem> = ref({})
-
-const categoryList: Ref<INodeDataItem[]> = ref([])
+const formRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  if (props.isEdit) form.value = props.nav!
+  if (props.isEdit) form.value = { ...props.nav }!
 })
 
-const handleConfirm = () => { }
-</script>
+const handleConfirm = (done: any) => {
+  formRef.value.validate(async (err: undefined | Record<string, any>): Promise<any> => {
+    if (!err) {
+      if (props.isEdit) {
+        const res = await updateNavigation(form.value)
+        if (res.code !== 20000) return false
+        Message.success({
+          content: '修改成功!'
+        })
+      } else {
+        const data = { ...form.value }
+        data.cat_id = props.cat_id
+        const res = await createNavigation(data)
+        if (res.code !== 20000) return false
+        Message.success({
+          content: '创建成功!'
+        })
+      }
+      emit('updateNavigation')
+    }
 
-<style lang="less" scoped></style>
+    return done();
+  })
+}
+</script>

@@ -1,3 +1,5 @@
+// 1. 引入 mitt，是一个函数
+import mitt from 'mitt';
 import { createApp } from 'vue';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
@@ -24,5 +26,17 @@ app.use(store);
 app.use(i18n);
 app.use(globalComponents);
 app.use(directive);
+
+// 2. 调用 mitt
+const Mit = mitt();
+
+// 3. TypeScript注册
+// 由于必须要拓展 ComponentCustomProperties 类型才能获得类型提示
+declare module 'vue' {
+  export interface ComponentCustomProperties {
+    $Bus: typeof Mit;
+  }
+}
+app.config.globalProperties.$Bus = Mit;
 
 app.mount('#app');

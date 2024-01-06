@@ -26,21 +26,23 @@
     </a-space>
 
 
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="false" :nav="curCategory" :option="option"/>
+    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :category="curCategory" :option="option" @updateCategory="updateCategory"/>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { Message } from '@arco-design/web-vue';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, getCurrentInstance } from 'vue';
 import { getCategoryList, delCategory } from '@/api/category';
 import type { Ref, ComputedRef } from 'vue'
 import type { ICategoryListItem, CategoryOption } from '@/api/category'
 import info from './info.vue'
 
+const instance = getCurrentInstance();
 const searchKey: Ref<string> = ref('')
 const modalVisible: Ref<boolean> = ref(false)
 const curCategory: Ref<ICategoryListItem> = ref({})
+const isEdit = ref<boolean>(false)
 
 // 原始数据
 const originTreeData: Ref<ICategoryListItem[]> = ref([])
@@ -74,7 +76,10 @@ const treeData = computed(() => {
   return searchData(searchKey.value);
 })
 
-const option: ComputedRef<CategoryOption[]> = computed(() => originTreeData.value.map(({ id, name }) => ({ id, name })))
+const option: ComputedRef<CategoryOption[]> = computed(() => {
+  const temp = originTreeData.value.map(({ id, name }) => ({ id, name }))
+  return temp.concat([{ id: '-1', name: '无' }])
+})
 
 const getData = () => {
   getCategoryList('-1').then(res => {
@@ -95,11 +100,17 @@ const loadMore = (nodeData: ICategoryListItem): Promise<void> => {
   });
 };
 
+const updateCategory = () => {
+  getData()
+}
+
 const handleSelect = (selectedKeys: Array<string | number>, data: any): void => {
-  console.log('nodeData', data)
+  // console.log('nodeData', data, data.node.id)
+  instance?.proxy?.$Bus.emit('changeNavList', data.node.id)
 }
 
 const handleEdit = (nodeData: ICategoryListItem): void => {
+  isEdit.value = true
   curCategory.value = nodeData
   modalVisible.value = true
 }
@@ -114,6 +125,7 @@ const handleDelete = (nodeData: ICategoryListItem): void => {
 }
 
 const handleAdd = (): void => {
+  isEdit.value = false
   curCategory.value = {}
   modalVisible.value = true
 }

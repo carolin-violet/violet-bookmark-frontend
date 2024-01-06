@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Message } from '@arco-design/web-vue';
 import { ref, computed, onMounted } from 'vue';
 import { createCategory, updateCategory } from '@/api/category'
 import type { Ref, PropType } from 'vue'
@@ -40,7 +41,7 @@ const props = defineProps({
 
 const formRef: Ref<any> = ref(null)
 
-const emit = defineEmits(['update:visible'])
+const emit = defineEmits(['update:visible', 'updateCategory'])
 
 const visible = computed({
   get() {
@@ -64,32 +65,37 @@ const rules = {
     },
     {
       minLength: 0,
-      maxLength: 15,
-      message: '分类名称长度为0-15',
+      maxLength: 32,
+      message: '分类名称长度为0-32',
     }
   ]
 }
 
 onMounted(() => {
-  if (props.isEdit) form.value = props.category!
+  if (props.isEdit) form.value = { ...props.category }!
 })
 
-const handleConfirm = () => {
+const handleConfirm = (done: any) => {
   formRef.value.validate(async (err: undefined | Record<string, any>): Promise<any> => {
     if (!err) {
       if (props.isEdit) {
         const res = await updateCategory(form.value)
         if (res.code !== 20000) return false
+        Message.success({
+          content: '修改成功!'
+        })
       } else {
         const data = { ...form.value }
-        if (!data.parent_id) data.parent_id = -1
-        const res = await createCategory(form.value)
+        const res = await createCategory(data)
         if (res.code !== 20000) return false
+        Message.success({
+          content: '创建成功!'
+        })
       }
+      emit('updateCategory')
     }
-    return true
+
+    return done();
   })
 }
 </script>
-
-<style lang="less" scoped></style>
