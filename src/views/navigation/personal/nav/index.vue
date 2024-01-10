@@ -32,7 +32,7 @@
       <a-pagination :total="total" show-total show-page-size @change="handlePageChange" @page-size-change="handlePageSizeChange"/>
     </div>
 
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :nav="curNav" :cat_id="params.cat_id" @updateNavigation="updateNavigation"/>
+    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :nav="curNav" :cat_id="params.cat_id!" @updateNavigation="updateNavigation"/>
   </div>
 </template>
 

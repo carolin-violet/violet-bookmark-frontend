@@ -3,7 +3,7 @@ export default function useWaterFall() {
   const categoryWith = 300;
 
   // 计算列数和间隙宽度
-  const calc = (navWrapper) => {
+  const calc = (navWrapper: any) => {
     const columns = Math.floor(navWrapper.clientWidth / categoryWith);
 
     const gapCount = columns + 1;
@@ -18,14 +18,14 @@ export default function useWaterFall() {
 
   const setPosition = () => {
     const activeElList = document.querySelectorAll('.sub-category');
-    const navWrapper = document.querySelector('.nav-wrapper');
+    const navWrapper: any = document.querySelector('.nav-wrapper');
     const { columns, gapWidth } = calc(navWrapper);
 
     const columnHeight = new Array(columns).fill(0);
 
     // 遍历每一个小分类，使其填充到最短列的下面
     for (let i = 0; i < activeElList.length; i += 1) {
-      const subCategoryEl = activeElList[i];
+      const subCategoryEl: any = activeElList[i];
 
       // 确定子分类模块与顶部的距离
       const top = Math.min(...columnHeight);

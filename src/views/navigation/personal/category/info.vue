@@ -79,15 +79,15 @@ const handleConfirm = (done: any) => {
   formRef.value.validate(async (err: undefined | Record<string, any>): Promise<any> => {
     if (!err) {
       if (props.isEdit) {
-        const res = await updateCategory(form.value)
-        if (res.code !== 20000) return false
+        const { code } = await updateCategory(form.value)
+        if (code !== 20000) return false
         Message.success({
           content: '修改成功!'
         })
       } else {
         const data = { ...form.value }
-        const res = await createCategory(data)
-        if (res.code !== 20000) return false
+        const { code } = await createCategory(data)
+        if (code !== 20000) return false
         Message.success({
           content: '创建成功!'
         })

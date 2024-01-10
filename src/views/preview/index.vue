@@ -99,7 +99,7 @@ const getData = () => {
   exportData().then((res: any) => {
     navData.value = res.data
 
-    categoryList.value = navData.value.map(({ id, name }) => ({ id, name, active: false }))
+    categoryList.value = navData.value.map(({ id, name }: any) => ({ id, name, active: false }))
   })
 }
 
@@ -108,11 +108,11 @@ onMounted(() => {
 })
 
 // 当前激活的分类
-const activeCategory = computed(() => categoryList.value.find(item => item.active === true))
+const activeCategory = computed(() => categoryList.value.find((item: any) => item.active === true))
 // 激活分类下的子分类列表
 const activeCategoryNavList = computed(() => {
   if (!activeCategory.value) return { children: [] }
-  const list = navData.value.find(item => item.id === activeCategory.value.id)
+  const list = navData.value.find((item: any) => item.id === activeCategory.value.id)
   return list.children
 })
 
@@ -143,7 +143,7 @@ const lazyLoadIcons = () => {
     entries.forEach((entry) => {
       // 通过该属性判断元素是否出现在视口内
       if (entry.isIntersecting) {
-        const img = entry.target;
+        const img: any = entry.target;
         img.src = img.dataset.src;
         // 图片加载完成后解除监听
         imageObserver.unobserve(img);
@@ -156,7 +156,7 @@ const lazyLoadIcons = () => {
   });
 };
 
-const handleChangeCategory = (item) => {
+const handleChangeCategory = (item: any) => {
   if (activeCategory.value === item || !activeCategory.value) {
     item.active = !item.active
   } else {

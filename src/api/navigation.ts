@@ -29,11 +29,11 @@ export function getNavigationList(params: NavigationParam) {
 }
 
 export function createNavigation(data: Navigation) {
-  return axios.post<Navigation>('/navigation', data);
+  return axios.post<any>('/navigation', data);
 }
 
 export function updateNavigation(data: Navigation) {
-  return axios.put<Navigation>(`/navigation/${data.id}`, data);
+  return axios.put<any>(`/navigation/${data.id}`, data);
 }
 
 export function delNavigation(id: string) {

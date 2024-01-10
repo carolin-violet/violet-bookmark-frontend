@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { INavListItem } from '@/api/navigation';
+import { number } from 'echarts';
 
 /** 导航分类类型 */
 
@@ -30,6 +31,13 @@ export interface CategoryOption {
   name?: string;
 }
 
+export interface CategoryRes {
+  code: number;
+  message: string;
+  success: boolean;
+  data?: ICategoryListItem;
+}
+
 export function getCategoryList(parentId: string) {
   return axios.get<CATEGORY[]>('/category/list', {
     params: {
@@ -39,11 +47,11 @@ export function getCategoryList(parentId: string) {
 }
 
 export function createCategory(data: ICategoryListItem) {
-  return axios.post<ICategoryListItem>('/category', data);
+  return axios.post<CategoryRes>('/category', data);
 }
 
 export function updateCategory(data: ICategoryListItem) {
-  return axios.put<ICategoryListItem>(`/category/${data.id}`, data);
+  return axios.put<CategoryRes>(`/category/${data.id}`, data);
 }
 
 export function delCategory(id: string) {

@@ -14,7 +14,8 @@ export interface MessageRecord {
 export type MessageListType = MessageRecord[];
 
 export function queryMessageList() {
-  return axios.post<MessageListType>('/api/message/list');
+  // return axios.post<MessageListType>('/api/message/list');
+  return axios.post<any>('/api/message/list');
 }
 
 interface MessageStatus {
