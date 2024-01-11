@@ -7,6 +7,7 @@ import configImageminPlugin from './plugin/imagemin';
 
 export default mergeConfig(
   {
+    base: './', // 静态资源在html中引入都是通过./
     mode: 'production',
     plugins: [
       configCompressPlugin('gzip'),
