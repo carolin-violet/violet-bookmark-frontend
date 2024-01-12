@@ -17,7 +17,7 @@
         </a-link>
       </a-space>
     </a-layout-sider>
-    <a-layout-sider :resize-directions="['right']" :width="300">
+    <a-layout-sider :width="300">
       <Category />
     </a-layout-sider>
     <a-layout-content>
