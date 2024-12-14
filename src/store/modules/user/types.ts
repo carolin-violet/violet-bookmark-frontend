@@ -1,11 +1,12 @@
 export type RoleType = '' | '*' | 'admin' | 'user';
 export interface UserState {
-  id?: string;
-  username?: string;
-  password?: string;
-  role: RoleType;
-  gender?: number;
-  email?: string;
-  open?: number;
-  create_time?: string;
+  token?: string;
+  id: string;
+  userAvatar?: string;
+  userName?: string;
+  userProfile?: string;
+  userRole: string;
+  phone: string;
+  email: string;
+  createTime: string;
 }

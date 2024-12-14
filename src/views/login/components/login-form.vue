@@ -11,14 +11,16 @@
       @submit="handleSubmit"
     >
       <a-form-item
-        field="username"
-        :rules="[{ required: true, message: $t('login.form.userName.errMsg') }]"
+        field="userAccount"
+        :rules="[
+          { required: true, message: $t('login.form.userAccount.errMsg') },
+        ]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
         <a-input
-          v-model="userInfo.username"
-          :placeholder="$t('login.form.userName.placeholder')"
+          v-model="userInfo.userAccount"
+          :placeholder="$t('login.form.userAccount.placeholder')"
         >
           <template #prefix>
             <icon-user />
@@ -26,14 +28,16 @@
         </a-input>
       </a-form-item>
       <a-form-item
-        field="password"
-        :rules="[{ required: true, message: $t('login.form.password.errMsg') }]"
+        field="userPassword"
+        :rules="[
+          { required: true, message: $t('login.form.userPassword.errMsg') },
+        ]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
         <a-input-password
-          v-model="userInfo.password"
-          :placeholder="$t('login.form.password.placeholder')"
+          v-model="userInfo.userPassword"
+          :placeholder="$t('login.form.userPassword.placeholder')"
           allow-clear
         >
           <template #prefix>
@@ -64,102 +68,102 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import { Message } from '@arco-design/web-vue';
-import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
-import { useI18n } from 'vue-i18n';
-import { useStorage } from '@vueuse/core';
-import { useUserStore } from '@/store';
-import useLoading from '@/hooks/loading';
-import type { LoginData } from '@/api/user';
+  import { ref, reactive } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { Message } from '@arco-design/web-vue';
+  import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
+  import { useI18n } from 'vue-i18n';
+  import { useStorage } from '@vueuse/core';
+  import { useUserStore } from '@/store';
+  import useLoading from '@/hooks/loading';
+  import type { LoginData } from '@/api/user';
 
-const router = useRouter();
-const { t } = useI18n();
-const errorMessage = ref('');
-const { loading, setLoading } = useLoading();
-const userStore = useUserStore();
+  const router = useRouter();
+  const { t } = useI18n();
+  const errorMessage = ref('');
+  const { loading, setLoading } = useLoading();
+  const userStore = useUserStore();
 
-const loginConfig = useStorage('login-config', {
-  rememberPassword: true,
-  username: '',
-  password: '',
-});
-const userInfo = reactive({
-  username: loginConfig.value.username,
-  password: loginConfig.value.password,
-});
+  const loginConfig = useStorage('login-config', {
+    rememberPassword: true,
+    userAccount: '',
+    userPassword: '',
+  });
+  const userInfo = reactive({
+    userAccount: loginConfig.value.userAccount,
+    userPassword: loginConfig.value.userPassword,
+  });
 
-const handleSubmit = async ({
-  errors,
-  values,
-}: {
-  errors: Record<string, ValidatedError> | undefined;
-  values: Record<string, any>;
-}) => {
-  if (loading.value) return;
-  if (!errors) {
-    setLoading(true);
-    try {
-      await userStore.login(values as LoginData);
-      const { redirect, ...othersQuery } = router.currentRoute.value.query;
-      router.push({
-        name: (redirect as string) || 'Workplace',
-        query: {
-          ...othersQuery,
-        },
-      });
-      Message.success(t('login.form.login.success'));
-      const { rememberPassword } = loginConfig.value;
-      const { username, password } = values;
-      // 实际生产环境需要进行加密存储。
-      // The actual production environment requires encrypted storage.
-      loginConfig.value.username = rememberPassword ? username : '';
-      loginConfig.value.password = rememberPassword ? password : '';
-    } catch (err) {
-      errorMessage.value = (err as Error).message;
-    } finally {
-      setLoading(false);
+  const handleSubmit = async ({
+    errors,
+    values,
+  }: {
+    errors: Record<string, ValidatedError> | undefined;
+    values: Record<string, any>;
+  }) => {
+    if (loading.value) return;
+    if (!errors) {
+      setLoading(true);
+      try {
+        await userStore.login(values as LoginData);
+        const { redirect, ...othersQuery } = router.currentRoute.value.query;
+        router.push({
+          name: (redirect as string) || 'Workplace',
+          query: {
+            ...othersQuery,
+          },
+        });
+        Message.success(t('login.form.login.success'));
+        const { rememberPassword } = loginConfig.value;
+        const { userAccount, userPassword } = values;
+        // 实际生产环境需要进行加密存储。
+        // The actual production environment requires encrypted storage.
+        loginConfig.value.userAccount = rememberPassword ? userAccount : '';
+        loginConfig.value.userPassword = rememberPassword ? userPassword : '';
+      } catch (err) {
+        errorMessage.value = (err as Error).message;
+      } finally {
+        setLoading(false);
+      }
     }
-  }
-};
-const setRememberPassword = (value: boolean) => {
-  loginConfig.value.rememberPassword = value;
-};
+  };
+  const setRememberPassword = (value: boolean) => {
+    loginConfig.value.rememberPassword = value;
+  };
 </script>
 
 <style lang="less" scoped>
-.login-form {
-  &-wrapper {
-    width: 320px;
-  }
+  .login-form {
+    &-wrapper {
+      width: 320px;
+    }
 
-  &-title {
-    color: var(--color-text-1);
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 32px;
-  }
+    &-title {
+      color: var(--color-text-1);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 32px;
+    }
 
-  &-sub-title {
-    color: var(--color-text-3);
-    font-size: 16px;
-    line-height: 24px;
-  }
+    &-sub-title {
+      color: var(--color-text-3);
+      font-size: 16px;
+      line-height: 24px;
+    }
 
-  &-error-msg {
-    height: 32px;
-    color: rgb(var(--red-6));
-    line-height: 32px;
-  }
+    &-error-msg {
+      height: 32px;
+      color: rgb(var(--red-6));
+      line-height: 32px;
+    }
 
-  &-password-actions {
-    display: flex;
-    justify-content: space-between;
-  }
+    &-password-actions {
+      display: flex;
+      justify-content: space-between;
+    }
 
-  &-register-btn {
-    color: var(--color-text-3) !important;
+    &-register-btn {
+      color: var(--color-text-3) !important;
+    }
   }
-}
 </style>

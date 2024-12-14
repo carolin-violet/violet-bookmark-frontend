@@ -11,8 +11,12 @@ export default mergeConfig(
         strict: true,
       },
       proxy: {
-        '/violet-navigation': {
-          target: 'http://127.0.0.1:9990',
+        '/user-center-api': {
+          target: 'http://127.0.0.1:8101',
+          changeOrigin: true,
+        },
+        '/violet-navigation-api': {
+          target: 'http://127.0.0.1:8102',
           changeOrigin: true,
         },
       },

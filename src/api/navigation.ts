@@ -24,18 +24,20 @@ export interface NavigationRes {
   total: number;
 }
 
+const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
+
 export function getNavigationList(params: NavigationParam) {
-  return axios.get<NavigationRes>('/navigation/list', { params });
+  return axios.get<NavigationRes>(`${prefix}/navigation/list`, { params });
 }
 
 export function createNavigation(data: Navigation) {
-  return axios.post<any>('/navigation', data);
+  return axios.post<any>(`${prefix}/navigation`, data);
 }
 
 export function updateNavigation(data: Navigation) {
-  return axios.put<any>(`/navigation/${data.id}`, data);
+  return axios.put<any>(`${prefix}/navigation/${data.id}`, data);
 }
 
 export function delNavigation(id: string) {
-  return axios.delete<null>(`/navigation/${id}`);
+  return axios.delete<null>(`${prefix}/navigation/${id}`);
 }
