@@ -32,7 +32,7 @@
       <a-pagination :total="total" show-total show-page-size @change="handlePageChange" @page-size-change="handlePageSizeChange"/>
     </div>
 
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :nav="curNav" :cat_id="params.cat_id!" @updateNavigation="updateNavigation"/>
+    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :nav="curNav" :categoryId="params.categoryId!" @updateNavigation="updateNavigation"/>
   </div>
 </template>
 
@@ -55,7 +55,7 @@ const params: Ref<NavigationParam> = ref({
   pageNum: 1,
   pageSize: 10,
   name: '',
-  cat_id: ''
+  categoryId: ''
 })
 const total: Ref<number> = ref(0)
 const isEdit = ref<boolean>(false)
@@ -63,8 +63,8 @@ const isEdit = ref<boolean>(false)
 const getDataList = () => {
   setLoading(true);
   getNavigationList(params.value).then(res => {
-    navList.value = res.data.list
-    total.value = res.data.total
+    navList.value = res.data.records
+    total.value = Number(res.data.total)
   }).finally(() => {
     setLoading(false);
   })
@@ -111,7 +111,7 @@ const handlePageSizeChange = (pageSize: number) => {
 }
 
 const handler = (categoryId: string) => {
-  params.value.cat_id = categoryId
+  params.value.categoryId = categoryId
   getDataList()
 }
 

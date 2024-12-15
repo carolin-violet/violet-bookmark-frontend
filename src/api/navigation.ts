@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export interface Navigation {
   id: string;
-  cat_id: string;
+  categoryId: string;
   name: string;
   url: string;
   description: string;
@@ -16,7 +16,7 @@ export interface NavigationParam {
   pageNum?: number;
   pageSize?: number;
   name?: string;
-  cat_id?: string;
+  categoryId?: string;
 }
 
 export interface NavigationRes {
@@ -31,13 +31,13 @@ export function getNavigationList(params: NavigationParam) {
 }
 
 export function createNavigation(data: Navigation) {
-  return axios.post<any>(`${prefix}/navigation`, data);
+  return axios.post<any>(`${prefix}/navigation/add`, data);
 }
 
 export function updateNavigation(data: Navigation) {
-  return axios.put<any>(`${prefix}/navigation/${data.id}`, data);
+  return axios.put<any>(`${prefix}/navigation/update`, data);
 }
 
 export function delNavigation(id: string) {
-  return axios.delete<null>(`${prefix}/navigation/${id}`);
+  return axios.delete<null>(`${prefix}/navigation/delete/${id}`);
 }

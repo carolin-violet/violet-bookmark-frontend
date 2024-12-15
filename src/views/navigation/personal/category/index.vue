@@ -78,11 +78,11 @@ const treeData = computed(() => {
 
 const option: ComputedRef<CategoryOption[]> = computed(() => {
   const temp = originTreeData.value.map(({ id, name }) => ({ id, name }))
-  return temp.concat([{ id: '-1', name: '无' }])
+  return temp.concat([{ id: -1, name: '无' }])
 })
 
 const getData = () => {
-  getCategoryList('-1').then(res => {
+  getCategoryList(-1).then(res => {
     originTreeData.value = res.data
   })
 }

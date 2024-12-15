@@ -40,7 +40,7 @@ const props = defineProps({
     type: Object as PropType<INavListItem>,
     required: false
   },
-  cat_id: {
+  categoryId: {
     type: String,
     required: true
   }
@@ -107,15 +107,15 @@ const handleConfirm = (done: any) => {
     if (!err) {
       if (props.isEdit) {
         const res = await updateNavigation(form.value as any)
-        if (res.code !== 20000) return false
+        if (res.code !== 0) return false
         Message.success({
           content: '修改成功!'
         })
       } else {
         const data = { ...form.value }
-        data.cat_id = props.cat_id
+        data.categoryId = props.categoryId
         const res = await createNavigation(data as any)
-        if (res.code !== 20000) return false
+        if (res.code !== 0) return false
         Message.success({
           content: '创建成功!'
         })
