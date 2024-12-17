@@ -31,8 +31,8 @@ import { useRouter } from 'vue-router';
 // import FileSaver from 'file-saver'
 import save from '@/utils/save'
 import { exportData, importData, source } from '@/api/file'
-import Navigation from './nav/index.vue'
-import Category from './category/index.vue'
+import Navigation from './rightNavigation.vue'
+import Category from './leftCategory.vue'
 
 const router = useRouter()
 

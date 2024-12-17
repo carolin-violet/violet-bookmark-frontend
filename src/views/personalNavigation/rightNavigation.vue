@@ -31,8 +31,6 @@
 
       <a-pagination :total="total" show-total show-page-size @change="handlePageChange" @page-size-change="handlePageSizeChange"/>
     </div>
-
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :nav="curNav" :categoryId="params.categoryId!" @updateNavigation="updateNavigation"/>
   </div>
 </template>
 
@@ -40,17 +38,16 @@
 import { Message } from '@arco-design/web-vue';
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import type { Ref } from 'vue'
-import type { INavListItem, Navigation, NavigationParam } from '@/api/navigation'
+import type { Navigation, NavigationParam } from '@/api/navigation'
 import { getNavigationList, delNavigation } from '@/api/navigation';
 import useLoading from '@/hooks/loading';
-import info from './info.vue'
 
 const instance = getCurrentInstance();
 const { loading, setLoading } = useLoading(true);
 const navList: Ref<Navigation[]> = ref([])
 
 const modalVisible: Ref<boolean> = ref(false)
-const curNav: Ref<INavListItem> = ref({})
+const curNav: Ref<Navigation> = ref({})
 const params: Ref<NavigationParam> = ref({
   pageNum: 1,
   pageSize: 10,
@@ -80,7 +77,7 @@ const handleCreate = () => {
   modalVisible.value = true
 }
 
-const handleEdit = (nav: INavListItem) => {
+const handleEdit = (nav: Navigation) => {
   isEdit.value = true
   curNav.value = nav
   modalVisible.value = true

@@ -9,23 +9,13 @@ const NAVIGATION: AppRouteRecordRaw = {
     locale: 'menu.navigation',
     requiresAuth: true,
     icon: 'icon-nav',
-    order: 0,
+    order: 1,
   },
   children: [
     {
-      path: 'list',
-      name: 'list',
-      component: () => import('@/views/navigation/list/index.vue'),
-      meta: {
-        locale: 'menu.navigation.list',
-        requiresAuth: true,
-        roles: ['admin'],
-      },
-    },
-    {
       path: 'personal',
       name: 'personal',
-      component: () => import('@/views/navigation/personal/index.vue'),
+      component: () => import('@/views/personalNavigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal',
         requiresAuth: true,

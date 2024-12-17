@@ -1,43 +1,65 @@
 import axios from 'axios';
 
 export interface Navigation {
-  id: string;
-  categoryId: string;
+  id: number;
+  categoryId: number;
   name: string;
   url: string;
   description: string;
   ladder: number;
 }
-
-// 将Navigation所有字段定义为可选
-export type INavListItem = Partial<Navigation>;
-
 export interface NavigationParam {
-  pageNum?: number;
-  pageSize?: number;
-  name?: string;
-  categoryId?: string;
-}
-
-export interface NavigationRes {
-  list: Navigation[];
-  total: number;
+  pageNum: number;
+  pageSize: number;
+  name: string;
+  categoryId: number;
 }
 
 const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
 
+/**
+ *  获取导航列表
+ * @param params
+ * @returns
+ */
 export function getNavigationList(params: NavigationParam) {
-  return axios.get<NavigationRes>(`${prefix}/navigation/list`, { params });
+  return axios.get<Partial<Navigation>>(`${prefix}/navigation/list`, {
+    params,
+  });
 }
 
+/**
+ *  获取导航详情
+ * @param id
+ * @returns
+ */
+export function getNavigationById(id: number) {
+  return axios.get<Partial<Navigation>>(`${prefix}/navigation/${id}`);
+}
+
+/**
+ *  创建导航
+ * @param data
+ * @returns
+ * */
 export function createNavigation(data: Navigation) {
-  return axios.post<any>(`${prefix}/navigation/add`, data);
+  return axios.post<boolean>(`${prefix}/navigation/add`, data);
 }
 
+/**
+ *  更新导航
+ * @param data
+ * @returns
+ */
 export function updateNavigation(data: Navigation) {
-  return axios.put<any>(`${prefix}/navigation/update`, data);
+  return axios.put<boolean>(`${prefix}/navigation/update`, data);
 }
 
+/**
+ *  删除导航
+ * @param id
+ * @returns
+ */
 export function delNavigation(id: string) {
   return axios.delete<null>(`${prefix}/navigation/delete/${id}`);
 }

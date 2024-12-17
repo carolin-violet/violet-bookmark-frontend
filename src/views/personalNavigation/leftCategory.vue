@@ -24,9 +24,6 @@
         </template>
       </a-tree>
     </a-space>
-
-
-    <info v-if="modalVisible" v-model:visible="modalVisible" :is-edit="isEdit" :category="curCategory" :option="option" @updateCategory="updateCategory"/>
   </div>
 </template>
 
@@ -36,7 +33,6 @@ import { ref, computed, onMounted, getCurrentInstance } from 'vue';
 import { getCategoryList, delCategory } from '@/api/category';
 import type { Ref, ComputedRef } from 'vue'
 import type { ICategoryListItem, CategoryOption } from '@/api/category'
-import info from './info.vue'
 
 const instance = getCurrentInstance();
 const searchKey: Ref<string> = ref('')
