@@ -2,8 +2,10 @@ import localeMessageBox from '@/components/message-box/locale/zh-CN';
 import localeLogin from '@/views/login/locale/zh-CN';
 
 import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
-import localeCategoryPersonal from '@/views/categoryDetail/locale/zh-CN';
-import localeNavigationDetailPersonal from '@/views/navigationDetail/locale/zh-CN';
+import localeCategoryDetail from '@/views/categoryDetail/locale/zh-CN';
+import localeNavigationDetail from '@/views/navigationDetail/locale/zh-CN';
+
+import localeMenu from '@/router/locale/zh-CN';
 
 import localeSettings from './zh-CN/settings';
 
@@ -13,8 +15,6 @@ export default {
   'menu.server.workplace': '工作台-服务端',
   'menu.server.monitor': '实时监控-服务端',
   'menu.navigation': '收藏站点',
-  'menu.navigation.list': '用户列表',
-  'menu.navigation.personal': '个人收藏',
   'menu.list': '列表页',
   'menu.result': '结果页',
   'menu.exception': '异常页',
@@ -30,6 +30,7 @@ export default {
   ...localeMessageBox,
   ...localeLogin,
   ...localeWorkplace,
-  ...localeCategoryPersonal,
-  ...localeNavigationDetailPersonal,
+  ...localeCategoryDetail,
+  ...localeNavigationDetail,
+  ...localeMenu,
 };

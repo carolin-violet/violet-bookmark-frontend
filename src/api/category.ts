@@ -5,7 +5,7 @@ import type { Navigation } from '@/api/navigation';
 
 export interface ICategoryListItem {
   id: number;
-  userId: string;
+  userId: number;
   name: string;
   parentId: number;
   create_time: string;
@@ -26,7 +26,7 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @param parentId 父级分类ID
  * @returns 分类列表
  */
-export function getCategoryList(parentId: string) {
+export function getCategoryList(parentId: number) {
   return axios.get<ICategoryListItem[]>(`${prefix}/category/list`, {
     params: {
       parentId,
@@ -40,7 +40,7 @@ export function getCategoryList(parentId: string) {
  * @returns 分类详情
  */
 export function getCategoryById(id: number) {
-  return axios.get<ICategoryListItem>(`${prefix}/category/get/${id}`);
+  return axios.get<ICategoryListItem>(`${prefix}/category/${id}`);
 }
 
 /**
@@ -66,6 +66,6 @@ export function updateCategory(data: ICategoryListItem) {
  * @param id 分类ID
  * @returns 是否删除成功
  */
-export function delCategory(id: string) {
+export function delCategory(id: number) {
   return axios.delete<null>(`${prefix}/category/delete/${id}`);
 }

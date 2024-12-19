@@ -2,18 +2,18 @@
   <div class="container">
     <Breadcrumb
       :items="[
-        'menu.navigationManagement.personal',
+        $t('menu.navigationManagement.personal'),
         isEdit
-          ? 'menu.navigationManagement.personal.edit'
-          : 'menu.navigationManagement.personal.add',
+          ? $t('menu.navigationManagement.personal.edit')
+          : $t('menu.navigationManagement.personal.add'),
       ]"
     />
     <a-card
       class="general-card"
       :title="
         isEdit
-          ? 'operation.navigationManagement.personal.edit'
-          : 'operation.navigationManagement.personal.add'
+          ? $t('operation.navigationManagement.personal.edit')
+          : $t('operation.navigationManagement.personal.add')
       "
     >
       <a-form
@@ -24,11 +24,27 @@
         :label-col-props="{ span: 8 }"
         :wrapper-col-props="{ span: 16 }"
       >
-        <a-form-item field="name" :label="$t('navigationManagement.form.name')" validate-trigger="change">
-          <a-input v-model="formData.name" :placeholder="$t('navigationManagement.form.name.placeholder')" allow-clear />
+        <a-form-item
+          field="name"
+          :label="$t('navigationManagement.form.name')"
+          validate-trigger="change"
+        >
+          <a-input
+            v-model="formData.name"
+            :placeholder="$t('navigationManagement.form.name.placeholder')"
+            allow-clear
+          />
         </a-form-item>
-        <a-form-item field="url" :label="$t('navigationManagement.form.url')" validate-trigger="change">
-          <a-input v-model="formData.url" :placeholder="$t('navigationManagement.form.url.placeholder')" allow-clear />
+        <a-form-item
+          field="url"
+          :label="$t('navigationManagement.form.url')"
+          validate-trigger="change"
+        >
+          <a-input
+            v-model="formData.url"
+            :placeholder="$t('navigationManagement.form.url.placeholder')"
+            allow-clear
+          />
         </a-form-item>
         <a-form-item
           field="description"
@@ -38,11 +54,16 @@
           <a-textarea
             v-model="formData.description"
             :auto-size="{ minRows: 2, maxRows: 5 }"
-            :placeholder="$t('navigationManagement.form.description.placeholder')"
+            :placeholder="
+              $t('navigationManagement.form.description.placeholder')
+            "
             allow-clear
           />
         </a-form-item>
-        <a-form-item field="ladder" :label="$t('navigationManagement.form.ladder')">
+        <a-form-item
+          field="ladder"
+          :label="$t('navigationManagement.form.ladder')"
+        >
           <a-radio-group v-model="formData.ladder">
             <a-radio :value="1">是</a-radio>
             <a-radio :value="0">否</a-radio>
@@ -91,8 +112,6 @@
     ladder: 0,
   });
 
-  const options = ref<Navigation[]>([]);
-
   const isEdit = computed<boolean>(() => !!route.query.id);
 
   const rules = {
@@ -135,10 +154,13 @@
 
   const handleAddUser = () => {
     setLoading(true);
-    createNavigation(formData.value as Navigation)
+    createNavigation({
+      ...formData.value,
+      categoryId: Number(route.query.categoryId),
+    })
       .then(() => {
         Message.success('添加成功!');
-        router.push('/user_management/user_list');
+        router.back();
       })
       .finally(() => {
         setLoading(false);
@@ -147,10 +169,13 @@
 
   const handleEditUser = () => {
     setLoading(true);
-    updateNavigation(formData.value)
+    updateNavigation({
+      ...formData.value,
+      categoryId: Number(route.query.categoryId),
+    })
       .then(() => {
         Message.success('修改成功!');
-        router.push('/user_management/user_list');
+        router.back();
       })
       .finally(() => {
         setLoading(false);
@@ -158,7 +183,7 @@
   };
 
   const handleGetUserById = () => {
-    getNavigationById(route.query.id as number).then((res) => {
+    getNavigationById(Number(route.query.id)).then((res) => {
       formData.value = res.data;
     });
   };

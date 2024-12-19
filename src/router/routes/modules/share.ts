@@ -2,22 +2,22 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const NAVIGATION: AppRouteRecordRaw = {
-  path: '/navigation',
-  name: 'navigation',
+  path: '/share-navigation',
+  name: 'ShareNavigation',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.navigation',
+    locale: 'menu.navigation.share',
     requiresAuth: true,
-    icon: 'icon-nav',
+    icon: 'icon-share-alt',
     order: 1,
   },
   children: [
     {
-      path: 'personal',
-      name: 'personal',
-      component: () => import('@/views/personalNavigation/index.vue'),
+      path: 'list',
+      name: 'ShareNavigationList',
+      component: () => import('@/views/shareNavigation/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal',
+        locale: 'menu.navigation.share.list',
         requiresAuth: true,
         roles: ['*'],
       },

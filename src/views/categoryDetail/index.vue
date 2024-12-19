@@ -2,18 +2,18 @@
   <div class="container">
     <Breadcrumb
       :items="[
-        'menu.categoryManagement.personal',
+        $t('menu.categoryManagement.personal'),
         isEdit
-          ? 'menu.categoryManagement.personal.edit'
-          : 'menu.categoryManagement.personal.add',
+          ? $t('menu.categoryManagement.personal.edit')
+          : $t('menu.categoryManagement.personal.add'),
       ]"
     />
     <a-card
       class="general-card"
       :title="
         isEdit
-          ? 'operation.categoryManagement.personal.edit'
-          : 'operation.categoryManagement.personal.add'
+          ? $t('operation.categoryManagement.personal.edit')
+          : $t('operation.categoryManagement.personal.add')
       "
     >
       <a-form
@@ -43,7 +43,7 @@
             :placeholder="$t('categoryManagement.form.parentId.placeholder')"
           >
             <a-option
-              v-for="category in option"
+              v-for="category in options"
               :key="category.id"
               :value="category.id"
               >{{ category.name }}</a-option
@@ -69,16 +69,19 @@
   import { ref, computed, onMounted } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import {
+    getCategoryList,
     updateCategory,
     createCategory,
     getCategoryById,
   } from '@/api/category';
   import { useRoute, useRouter } from 'vue-router';
   import useLoading from '@/hooks/loading';
+  import useUserStore from '@/store/modules/user';
   import { Message } from '@arco-design/web-vue';
 
   import type { ICategoryListItem } from '@/api/category';
 
+  const userStore = useUserStore();
   const { loading, setLoading } = useLoading();
   const route = useRoute();
   const router = useRouter();
@@ -86,7 +89,7 @@
   const formRef = ref<FormInstance>();
   const formData = ref<ICategoryListItem>({
     id: undefined!,
-    userId: '',
+    userId: undefined!,
     name: '',
     parentId: 0,
     create_time: '',
@@ -95,16 +98,20 @@
     isLeaf: false,
   });
 
-  const options = ref<ICategoryListItem[]>([]);
+  const options = ref<any[]>([]);
 
   const isEdit = computed<boolean>(() => !!route.query.id);
 
   const handleAddUser = () => {
     setLoading(true);
-    createCategory(formData.value as ICategoryListItem)
+    const data = {
+      ...formData.value,
+      userId: Number(userStore.userInfo.id),
+    };
+    createCategory(data)
       .then(() => {
         Message.success('添加成功!');
-        router.push('/user_management/user_list');
+        router.back();
       })
       .finally(() => {
         setLoading(false);
@@ -113,22 +120,29 @@
 
   const handleEditUser = () => {
     setLoading(true);
-    updateCategory(formData.value)
+    const data = {
+      ...formData.value,
+      userId: Number(userStore.userInfo.id),
+    };
+    updateCategory(data)
       .then(() => {
         Message.success('修改成功!');
-        router.push('/user_management/user_list');
+        router.back();
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
-  const handleGetUserById = () => {
-    getCategoryById(route.query.id as number).then((res) => {
-      formData.value = res.data;
+  const getTopCategories = () => {
+    getCategoryList(-1).then((res) => {
+      options.value = [...res.data, { id: 0, name: '无父级', parentId: -1 }];
     });
-    getCategoryById(-1).then((res) => {
-      options.value = res.data;
+  };
+
+  const getCategoryDetail = () => {
+    getCategoryById(Number(route.query.id)).then((res) => {
+      formData.value = res.data;
     });
   };
 
@@ -147,8 +161,9 @@
   };
 
   onMounted(() => {
+    getTopCategories();
     if (isEdit.value) {
-      handleGetUserById();
+      getCategoryDetail();
     }
   });
 </script>

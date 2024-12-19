@@ -60,6 +60,6 @@ export function updateNavigation(data: Navigation) {
  * @param id
  * @returns
  */
-export function delNavigation(id: string) {
+export function delNavigation(id: number) {
   return axios.delete<null>(`${prefix}/navigation/delete/${id}`);
 }

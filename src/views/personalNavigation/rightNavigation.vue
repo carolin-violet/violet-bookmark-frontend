@@ -1,6 +1,5 @@
 <template>
   <div class="navigation-container">
-
     <div class="navigation">
       <div class="top-panel">
         <a-button type="primary" @click="handleCreate">
@@ -13,15 +12,41 @@
 
       <a-divider />
 
-      <a-grid :cols="{ xs: 1, sm: 1, md: 2, lg: 2, xl: 4, xxl: 5 }" :colGap="12" :rowGap="16" class="grid-demo-grid">
+      <span>
+        {{
+          currentCategory?.parentId != -1 && currentCategory?.id
+            ? `当前选中分类：${currentCategory?.name}`
+            : '无选中分类'
+        }}</span
+      >
+
+      <a-grid
+        :cols="{ xs: 1, sm: 1, md: 2, lg: 2, xl: 4, xxl: 5 }"
+        :colGap="12"
+        :rowGap="16"
+        class="grid-demo-grid"
+      >
         <a-grid-item class="demo-item" v-for="item in navList" :key="item.id">
           <a-link :href="item.url">
             <a-space>
               <!-- <a-image show-loader :src="`https://www.google.com/s2/favicons?domain=${item.url}`" alt="" width="14" height="14" /> -->
-              <img :src="`https://www.google.com/s2/favicons?domain=${item.url}`" alt="" width="14" height="14" >
-              <span :style="{ color: item.ladder ? 'red' : 'blue' }" :title="item.description">{{ item.name }}</span>
+              <img
+                :src="`https://www.google.com/s2/favicons?domain=${item.url}`"
+                alt=""
+                width="14"
+                height="14"
+              />
+              <span
+                :style="{ color: item.ladder ? 'red' : 'blue' }"
+                :title="item.description"
+                >{{ item.name }}</span
+              >
               <icon-edit @click.prevent="handleEdit(item)" />
-              <a-popconfirm content="确认删除该导航？" type="warning" @ok="handleDelete(item)">
+              <a-popconfirm
+                content="确认删除该导航？"
+                type="warning"
+                @ok="handleDelete(item)"
+              >
                 <icon-delete @click.prevent />
               </a-popconfirm>
             </a-space>
@@ -29,113 +54,124 @@
         </a-grid-item>
       </a-grid>
 
-      <a-pagination :total="total" show-total show-page-size @change="handlePageChange" @page-size-change="handlePageSizeChange"/>
+      <a-pagination
+        :total="total"
+        show-total
+        show-page-size
+        @change="handlePageChange"
+        @page-size-change="handlePageSizeChange"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue';
-import { ref, onMounted, getCurrentInstance } from 'vue';
-import type { Ref } from 'vue'
-import type { Navigation, NavigationParam } from '@/api/navigation'
-import { getNavigationList, delNavigation } from '@/api/navigation';
-import useLoading from '@/hooks/loading';
+  import { Message } from '@arco-design/web-vue';
+  import { ref, onMounted, getCurrentInstance } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { getNavigationList, delNavigation } from '@/api/navigation';
+  import useLoading from '@/hooks/loading';
 
-const instance = getCurrentInstance();
-const { loading, setLoading } = useLoading(true);
-const navList: Ref<Navigation[]> = ref([])
+  import type { Ref } from 'vue';
+  import type { Navigation, NavigationParam } from '@/api/navigation';
+  import type { ICategoryListItem } from '@/api/category';
 
-const modalVisible: Ref<boolean> = ref(false)
-const curNav: Ref<Navigation> = ref({})
-const params: Ref<NavigationParam> = ref({
-  pageNum: 1,
-  pageSize: 10,
-  name: '',
-  categoryId: ''
-})
-const total: Ref<number> = ref(0)
-const isEdit = ref<boolean>(false)
+  const router = useRouter();
+  const instance = getCurrentInstance();
+  const { loading, setLoading } = useLoading(true);
+  const navList: Ref<Navigation[]> = ref([]);
 
-const getDataList = () => {
-  setLoading(true);
-  getNavigationList(params.value).then(res => {
-    navList.value = res.data.records
-    total.value = Number(res.data.total)
-  }).finally(() => {
-    setLoading(false);
-  })
-}
+  const currentCategory = ref<ICategoryListItem>(undefined!);
+  const params: Ref<NavigationParam> = ref({
+    pageNum: 1,
+    pageSize: 10,
+    name: '',
+  });
+  const total: Ref<number> = ref(0);
 
-const updateNavigation = () => {
-  getDataList()
-}
-
-const handleCreate = () => {
-  isEdit.value = false
-  curNav.value = {}
-  modalVisible.value = true
-}
-
-const handleEdit = (nav: Navigation) => {
-  isEdit.value = true
-  curNav.value = nav
-  modalVisible.value = true
-}
-
-const handleDelete = (nav: Navigation) => {
-  setLoading(true);
-  delNavigation(nav.id)
-    .then(() => {
-      Message.success({
-        content: '删除成功!'
+  const getDataList = () => {
+    setLoading(true);
+    getNavigationList({
+      ...params.value,
+      categoryId: currentCategory.value?.id,
+    })
+      .then((res) => {
+        navList.value = res.data.records;
+        total.value = Number(res.data.total);
       })
-      getDataList()
-    })
-    .finally(() => {
-      setLoading(false);
-    })
-}
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-const handlePageChange = (page: number) => {
-  params.value.pageNum = page
-  getDataList()
-}
+  const handleCreate = () => {
+    router.push({
+      path: '/personal-navigation/navigation/add',
+      query: {
+        categoryId: currentCategory.value.id,
+      },
+    });
+  };
 
-const handlePageSizeChange = (pageSize: number) => {
-  params.value.pageSize = pageSize
-  getDataList()
-}
+  const handleEdit = (nav: Navigation) => {
+    router.push({
+      path: '/personal-navigation/navigation/edit',
+      query: {
+        id: nav.id,
+        categoryId: currentCategory.value.id,
+      },
+    });
+  };
 
-const handler = (categoryId: string) => {
-  params.value.categoryId = categoryId
-  getDataList()
-}
+  const handleDelete = (nav: Navigation) => {
+    setLoading(true);
+    delNavigation(nav.id)
+      .then(() => {
+        Message.success({
+          content: '删除成功!',
+        });
+        getDataList();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-instance?.proxy?.$Bus.on('changeNavList', handler as any);
+  const handlePageChange = (page: number) => {
+    params.value.pageNum = page;
+    getDataList();
+  };
 
-onMounted(() => {
-  getDataList()
-})
+  const handlePageSizeChange = (pageSize: number) => {
+    params.value.pageSize = pageSize;
+    getDataList();
+  };
+
+  const handler = (data: ICategoryListItem) => {
+    currentCategory.value = data;
+    getDataList();
+  };
+
+  instance?.proxy?.$Bus.on('changeNavList', handler as any);
 </script>
 
 <style lang="less" scoped>
-.navigation-container {
-  padding: 16px 20px;
-  padding-bottom: 0;
-  background-color: var(--color-fill-2);
-
-  .navigation {
+  .navigation-container {
     padding: 16px 20px;
     padding-bottom: 0;
-    background-color: var(--color-bg-2);
-  }
-}
+    background-color: var(--color-fill-2);
 
-.grid-demo-grid .demo-item {
-  height: 48px;
-  line-height: 48px;
-  color: var(--color-white);
-  text-align: center;
-}
+    .navigation {
+      padding: 16px 20px;
+      padding-bottom: 0;
+      background-color: var(--color-bg-2);
+    }
+  }
+
+  .grid-demo-grid .demo-item {
+    height: 48px;
+    line-height: 48px;
+    color: var(--color-white);
+    text-align: center;
+  }
 </style>
