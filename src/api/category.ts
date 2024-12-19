@@ -67,5 +67,5 @@ export function updateCategory(data: ICategoryListItem) {
  * @returns 是否删除成功
  */
 export function delCategory(id: number) {
-  return axios.delete<null>(`${prefix}/category/delete/${id}`);
+  return axios.delete<null>(`${prefix}/category/${id}`);
 }

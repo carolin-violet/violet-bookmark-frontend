@@ -61,5 +61,5 @@ export function updateNavigation(data: Navigation) {
  * @returns
  */
 export function delNavigation(id: number) {
-  return axios.delete<null>(`${prefix}/navigation/delete/${id}`);
+  return axios.delete<null>(`${prefix}/navigation/${id}`);
 }
