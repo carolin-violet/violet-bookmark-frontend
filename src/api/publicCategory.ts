@@ -16,12 +16,8 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @param parentId 父级分类ID
  * @returns 分类列表
  */
-export function getPublicCategoryList(parentId: number) {
-  return axios.get<PublicCategory[]>(`${prefix}/publicCategory/list`, {
-    params: {
-      parentId,
-    },
-  });
+export function getPublicCategoryList() {
+  return axios.get<PublicCategory[]>(`${prefix}/publicCategory/list`);
 }
 
 /**

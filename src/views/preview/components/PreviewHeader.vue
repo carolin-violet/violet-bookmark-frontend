@@ -14,10 +14,21 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref, onMounted } from 'vue';
+  import { getPublicCategoryList } from '@/api/publicCategory';
   import type { PublicCategory } from '@/api/publicCategory';
-  import { ref } from 'vue';
 
   const publicCategoryList = ref<PublicCategory[]>([]);
+
+  function getPublicCategories() {
+    getPublicCategoryList().then((res) => {
+      publicCategoryList.value = res.data;
+    });
+  }
+
+  onMounted(() => {
+    getPublicCategories();
+  });
 </script>
 
 <style lang="less" scoped></style>

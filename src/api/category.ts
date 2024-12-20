@@ -35,6 +35,17 @@ export function getCategoryList(parentId: number) {
 }
 
 /**
+ * 获取一级分类对应的二级分类列表及所有站点导航
+ * @param topCategoryId
+ * @returns
+ */
+export function getCategoryAndNavs(topCategoryId: number) {
+  return axios.get<ICategoryListItem[]>(
+    `${prefix}/subCategoryAndNavs/list/${topCategoryId}`
+  );
+}
+
+/**
  * 获取分类详情
  * @param id 分类ID
  * @returns 分类详情
