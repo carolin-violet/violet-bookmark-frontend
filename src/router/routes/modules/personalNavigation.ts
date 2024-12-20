@@ -23,9 +23,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'category/add',
+      path: 'addCategory',
       name: 'PersonalNavigationAddCategory',
-      component: () => import('@/views/categoryDetail/index.vue'),
+      component: () =>
+        import('@/views/personalNavigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.category.add',
         hideInMenu: true,
@@ -34,9 +35,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'category/edit',
+      path: 'editCategory',
       name: 'PersonalNavigationEditCategory',
-      component: () => import('@/views/categoryDetail/index.vue'),
+      component: () =>
+        import('@/views/personalNavigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.category.edit',
         hideInMenu: true,
@@ -45,7 +47,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'navigation/add',
+      path: 'addNavigation',
       name: 'PersonalNavigationAddNavigation',
       component: () => import('@/views/navigationDetail/index.vue'),
       meta: {
@@ -56,7 +58,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'navigation/edit',
+      path: 'editNavigation',
       name: 'PersonalNavigationEditNavigation',
       component: () => import('@/views/navigationDetail/index.vue'),
       meta: {

@@ -20,4 +20,23 @@ export default {
   'navigationManagement.form.name.placeholder': '请输入导航名称',
   'navigationManagement.form.url.placeholder': '请输入导航链接',
   'navigationManagement.form.description.placeholder': '请输入导航描述',
+
+  // 分类管理菜单
+  'menu.categoryManagement.personal': '个人分类',
+  'menu.categoryManagement.personal.add': '添加分类',
+  'menu.categoryManagement.personal.edit': '编辑分类',
+
+  // 操作
+  'operation.categoryManagement.personal.add': '添加分类',
+  'operation.categoryManagement.personal.edit': '编辑分类',
+  'operation.categoryManagement.save': '保存',
+  'operation.categoryManagement.reset': '重置',
+
+  // 表单
+  'categoryManagement.form.name': '分类名称',
+  'categoryManagement.form.icon': '分类图标',
+
+  // 表单输入
+  'categoryManagement.form.name.placeholder': '请输入分类名称',
+  'categoryManagement.form.icon.placeholder': '请输入分类图标',
 };

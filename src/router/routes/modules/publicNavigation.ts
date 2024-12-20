@@ -23,9 +23,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'category/add',
+      path: 'addCategory',
       name: 'PublicNavigationAddCategory',
-      component: () => import('@/views/categoryDetail/index.vue'),
+      component: () =>
+        import('@/views/publicNavigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.public.category.add',
         hideInMenu: true,
@@ -34,9 +35,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'category/edit',
+      path: 'editCategory',
       name: 'PublicNavigationEditCategory',
-      component: () => import('@/views/categoryDetail/index.vue'),
+      component: () =>
+        import('@/views/publicNavigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.public.category.edit',
         hideInMenu: true,
@@ -45,9 +47,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'navigation/add',
+      path: 'addNavigation',
       name: 'PublicNavigationAddNavigation',
-      component: () => import('@/views/navigationDetail/index.vue'),
+      component: () =>
+        import('@/views/publicNavigation/navigationDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.public.website.add',
         hideInMenu: true,
@@ -56,9 +59,10 @@ const NAVIGATION: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'navigation/edit',
+      path: 'editNavigation',
       name: 'PublicNavigationEditNavigation',
-      component: () => import('@/views/navigationDetail/index.vue'),
+      component: () =>
+        import('@/views/publicNavigation/navigationDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.public.website.edit',
         hideInMenu: true,

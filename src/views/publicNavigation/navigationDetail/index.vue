@@ -2,18 +2,18 @@
   <div class="container">
     <Breadcrumb
       :items="[
-        $t('menu.navigationManagement.personal'),
+        $t('menu.navigationManagement.public'),
         isEdit
-          ? $t('menu.navigationManagement.personal.edit')
-          : $t('menu.navigationManagement.personal.add'),
+          ? $t('menu.navigationManagement.public.edit')
+          : $t('menu.navigationManagement.public.add'),
       ]"
     />
     <a-card
       class="general-card"
       :title="
         isEdit
-          ? $t('operation.navigationManagement.personal.edit')
-          : $t('operation.navigationManagement.personal.add')
+          ? $t('operation.navigationManagement.public.edit')
+          : $t('operation.navigationManagement.public.add')
       "
     >
       <a-form
@@ -152,7 +152,7 @@
     ],
   };
 
-  const handleAddUser = () => {
+  const handleAddWebsite = () => {
     setLoading(true);
     createNavigation({
       ...formData.value,
@@ -167,7 +167,7 @@
       });
   };
 
-  const handleEditUser = () => {
+  const handleEditWebsite = () => {
     setLoading(true);
     updateNavigation({
       ...formData.value,
@@ -192,9 +192,9 @@
     const res = await formRef.value?.validate();
     if (!res) {
       if (isEdit.value) {
-        handleEditUser();
+        handleEditWebsite();
       } else {
-        handleAddUser();
+        handleAddWebsite();
       }
     }
   };

@@ -2,8 +2,8 @@ import localeMessageBox from '@/components/message-box/locale/en-US';
 import localeLogin from '@/views/login/locale/en-US';
 
 import localeWorkplace from '@/views/dashboard/workplace/locale/en-US';
-import localeCategoryDetail from '@/views/categoryDetail/locale/en-US';
-import localeNavigationDetail from '@/views/navigationDetail/locale/en-US';
+import localePersonalNavigation from '@/views/navigationDetail/locale/en-US';
+import localePublicNavigation from '@/views/publicNavigation/locale/en-US';
 
 import localeSettings from './en-US/settings';
 
@@ -27,6 +27,6 @@ export default {
   ...localeMessageBox,
   ...localeLogin,
   ...localeWorkplace,
-  ...localeCategoryDetail,
-  ...localeNavigationDetail,
+  ...localePersonalNavigation,
+  ...localePublicNavigation,
 };

@@ -2,18 +2,18 @@
   <div class="container">
     <Breadcrumb
       :items="[
-        $t('menu.categoryManagement.personal'),
+        $t('menu.categoryManagement.public'),
         isEdit
-          ? $t('menu.categoryManagement.personal.edit')
-          : $t('menu.categoryManagement.personal.add'),
+          ? $t('menu.categoryManagement.public.edit')
+          : $t('menu.categoryManagement.public.add'),
       ]"
     />
     <a-card
       class="general-card"
       :title="
         isEdit
-          ? $t('operation.categoryManagement.personal.edit')
-          : $t('operation.categoryManagement.personal.add')
+          ? $t('operation.categoryManagement.public.edit')
+          : $t('operation.categoryManagement.public.add')
       "
     >
       <a-form
@@ -35,20 +35,15 @@
           />
         </a-form-item>
         <a-form-item
-          field="parentId"
-          :label="$t('categoryManagement.form.parentId')"
+          field="icon"
+          :label="$t('categoryManagement.form.icon')"
+          validate-trigger="change"
         >
-          <a-select
-            v-model="formData.parentId"
-            :placeholder="$t('categoryManagement.form.parentId.placeholder')"
-          >
-            <a-option
-              v-for="category in options"
-              :key="category.id"
-              :value="category.id"
-              >{{ category.name }}</a-option
-            >
-          </a-select>
+          <a-input
+            v-model="formData.icon"
+            :placeholder="$t('categoryManagement.form.icon.placeholder')"
+            allow-clear
+          />
         </a-form-item>
         <a-form-item>
           <a-space>
@@ -69,17 +64,16 @@
   import { ref, computed, onMounted } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import {
-    getCategoryList,
-    updateCategory,
-    createCategory,
-    getCategoryById,
-  } from '@/api/category';
+    createPublicCategory,
+    updatePublicCategory,
+    getPublicCategoryById,
+  } from '@/api/publicCategory';
   import { useRoute, useRouter } from 'vue-router';
   import useLoading from '@/hooks/loading';
   import useUserStore from '@/store/modules/user';
   import { Message } from '@arco-design/web-vue';
 
-  import type { ICategoryListItem } from '@/api/category';
+  import type { PublicCategory } from '@/api/publicCategory';
 
   const userStore = useUserStore();
   const { loading, setLoading } = useLoading();
@@ -87,28 +81,22 @@
   const router = useRouter();
 
   const formRef = ref<FormInstance>();
-  const formData = ref<ICategoryListItem>({
+  const formData = ref<PublicCategory>({
     id: undefined!,
-    userId: undefined!,
     name: '',
-    parentId: 0,
+    icon: '',
     create_time: '',
-    children: [],
-    navigation: [],
-    isLeaf: false,
   });
-
-  const options = ref<any[]>([]);
 
   const isEdit = computed<boolean>(() => !!route.query.id);
 
-  const handleAddUser = () => {
+  const handleAddCategory = () => {
     setLoading(true);
     const data = {
       ...formData.value,
       userId: Number(userStore.userInfo.id),
     };
-    createCategory(data)
+    createPublicCategory(data)
       .then(() => {
         Message.success('添加成功!');
         router.back();
@@ -118,13 +106,13 @@
       });
   };
 
-  const handleEditUser = () => {
+  const handleEditCategory = () => {
     setLoading(true);
     const data = {
       ...formData.value,
       userId: Number(userStore.userInfo.id),
     };
-    updateCategory(data)
+    updatePublicCategory(data)
       .then(() => {
         Message.success('修改成功!');
         router.back();
@@ -134,14 +122,8 @@
       });
   };
 
-  const getTopCategories = () => {
-    getCategoryList(-1).then((res) => {
-      options.value = [...res.data, { id: 0, name: '无父级', parentId: -1 }];
-    });
-  };
-
   const getCategoryDetail = () => {
-    getCategoryById(Number(route.query.id)).then((res) => {
+    getPublicCategoryById(Number(route.query.id)).then((res) => {
       formData.value = res.data;
     });
   };
@@ -150,9 +132,9 @@
     const res = await formRef.value?.validate();
     if (!res) {
       if (isEdit.value) {
-        handleEditUser();
+        handleEditCategory();
       } else {
-        handleAddUser();
+        handleAddCategory();
       }
     }
   };
@@ -161,7 +143,6 @@
   };
 
   onMounted(() => {
-    getTopCategories();
     if (isEdit.value) {
       getCategoryDetail();
     }
