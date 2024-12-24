@@ -27,12 +27,30 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { getCategoryList } from '@/api/category';
+  import type { PublicCategory } from '@/api/publicCategory';
+  import type { Navigation } from '@/api/navigation';
 
-  const categoryList = ref([]);
-  const navigationList = ref([]);
+  const router = useRouter();
 
-  function toAddCategory() {
-    console.log('toAddCategory');
+  const categoryList = ref<PublicCategory[]>([]);
+  const navigationList = ref<Navigation[]>([]);
+
+  function getPublicCategories() {
+    getCategoryList({ openness: 1 }).then((res) => {
+      categoryList.value = res.data;
+    });
+    //
   }
+
+  // 创建分类
+  function toAddCategory() {
+    router.push('/public-navigation/addCategory');
+  }
+
+  onMounted(() => {
+    getPublicCategories();
+  });
 </script>

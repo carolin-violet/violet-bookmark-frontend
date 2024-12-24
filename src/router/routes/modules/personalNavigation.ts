@@ -49,7 +49,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'addNavigation',
       name: 'PersonalNavigationAddNavigation',
-      component: () => import('@/views/navigationDetail/index.vue'),
+      component: () => import('@/views/personalNavigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.website.add',
         hideInMenu: true,
@@ -60,7 +60,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'editNavigation',
       name: 'PersonalNavigationEditNavigation',
-      component: () => import('@/views/navigationDetail/index.vue'),
+      component: () => import('@/views/personalNavigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.website.edit',
         hideInMenu: true,

@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-    <div class="search-container"> </div>
+    <div class="search-container">
+      <Search />
+    </div>
     <div class="public-category-titles">
       <div
-        v-for="item in publicCategoryList"
+        v-for="item in props.list"
         :key="item.id"
         class="public-category"
+        :class="{ active: item.id === props.activeId }"
       >
         {{ item.name }}
       </div>
@@ -14,20 +17,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue';
-  import { getPublicCategoryList } from '@/api/publicCategory';
   import type { PublicCategory } from '@/api/publicCategory';
 
-  const publicCategoryList = ref<PublicCategory[]>([]);
+  import Search from './Search.vue';
 
-  function getPublicCategories() {
-    getPublicCategoryList().then((res) => {
-      publicCategoryList.value = res.data;
-    });
-  }
-
-  onMounted(() => {
-    getPublicCategories();
+  const props = defineProps({
+    list: {
+      type: Array as () => PublicCategory[],
+      default: () => [],
+    },
+    activeId: {
+      type: Number,
+    },
   });
 </script>
 

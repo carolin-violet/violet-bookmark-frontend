@@ -135,7 +135,7 @@
   };
 
   const getTopCategories = () => {
-    getCategoryList(-1).then((res) => {
+    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
       options.value = [...res.data, { id: 0, name: '无父级', parentId: -1 }];
     });
   };

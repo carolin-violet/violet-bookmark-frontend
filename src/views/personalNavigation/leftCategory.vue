@@ -99,7 +99,7 @@
   });
 
   const getData = () => {
-    getCategoryList(-1).then((res) => {
+    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
       originTreeData.value = res.data;
     });
   };
@@ -107,7 +107,7 @@
   // 动态加载数据
   const loadMore = (nodeData: ICategoryListItem): Promise<void> => {
     return new Promise((resolve) => {
-      getCategoryList(nodeData.id!).then((res) => {
+      getCategoryList({ parentId: nodeData.id, openness: 0 }).then((res) => {
         nodeData.children = res.data.map((item: ICategoryListItem) => {
           item.isLeaf = true;
           return item;

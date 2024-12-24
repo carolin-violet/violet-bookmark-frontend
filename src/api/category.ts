@@ -6,9 +6,12 @@ import type { Navigation } from '@/api/navigation';
 export interface ICategoryListItem {
   id: number;
   userId: number;
-  name: string;
   parentId: number;
+  name: string;
+  icon: string;
+  openness: number;
   create_time: string;
+  update_time: string;
   children: ICategoryListItem[];
   navigation: Partial<Navigation>[];
   isLeaf: boolean;
@@ -19,29 +22,38 @@ export interface CategoryOption {
   name?: string;
 }
 
+export interface CategoryParam {
+  id: number;
+  userId: number;
+  parentId: number;
+  name: string;
+  icon: string;
+  openness: number;
+  create_time: string;
+  update_time: string;
+}
+
 const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
 
 /**
  * 获取分类列表
- * @param parentId 父级分类ID
+ * @param params 查询条件
  * @returns 分类列表
  */
-export function getCategoryList(parentId: number) {
+export function getCategoryList(params: CategoryParam) {
   return axios.get<ICategoryListItem[]>(`${prefix}/category/list`, {
-    params: {
-      parentId,
-    },
+    params,
   });
 }
 
 /**
- * 获取一级分类对应的二级分类列表及所有站点导航
+ * 根据一级分类id获取对应的二级分类列表及所有站点导航
  * @param topCategoryId
  * @returns
  */
-export function getCategoryAndNavs(topCategoryId: number) {
+export function getSubCategoryAndWebsites(topCategoryId: number) {
   return axios.get<ICategoryListItem[]>(
-    `${prefix}/subCategoryAndNavs/list/${topCategoryId}`
+    `${prefix}/category/${topCategoryId}/subCategoryWebsites`
   );
 }
 

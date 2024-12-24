@@ -15,12 +15,11 @@
 <script lang="ts" setup>
   import type { ICategoryListItem } from '@/api/category';
 
-  interface Props {
-    category: ICategoryListItem;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
-    category: [],
+  const props = defineProps({
+    category: {
+      type: Object as () => ICategoryListItem,
+      default: () => {},
+    },
   });
 </script>
 

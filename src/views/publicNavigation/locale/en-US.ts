@@ -1,12 +1,12 @@
 export default {
   // 导航管理菜单
-  'menu.navigationManagement.personal': 'Personal Navigation',
-  'menu.navigationManagement.personal.add': 'Add Navigation',
-  'menu.navigationManagement.personal.edit': 'Edit Navigation',
+  'menu.navigationManagement.public': 'Public Navigation',
+  'menu.navigationManagement.public.add': 'Add Navigation',
+  'menu.navigationManagement.public.edit': 'Edit Navigation',
 
   // 操作
-  'operation.navigationManagement.personal.add': 'Add Navigation',
-  'operation.navigationManagement.personal.edit': 'Edit Navigation',
+  'operation.navigationManagement.public.add': 'Add Navigation',
+  'operation.navigationManagement.public.edit': 'Edit Navigation',
   'operation.navigationManagement.save': 'Save',
   'operation.navigationManagement.reset': 'Reset',
 
@@ -23,13 +23,13 @@ export default {
     'Please enter navigation description',
 
   // 分类管理菜单
-  'menu.categoryManagement.personal': 'Personal Category',
-  'menu.categoryManagement.personal.add': 'Add Category',
-  'menu.categoryManagement.personal.edit': 'Edit Category',
+  'menu.categoryManagement.public': 'Public Category',
+  'menu.categoryManagement.public.add': 'Add Category',
+  'menu.categoryManagement.public.edit': 'Edit Category',
 
   // 操作
-  'operation.categoryManagement.personal.add': 'Add Category',
-  'operation.categoryManagement.personal.edit': 'Edit Category',
+  'operation.categoryManagement.public.add': 'Add Category',
+  'operation.categoryManagement.public.edit': 'Edit Category',
   'operation.categoryManagement.save': 'Save',
   'operation.categoryManagement.reset': 'Reset',
 

@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="private-category-titles">
-      <div v-for="category in categoryList" :key="category.id" class="category">
+      <div
+        v-for="category in props.list"
+        :key="category.id"
+        class="category"
+        :class="{ active: category.id === props.activeId }"
+      >
         {{ category.name }}
       </div>
     </div>
@@ -16,35 +21,34 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue';
-  import { getCategoryList, getCategoryAndNavs } from '@/api/category';
+  import { ref } from 'vue';
+  import { getSubCategoryAndWebsites } from '@/api/category';
 
   import type { ICategoryListItem } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';
 
-  const categoryList = ref<ICategoryListItem[]>([]);
+  const props = defineProps({
+    list: {
+      type: Array as () => ICategoryListItem[],
+      default: () => [],
+    },
+    activeId: {
+      type: Number,
+    },
+  });
 
   // 一级分类对应的二级分类列表及所有站点导航
   const dataList = ref<ICategoryListItem[]>([]);
 
   // 获取一级分类对应的二级分类列表及所有站点导航
-  function getSubCategoriesAndNavs(id: number) {
-    getCategoryAndNavs(id).then((res) => {
-      categoryList.value = res.data;
+  function getSubCategoriesAndNavs(TopParentId: number) {
+    getSubCategoryAndWebsites(TopParentId).then((res) => {
+      dataList.value = res.data;
     });
   }
 
-  // 获取一级分类列表
-  function getTopCategories() {
-    getCategoryList(-1).then((res) => {
-      categoryList.value = res.data;
-
-      getSubCategoriesAndNavs(categoryList.value[0].id);
-    });
-  }
-
-  onMounted(() => {
-    getTopCategories();
+  defineExpose({
+    getSubCategoriesAndNavs,
   });
 </script>
 

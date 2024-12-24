@@ -1,12 +1,12 @@
 export default {
   // 导航管理菜单
-  'menu.navigationManagement.personal': '个人导航',
-  'menu.navigationManagement.personal.add': '添加导航',
-  'menu.navigationManagement.personal.edit': '编辑导航',
+  'menu.navigationManagement.public': '个人导航',
+  'menu.navigationManagement.public.add': '添加导航',
+  'menu.navigationManagement.public.edit': '编辑导航',
 
   // 操作
-  'operation.navigationManagement.personal.add': '添加导航',
-  'operation.navigationManagement.personal.edit': '编辑导航',
+  'operation.navigationManagement.public.add': '添加导航',
+  'operation.navigationManagement.public.edit': '编辑导航',
   'operation.navigationManagement.save': '保存',
   'operation.navigationManagement.reset': '重置',
 
@@ -22,13 +22,13 @@ export default {
   'navigationManagement.form.description.placeholder': '请输入导航描述',
 
   // 分类管理菜单
-  'menu.categoryManagement.personal': '个人分类',
-  'menu.categoryManagement.personal.add': '添加分类',
-  'menu.categoryManagement.personal.edit': '编辑分类',
+  'menu.categoryManagement.public': '个人分类',
+  'menu.categoryManagement.public.add': '添加分类',
+  'menu.categoryManagement.public.edit': '编辑分类',
 
   // 操作
-  'operation.categoryManagement.personal.add': '添加分类',
-  'operation.categoryManagement.personal.edit': '编辑分类',
+  'operation.categoryManagement.public.add': '添加分类',
+  'operation.categoryManagement.public.edit': '编辑分类',
   'operation.categoryManagement.save': '保存',
   'operation.categoryManagement.reset': '重置',
 

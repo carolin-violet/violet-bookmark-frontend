@@ -1,24 +1,61 @@
 <template>
   <div class="preview-container">
     <section class="preview-header">
-      <PreviewHeader />
+      <PreviewHeader
+        :list="publicCategoryList"
+        :activeId="activePublicCategoryId"
+      />
     </section>
     <section class="preview-content">
-      <PreviewContent />
+      <PreviewContent
+        :list="categoryList"
+        :activeId="activePersonalCategoryId"
+      />
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { ref, onMounted } from 'vue';
+  import { getCategoryList } from '@/api/category';
+
+  import type { PublicCategory } from '@/api/publicCategory';
+  import type { ICategoryListItem } from '@/api/category';
+
   import PreviewHeader from './components/PreviewHeader.vue';
   import PreviewContent from './components/PreviewContent.vue';
+
+  const publicCategoryList = ref<PublicCategory[]>([]);
+  const categoryList = ref<ICategoryListItem[]>([]);
+  const activePublicCategoryId = ref<number>(0);
+  const activePersonalCategoryId = ref<number>(0);
+
+  // 获取公共分类列表
+  function getPublicCategories() {
+    getCategoryList({ openness: 1 }).then((res) => {
+      publicCategoryList.value = res.data;
+    });
+  }
+
+  // 获取一级分类列表
+  function getTopCategories() {
+    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
+      categoryList.value = res.data;
+    });
+  }
+
+  onMounted(() => {
+    getPublicCategories();
+    getTopCategories();
+  });
 </script>
 
 <style lang="less" scoped>
-  @sub-category-width: 300px;
-
-  .header {
+  .preview-container {
     width: 100%;
-    height: 500px;
+    min-height: 100vh;
+    .preview-container {
+      height: 500px;
+    }
   }
 </style>
