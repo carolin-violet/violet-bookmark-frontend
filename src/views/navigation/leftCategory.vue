@@ -64,7 +64,7 @@
   const searchKey: Ref<string> = ref('');
 
   // 原始数据
-  const originTreeData: Ref<ICategoryListItem[]> = ref([]);
+  const originTreeData: Ref<Partial<ICategoryListItem>[]> = ref([]);
 
   // 筛选数据
   const searchData = (keyword: string): ICategoryListItem[] => {

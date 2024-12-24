@@ -2,18 +2,18 @@
   <div class="container">
     <Breadcrumb
       :items="[
-        $t('menu.navigationManagement.public'),
+        $t('menu.navigationManagement.personal'),
         isEdit
-          ? $t('menu.navigationManagement.public.edit')
-          : $t('menu.navigationManagement.public.add'),
+          ? $t('menu.navigationManagement.personal.edit')
+          : $t('menu.navigationManagement.personal.add'),
       ]"
     />
     <a-card
       class="general-card"
       :title="
         isEdit
-          ? $t('operation.navigationManagement.public.edit')
-          : $t('operation.navigationManagement.public.add')
+          ? $t('operation.navigationManagement.personal.edit')
+          : $t('operation.navigationManagement.personal.add')
       "
     >
       <a-form
@@ -103,7 +103,7 @@
   const router = useRouter();
 
   const formRef = ref<FormInstance>();
-  const formData = ref<Navigation>({
+  const formData = ref<Partial<Navigation>>({
     id: 0,
     categoryId: 0,
     name: '',

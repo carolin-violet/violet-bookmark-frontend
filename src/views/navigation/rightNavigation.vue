@@ -82,7 +82,7 @@
   const navList: Ref<Navigation[]> = ref([]);
 
   const currentCategory = ref<ICategoryListItem>(undefined!);
-  const params: Ref<NavigationParam> = ref({
+  const params: Ref<Partial<NavigationParam>> = ref({
     pageNum: 1,
     pageSize: 10,
     name: '',

@@ -36,9 +36,13 @@ export default {
   // 表单
   'categoryManagement.form.name': 'Category Name',
   'categoryManagement.form.parentId': 'Parent Category',
+  'categoryManagement.form.openness': 'Openness',
+  'categoryManagement.form.icon': 'Icon',
 
   // 表单验证
   'categoryManagement.form.name.placeholder': 'Please enter the category name',
   'categoryManagement.form.parentId.placeholder':
     'Please select the parent category',
+  'categoryManagement.form.openness.placeholder': 'Please select openness',
+  'categoryManagement.form.icon.placeholder': 'Please Enter icon url',
 };

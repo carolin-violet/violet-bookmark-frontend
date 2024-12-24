@@ -35,8 +35,12 @@ export default {
   // 表单
   'categoryManagement.form.name': '分类名称',
   'categoryManagement.form.parentId': '父级分类',
+  'categoryManagement.form.openness': '公开性',
+  'categoryManagement.form.icon': '图标',
 
   // 表单输入
   'categoryManagement.form.name.placeholder': '请输入分类名称',
   'categoryManagement.form.parentId.placeholder': '请选择父级分类',
+  'categoryManagement.form.openness.placeholder': '请选择公开性',
+  'categoryManagement.form.icon.placeholder': '请输入图标url地址',
 };

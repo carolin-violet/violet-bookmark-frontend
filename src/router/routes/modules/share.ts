@@ -2,8 +2,8 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const NAVIGATION: AppRouteRecordRaw = {
-  path: '/share-navigation',
-  name: 'ShareNavigation',
+  path: '/diary',
+  name: 'Diary',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.navigation.share',
@@ -15,7 +15,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'list',
       name: 'ShareNavigationList',
-      component: () => import('@/views/shareNavigation/index.vue'),
+      component: () => import('@/views/diary/index.vue'),
       meta: {
         locale: 'menu.navigation.share.list',
         requiresAuth: true,

@@ -15,7 +15,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'list',
       name: 'PersonalNavigationList',
-      component: () => import('@/views/personalNavigation/index.vue'),
+      component: () => import('@/views/navigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.list',
         requiresAuth: true,
@@ -25,8 +25,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'addCategory',
       name: 'PersonalNavigationAddCategory',
-      component: () =>
-        import('@/views/personalNavigation/categoryDetail/index.vue'),
+      component: () => import('@/views/navigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.category.add',
         hideInMenu: true,
@@ -37,8 +36,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'editCategory',
       name: 'PersonalNavigationEditCategory',
-      component: () =>
-        import('@/views/personalNavigation/categoryDetail/index.vue'),
+      component: () => import('@/views/navigation/categoryDetail/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.category.edit',
         hideInMenu: true,
@@ -49,7 +47,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'addNavigation',
       name: 'PersonalNavigationAddNavigation',
-      component: () => import('@/views/personalNavigation/index.vue'),
+      component: () => import('@/views/navigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.website.add',
         hideInMenu: true,
@@ -60,10 +58,20 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'editNavigation',
       name: 'PersonalNavigationEditNavigation',
-      component: () => import('@/views/personalNavigation/index.vue'),
+      component: () => import('@/views/navigation/index.vue'),
       meta: {
         locale: 'menu.navigation.personal.website.edit',
         hideInMenu: true,
+        requiresAuth: true,
+        roles: ['*'],
+      },
+    },
+    {
+      path: 'share',
+      name: 'ShareNavigationList',
+      component: () => import('@/views/navigation/share/index.vue'),
+      meta: {
+        locale: 'menu.navigation.share.list',
         requiresAuth: true,
         roles: ['*'],
       },

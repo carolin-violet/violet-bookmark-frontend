@@ -3,15 +3,18 @@ import type { Navigation } from '@/api/navigation';
 
 /** 导航分类类型 */
 
-export interface ICategoryListItem {
+export interface Category {
   id: number;
   userId: number;
   parentId: number;
   name: string;
   icon: string;
-  openness: number;
+  openness: 0 | 1;
   create_time: string;
   update_time: string;
+}
+
+export interface ICategoryListItem extends Category {
   children: ICategoryListItem[];
   navigation: Partial<Navigation>[];
   isLeaf: boolean;
@@ -40,8 +43,8 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @param params 查询条件
  * @returns 分类列表
  */
-export function getCategoryList(params: CategoryParam) {
-  return axios.get<ICategoryListItem[]>(`${prefix}/category/list`, {
+export function getCategoryList(params: Partial<CategoryParam>) {
+  return axios.get<Category[]>(`${prefix}/category/list`, {
     params,
   });
 }
@@ -52,7 +55,7 @@ export function getCategoryList(params: CategoryParam) {
  * @returns
  */
 export function getSubCategoryAndWebsites(topCategoryId: number) {
-  return axios.get<ICategoryListItem[]>(
+  return axios.get<Category[]>(
     `${prefix}/category/${topCategoryId}/subCategoryWebsites`
   );
 }
@@ -63,7 +66,7 @@ export function getSubCategoryAndWebsites(topCategoryId: number) {
  * @returns 分类详情
  */
 export function getCategoryById(id: number) {
-  return axios.get<ICategoryListItem>(`${prefix}/category/${id}`);
+  return axios.get<Category>(`${prefix}/category/${id}`);
 }
 
 /**
@@ -71,7 +74,7 @@ export function getCategoryById(id: number) {
  * @param data 分类数据
  * @returns 是否创建成功
  */
-export function createCategory(data: ICategoryListItem) {
+export function createCategory(data: Partial<Category>) {
   return axios.post<boolean>(`${prefix}/category/add`, data);
 }
 
@@ -80,7 +83,7 @@ export function createCategory(data: ICategoryListItem) {
  * @param data 分类数据
  * @returns 是否更新成功
  */
-export function updateCategory(data: ICategoryListItem) {
+export function updateCategory(data: Partial<Category>) {
   return axios.put<boolean>(`${prefix}/category/update`, data);
 }
 

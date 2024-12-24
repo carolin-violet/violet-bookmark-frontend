@@ -22,7 +22,7 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @param params
  * @returns
  */
-export function getNavigationList(params: NavigationParam) {
+export function getNavigationList(params: Partial<NavigationParam>) {
   return axios.get<Partial<Navigation>>(`${prefix}/navigation/list`, {
     params,
   });
@@ -42,7 +42,7 @@ export function getNavigationById(id: number) {
  * @param data
  * @returns
  * */
-export function createNavigation(data: Navigation) {
+export function createNavigation(data: Partial<Navigation>) {
   return axios.post<boolean>(`${prefix}/navigation/add`, data);
 }
 
@@ -51,7 +51,7 @@ export function createNavigation(data: Navigation) {
  * @param data
  * @returns
  */
-export function updateNavigation(data: Navigation) {
+export function updateNavigation(data: Partial<Navigation>) {
   return axios.put<boolean>(`${prefix}/navigation/update`, data);
 }
 

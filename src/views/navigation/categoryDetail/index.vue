@@ -50,6 +50,30 @@
             >
           </a-select>
         </a-form-item>
+        <a-form-item
+          field="openness"
+          :label="$t('categoryManagement.form.openness')"
+        >
+          <a-select
+            v-model="formData.openness"
+            :placeholder="$t('categoryManagement.form.openness.placeholder')"
+          >
+            <a-option :value="1">公开</a-option>
+            <a-option :value="0">私有</a-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item
+          field="icon"
+          :label="$t('categoryManagement.form.icon')"
+          validate-trigger="change"
+        >
+          <a-input
+            v-model="formData.icon"
+            :placeholder="$t('categoryManagement.form.icon.placeholder')"
+            allow-clear
+          />
+        </a-form-item>
+
         <a-form-item>
           <a-space>
             <a-button type="primary" :loading="loading" @click="validate">
@@ -79,7 +103,7 @@
   import useUserStore from '@/store/modules/user';
   import { Message } from '@arco-design/web-vue';
 
-  import type { ICategoryListItem } from '@/api/category';
+  import type { Category } from '@/api/category';
 
   const userStore = useUserStore();
   const { loading, setLoading } = useLoading();
@@ -87,15 +111,14 @@
   const router = useRouter();
 
   const formRef = ref<FormInstance>();
-  const formData = ref<ICategoryListItem>({
-    id: undefined!,
-    userId: undefined!,
+  const formData = ref<Partial<Category>>({
+    id: undefined,
+    userId: undefined,
     name: '',
     parentId: 0,
     create_time: '',
-    children: [],
-    navigation: [],
-    isLeaf: false,
+    openness: 0,
+    icon: '',
   });
 
   const options = ref<any[]>([]);
