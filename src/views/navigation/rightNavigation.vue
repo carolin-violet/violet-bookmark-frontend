@@ -191,7 +191,7 @@
               align-items: center;
               column-gap: 6px;
               .navigation-icon {
-                width: 20px;
+                width: 16px;
               }
               .navigation-name {
                 flex: 1;

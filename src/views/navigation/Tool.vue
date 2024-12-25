@@ -40,7 +40,7 @@
 
   const toSite = () => {
     const routeData = router.resolve({
-      path: '/preview',
+      path: '/navigation-preview',
     });
     window.open(routeData.href, '_blank');
   };

@@ -32,4 +32,20 @@
   });
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .search-container {
+      position: absolute;
+      top: 200px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+</style>

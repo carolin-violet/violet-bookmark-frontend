@@ -24,7 +24,7 @@
   import { ref } from 'vue';
   import { getSubCategoryAndWebsites } from '@/api/category';
 
-  import type { Category } from '@/api/category';
+  import type { Category, TreeCategoryNode } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';
 
   const props = defineProps({
@@ -38,7 +38,7 @@
   });
 
   // 一级分类对应的二级分类列表及所有站点导航
-  const dataList = ref<Category[]>([]);
+  const dataList = ref<TreeCategoryNode[]>([]);
 
   // 获取一级分类对应的二级分类列表及所有站点导航
   function getSubCategoriesAndNavs(TopParentId: number) {

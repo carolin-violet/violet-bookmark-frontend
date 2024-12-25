@@ -52,7 +52,7 @@
   .preview-container {
     width: 100%;
     min-height: 100vh;
-    .preview-container {
+    .preview-header {
       height: 500px;
     }
   }
