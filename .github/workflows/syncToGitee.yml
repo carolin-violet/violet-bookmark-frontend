@@ -11,11 +11,11 @@ jobs:
       - name: Mirror the Github organization repos to Gitee.
         uses: Yikun/hub-mirror-action@master
         with:
-          src: "github/carolin-violet"
-          dst: "gitee/carolin-violet"
+          src: 'github/carolin-violet'
+          dst: 'gitee/carolin-violet'
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
-          static_list: "navigation"
+          static_list: 'navigation'
           force_update: true
           debug: true
 
