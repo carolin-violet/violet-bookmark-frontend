@@ -1,18 +1,15 @@
 export default {
-  'menu.navigation.personal': 'personal navigation',
-  'menu.navigation.personal.list': 'personal navigation list',
-  'menu.navigation.personal.category.add': 'personal collection category add',
-  'menu.navigation.personal.category.edit': 'personal collection category edit',
-  'menu.navigation.personal.website.add': 'personal collection website add',
-  'menu.navigation.personal.website.edit': 'personal collection website edit',
+  // 收藏导航
+  'menu.navigation': 'Navigation',
+  'menu.navigation.list': 'Navigation List',
+  'menu.navigation.category.add': 'Category Add',
+  'menu.navigation.category.edit': 'Category Edit',
+  'menu.navigation.website.add': 'Website Add',
+  'menu.navigation.website.edit': 'Website Edit',
+  'menu.navigation.share.list': 'Share List',
 
-  'menu.navigation.public': 'public navigation',
-  'menu.navigation.public.list': 'public navigation list',
-  'menu.navigation.public.category.add': 'public collection category add',
-  'menu.navigation.public.category.edit': 'public collection category edit',
-  'menu.navigation.public.website.add': 'public collection website add',
-  'menu.navigation.public.website.edit': 'public collection website edit',
-
-  'menu.navigation.share': 'share navigation',
-  'menu.navigation.share.list': 'share navigation list',
+  // 日记
+  'menu.diary': 'Diary',
+  'menu.diary.list': 'Diary List',
+  'menu.diary.analysis': 'Diary Analysis',
 };

@@ -18,15 +18,13 @@
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
   import { getCategoryList } from '@/api/category';
-
-  import type { PublicCategory } from '@/api/publicCategory';
-  import type { ICategoryListItem } from '@/api/category';
+  import type { Category } from '@/api/category';
 
   import PreviewHeader from './components/PreviewHeader.vue';
   import PreviewContent from './components/PreviewContent.vue';
 
-  const publicCategoryList = ref<PublicCategory[]>([]);
-  const categoryList = ref<ICategoryListItem[]>([]);
+  const publicCategoryList = ref<Category[]>([]);
+  const categoryList = ref<Category[]>([]);
   const activePublicCategoryId = ref<number>(0);
   const activePersonalCategoryId = ref<number>(0);
 

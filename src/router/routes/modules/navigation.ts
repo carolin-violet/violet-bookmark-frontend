@@ -2,11 +2,11 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const NAVIGATION: AppRouteRecordRaw = {
-  path: '/personal-navigation',
+  path: '/navigation',
   name: 'PersonalNavigation',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.navigation.personal',
+    locale: 'menu.navigation',
     requiresAuth: true,
     icon: 'icon-user',
     order: 1,
@@ -17,7 +17,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       name: 'PersonalNavigationList',
       component: () => import('@/views/navigation/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal.list',
+        locale: 'menu.navigation.list',
         requiresAuth: true,
         roles: ['*'],
       },
@@ -27,7 +27,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       name: 'PersonalNavigationAddCategory',
       component: () => import('@/views/navigation/categoryDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal.category.add',
+        locale: 'menu.navigation.category.add',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['*'],
@@ -38,7 +38,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       name: 'PersonalNavigationEditCategory',
       component: () => import('@/views/navigation/categoryDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal.category.edit',
+        locale: 'menu.navigation.category.edit',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['*'],
@@ -47,9 +47,9 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'addNavigation',
       name: 'PersonalNavigationAddNavigation',
-      component: () => import('@/views/navigation/index.vue'),
+      component: () => import('@/views/navigation/navigationDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal.website.add',
+        locale: 'menu.navigation.website.add',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['*'],
@@ -58,9 +58,9 @@ const NAVIGATION: AppRouteRecordRaw = {
     {
       path: 'editNavigation',
       name: 'PersonalNavigationEditNavigation',
-      component: () => import('@/views/navigation/index.vue'),
+      component: () => import('@/views/navigation/navigationDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.personal.website.edit',
+        locale: 'menu.navigation.website.edit',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['*'],

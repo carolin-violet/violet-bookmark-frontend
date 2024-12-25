@@ -1,8 +1,9 @@
 <template>
   <div class="category-container">
     <a-space class="tree-container" direction="vertical">
+      <Tool />
       <a-space>
-        <a-input-search style="margin-bottom: 8px" v-model="searchKey" />
+        <a-input-search v-model="searchKey" />
         <a-button type="primary" @click="handleAdd">
           <template #icon>
             <icon-plus-circle />
@@ -23,8 +24,8 @@
           <icon-edit
             style="
               position: absolute;
-              right: 24px;
-              font-size: 12px;
+              right: 32px;
+              font-size: 16px;
               top: 10px;
               color: #3370ff;
             "
@@ -39,7 +40,7 @@
               style="
                 position: absolute;
                 right: 8px;
-                font-size: 12px;
+                font-size: 16px;
                 top: 10px;
                 color: #3370ff;
               "
@@ -58,6 +59,7 @@
   import { useRouter } from 'vue-router';
   import type { Ref } from 'vue';
   import type { ICategoryListItem } from '@/api/category';
+  import Tool from './Tool.vue';
 
   const router = useRouter();
   const instance = getCurrentInstance();
@@ -123,10 +125,9 @@
 
   const handleEdit = (nodeData: ICategoryListItem): void => {
     router.push({
-      path: '/personal-navigation/category/edit',
+      path: '/navigation/editCategory',
       query: {
         id: nodeData.id,
-        type: 'personal',
       },
     });
   };
@@ -142,10 +143,7 @@
 
   const handleAdd = (): void => {
     router.push({
-      path: '/personal-navigation/category/edit',
-      query: {
-        type: 'personal',
-      },
+      path: '/navigation/addCategory',
     });
   };
 
@@ -153,6 +151,7 @@
     getData();
   });
 </script>
+
 <style lang="less" scoped>
   .category-container {
     width: 100%;
@@ -165,7 +164,7 @@
       width: 100%;
       height: 100%;
       padding-top: 6px;
-      padding-left: 3px;
+      padding-left: 8px;
       padding-bottom: 0;
       background-color: var(--color-bg-2);
     }

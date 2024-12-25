@@ -1,23 +1,33 @@
 import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
-const NAVIGATION: AppRouteRecordRaw = {
+const DIARY: AppRouteRecordRaw = {
   path: '/diary',
   name: 'Diary',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.navigation.share',
+    locale: 'menu.diary',
     requiresAuth: true,
     icon: 'icon-share-alt',
-    order: 1,
+    order: 2,
   },
   children: [
     {
       path: 'list',
-      name: 'ShareNavigationList',
+      name: 'DiaryList',
       component: () => import('@/views/diary/index.vue'),
       meta: {
-        locale: 'menu.navigation.share.list',
+        locale: 'menu.diary.list',
+        requiresAuth: true,
+        roles: ['*'],
+      },
+    },
+    {
+      path: 'analysis',
+      name: 'DiaryAnalysis',
+      component: () => import('@/views/diary/index.vue'),
+      meta: {
+        locale: 'menu.diary.analysis',
         requiresAuth: true,
         roles: ['*'],
       },
@@ -25,4 +35,4 @@ const NAVIGATION: AppRouteRecordRaw = {
   ],
 };
 
-export default NAVIGATION;
+export default DIARY;

@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts" setup>
-  import type { PublicCategory } from '@/api/publicCategory';
+  import type { Category } from '@/api/category';
 
   import Search from './Search.vue';
 
   const props = defineProps({
     list: {
-      type: Array as () => PublicCategory[],
+      type: Array as () => Category[],
       default: () => [],
     },
     activeId: {

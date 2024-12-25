@@ -1,73 +1,84 @@
 <template>
   <div class="navigation-container">
-    <div class="navigation">
-      <div class="top-panel">
-        <a-button type="primary" @click="handleCreate">
-          <template #icon>
-            <icon-plus-circle />
-          </template>
-          <template #default>添加导航</template>
-        </a-button>
-      </div>
+    <a-layout class="navigation-layout">
+      <a-layout-header>
+        <div class="top-panel">
+          <a-button type="primary" @click="handleCreate">
+            <template #icon>
+              <icon-plus-circle />
+            </template>
+            <template #default>添加导航</template>
+          </a-button>
+          <span style="margin-left: 20px">
+            {{
+              currentCategory?.parentId != -1 && currentCategory?.id
+                ? `当前选中分类：${currentCategory?.name}`
+                : '请选择一个二级分类'
+            }}</span
+          >
+        </div>
 
-      <a-divider />
-
-      <span>
-        {{
-          currentCategory?.parentId != -1 && currentCategory?.id
-            ? `当前选中分类：${currentCategory?.name}`
-            : '无选中分类'
-        }}</span
-      >
-
-      <a-grid
-        :cols="{ xs: 1, sm: 1, md: 2, lg: 2, xl: 4, xxl: 5 }"
-        :colGap="12"
-        :rowGap="16"
-        class="grid-demo-grid"
-      >
-        <a-grid-item class="demo-item" v-for="item in navList" :key="item.id">
-          <a-link :href="item.url">
-            <a-space>
-              <!-- <a-image show-loader :src="`https://www.google.com/s2/favicons?domain=${item.url}`" alt="" width="14" height="14" /> -->
-              <img
-                :src="`https://www.google.com/s2/favicons?domain=${item.url}`"
-                alt=""
-                width="14"
-                height="14"
-              />
-              <span
-                :style="{ color: item.ladder ? 'red' : 'blue' }"
-                :title="item.description"
-                >{{ item.name }}</span
-              >
-              <icon-edit @click.prevent="handleEdit(item)" />
-              <a-popconfirm
-                content="确认删除该导航？"
-                type="warning"
-                @ok="handleDelete(item)"
-              >
-                <icon-delete @click.prevent />
-              </a-popconfirm>
-            </a-space>
-          </a-link>
-        </a-grid-item>
-      </a-grid>
-
-      <a-pagination
-        :total="total"
-        show-total
-        show-page-size
-        @change="handlePageChange"
-        @page-size-change="handlePageSizeChange"
-      />
-    </div>
+        <a-divider />
+      </a-layout-header>
+      <a-layout-content>
+        <a-row :gutter="[20, 12]" class="navigation-list">
+          <a-col
+            class="navigation-item"
+            flex="200px"
+            v-for="item in navList"
+            :key="item.id"
+          >
+            <a-link :href="item.url">
+              <div class="link">
+                <div class="left">
+                  <img
+                    class="navigation-icon"
+                    :src="`https://www.google.com/s2/favicons?domain=${item.url}`"
+                    alt=""
+                    width="16"
+                    height="16"
+                  />
+                  <span
+                    class="navigation-name"
+                    :style="{ color: item.ladder ? 'red' : 'blue' }"
+                    :title="item.description"
+                    >{{ item.name }}</span
+                  >
+                </div>
+                <div class="right">
+                  <icon-edit
+                    style="margin-right: 4px"
+                    @click.prevent="handleEdit(item)"
+                  />
+                  <a-popconfirm
+                    content="确认删除该导航？"
+                    type="warning"
+                    @ok="handleDelete(item)"
+                  >
+                    <icon-delete @click.prevent />
+                  </a-popconfirm>
+                </div>
+              </div>
+            </a-link>
+          </a-col>
+        </a-row>
+      </a-layout-content>
+      <a-layout-footer>
+        <a-pagination
+          :total="total"
+          show-total
+          show-page-size
+          @change="handlePageChange"
+          @page-size-change="handlePageSizeChange"
+        />
+      </a-layout-footer>
+    </a-layout>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { Message } from '@arco-design/web-vue';
-  import { ref, onMounted, getCurrentInstance } from 'vue';
+  import { ref, getCurrentInstance } from 'vue';
   import { useRouter } from 'vue-router';
   import { getNavigationList, delNavigation } from '@/api/navigation';
   import useLoading from '@/hooks/loading';
@@ -106,7 +117,7 @@
 
   const handleCreate = () => {
     router.push({
-      path: '/personal-navigation/navigation/add',
+      path: '/navigation/addNavigation',
       query: {
         categoryId: currentCategory.value.id,
       },
@@ -115,7 +126,7 @@
 
   const handleEdit = (nav: Navigation) => {
     router.push({
-      path: '/personal-navigation/navigation/edit',
+      path: '/navigation/editNavigation',
       query: {
         id: nav.id,
         categoryId: currentCategory.value.id,
@@ -159,19 +170,43 @@
   .navigation-container {
     padding: 16px 20px;
     padding-bottom: 0;
+    height: 100%;
     background-color: var(--color-fill-2);
 
-    .navigation {
+    .navigation-layout {
       padding: 16px 20px;
       padding-bottom: 0;
+      height: 100%;
       background-color: var(--color-bg-2);
+      .navigation-list {
+        .navigation-item {
+          .link {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+            .left {
+              width: 150px;
+              display: flex;
+              align-items: center;
+              column-gap: 6px;
+              .navigation-icon {
+                width: 20px;
+              }
+              .navigation-name {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+            .right {
+              flex: 1;
+              font-size: 16px;
+            }
+          }
+        }
+      }
     }
-  }
-
-  .grid-demo-grid .demo-item {
-    height: 48px;
-    line-height: 48px;
-    color: var(--color-white);
-    text-align: center;
   }
 </style>

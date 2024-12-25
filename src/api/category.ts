@@ -55,7 +55,7 @@ export function getCategoryList(params: Partial<CategoryParam>) {
  * @returns
  */
 export function getSubCategoryAndWebsites(topCategoryId: number) {
-  return axios.get<Category[]>(
+  return axios.get<ICategoryListItem[]>(
     `${prefix}/category/${topCategoryId}/subCategoryWebsites`
   );
 }

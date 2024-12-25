@@ -3,7 +3,7 @@
     <div class="private-category-title"></div>
     <div class="main-content">
       <div
-        v-for="website in props.category.navigations"
+        v-for="website in props.category.navigation"
         :key="website.id"
         class="website-item"
         >{{ website.name }}</div

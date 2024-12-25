@@ -24,12 +24,12 @@
   import { ref } from 'vue';
   import { getSubCategoryAndWebsites } from '@/api/category';
 
-  import type { ICategoryListItem } from '@/api/category';
+  import type { Category } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';
 
   const props = defineProps({
     list: {
-      type: Array as () => ICategoryListItem[],
+      type: Array as () => Category[],
       default: () => [],
     },
     activeId: {
@@ -38,7 +38,7 @@
   });
 
   // 一级分类对应的二级分类列表及所有站点导航
-  const dataList = ref<ICategoryListItem[]>([]);
+  const dataList = ref<Category[]>([]);
 
   // 获取一级分类对应的二级分类列表及所有站点导航
   function getSubCategoriesAndNavs(TopParentId: number) {
