@@ -3,13 +3,13 @@
     <section class="preview-header">
       <PreviewHeader
         :list="publicCategoryList"
-        :activeId="activePublicCategoryId"
+        :active-id="activePublicCategoryId"
       />
     </section>
     <section class="preview-content">
       <PreviewContent
         :list="categoryList"
-        :activeId="activePersonalCategoryId"
+        :active-id="activePersonalCategoryId"
       />
     </section>
   </div>

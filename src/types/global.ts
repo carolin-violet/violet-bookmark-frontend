@@ -35,3 +35,16 @@ export interface GeneralChart {
   xAxis: string[];
   data: Array<{ name: string; value: number[] }>;
 }
+
+export interface PageResponse<T> {
+  total: number;
+  size: number;
+  current: number;
+  pages: number;
+  orders: string[];
+  optimizeCountSql: boolean;
+  searchCount: boolean;
+  countId: number;
+  maxLimit: number;
+  records: T[];
+}

@@ -1,11 +1,11 @@
 <template>
   <div class="preview-container">
-    <section class="main" v-scroll-view="checkSubCategory">
+    <section v-scroll-view="checkSubCategory" class="main">
       <div class="category-title-wrapper">
         <div
-          class="category"
           v-for="category in categoryList"
           :key="category.id"
+          class="category"
           @click="handleChangeCategory(category)"
         >
           {{ category.name }}
@@ -14,9 +14,9 @@
 
       <div class="nav-wrapper">
         <div
-          class="sub-category"
           v-for="(subCategory, index) in activeCategoryNavList"
           :key="subCategory.id"
+          class="sub-category"
           :style="{
             backgroundColor: colorPalette[index % colorPalette.length]?.bg,
             color: colorPalette[index % colorPalette.length]?.font,
@@ -27,9 +27,9 @@
           </strong>
           <ul class="nav-list">
             <li
-              class="nav-item"
               v-for="site in subCategory.navigation"
               :key="site.id"
+              class="nav-item"
             >
               <a class="nav-link" target="_blank" :href="site.url">
                 <div class="icon">

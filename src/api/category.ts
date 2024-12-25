@@ -14,8 +14,8 @@ export interface Category {
   update_time: string;
 }
 
-export interface ICategoryListItem extends Category {
-  children: ICategoryListItem[];
+export interface TreeCategoryNode extends Category {
+  children: TreeCategoryNode[];
   navigation: Partial<Navigation>[];
   isLeaf: boolean;
 }
@@ -55,7 +55,7 @@ export function getCategoryList(params: Partial<CategoryParam>) {
  * @returns
  */
 export function getSubCategoryAndWebsites(topCategoryId: number) {
-  return axios.get<ICategoryListItem[]>(
+  return axios.get<TreeCategoryNode[]>(
     `${prefix}/category/${topCategoryId}/subCategoryWebsites`
   );
 }

@@ -24,9 +24,9 @@ const router = createRouter({
       },
     },
     {
-      path: '/preview',
-      name: 'preview',
-      component: () => import('@/views/preview/index.vue'),
+      path: '/navigation-preview',
+      name: 'navigationPreview',
+      component: () => import('@/views//preview/navigation/index.vue'),
       meta: {
         requiresAuth: false,
       },

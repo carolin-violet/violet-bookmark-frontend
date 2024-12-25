@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-  import type { ICategoryListItem } from '@/api/category';
+  import type { TreeCategoryNode } from '@/api/category';
 
   const props = defineProps({
     category: {
-      type: Object as () => ICategoryListItem,
+      type: Object as () => TreeCategoryNode,
       default: () => {},
     },
   });

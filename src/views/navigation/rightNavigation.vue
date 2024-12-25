@@ -23,10 +23,10 @@
       <a-layout-content>
         <a-row :gutter="[20, 12]" class="navigation-list">
           <a-col
-            class="navigation-item"
-            flex="200px"
             v-for="item in navList"
             :key="item.id"
+            class="navigation-item"
+            flex="200px"
           >
             <a-link :href="item.url">
               <div class="link">
@@ -85,14 +85,14 @@
 
   import type { Ref } from 'vue';
   import type { Navigation, NavigationParam } from '@/api/navigation';
-  import type { ICategoryListItem } from '@/api/category';
+  import type { TreeCategoryNode } from '@/api/category';
 
   const router = useRouter();
   const instance = getCurrentInstance();
   const { loading, setLoading } = useLoading(true);
   const navList: Ref<Navigation[]> = ref([]);
 
-  const currentCategory = ref<ICategoryListItem>(undefined!);
+  const currentCategory = ref<TreeCategoryNode>(undefined!);
   const params: Ref<Partial<NavigationParam>> = ref({
     pageNum: 1,
     pageSize: 10,
@@ -158,7 +158,7 @@
     getDataList();
   };
 
-  const handler = (data: ICategoryListItem) => {
+  const handler = (data: TreeCategoryNode) => {
     currentCategory.value = data;
     getDataList();
   };

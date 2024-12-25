@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+import type { PageResponse } from '@/types/global';
+
+// 获取导航列表
+
 export interface Navigation {
   id: number;
   categoryId: number;
@@ -8,6 +12,7 @@ export interface Navigation {
   description: string;
   ladder: number;
 }
+
 export interface NavigationParam {
   pageNum: number;
   pageSize: number;
@@ -23,7 +28,7 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @returns
  */
 export function getNavigationList(params: Partial<NavigationParam>) {
-  return axios.get<Partial<Navigation>>(`${prefix}/navigation/list`, {
+  return axios.get<PageResponse<Navigation>>(`${prefix}/navigation/list`, {
     params,
   });
 }

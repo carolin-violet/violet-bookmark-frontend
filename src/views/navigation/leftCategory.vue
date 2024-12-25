@@ -12,13 +12,9 @@
         </a-button>
       </a-space>
 
-      <a-tree
-        :data="treeData"
-        :fieldNames="{ key: 'id' }"
-        :load-more="loadMore"
-      >
+      <a-tree :data="treeData" :load-more="loadMore">
         <template #title="nodeData">
-          <span @click="handleSelect(nodeData)">{{ nodeData.name }}</span>
+          <span @click="handleSelect(nodeData)">{{ nodeData.title }}</span>
         </template>
         <template #extra="nodeData">
           <icon-edit
@@ -58,24 +54,27 @@
   import { getCategoryList, delCategory } from '@/api/category';
   import { useRouter } from 'vue-router';
   import type { Ref } from 'vue';
-  import type { ICategoryListItem } from '@/api/category';
   import Tool from './Tool.vue';
+
+  interface TreeNodeData {
+    [key: string]: any;
+  }
 
   const router = useRouter();
   const instance = getCurrentInstance();
   const searchKey: Ref<string> = ref('');
 
   // 原始数据
-  const originTreeData: Ref<Partial<ICategoryListItem>[]> = ref([]);
+  const originTreeData: Ref<TreeNodeData[]> = ref([]);
 
   // 筛选数据
-  const searchData = (keyword: string): ICategoryListItem[] => {
-    const loop = (data: ICategoryListItem[]) => {
-      const result: ICategoryListItem[] = [];
+  const searchData = (keyword: string): TreeNodeData[] => {
+    const loop = (data: TreeNodeData[]) => {
+      const result: TreeNodeData[] = [];
       data.forEach((item) => {
         if (
-          item.name &&
-          item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+          item.title &&
+          item.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1
         ) {
           result.push({ ...item });
         } else if (item.children) {
@@ -102,38 +101,46 @@
 
   const getData = () => {
     getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
-      originTreeData.value = res.data;
+      originTreeData.value = res.data.map((item) => ({
+        key: item.id,
+        title: item.name,
+        children: [],
+        isLeaf: false,
+      }));
     });
   };
 
   // 动态加载数据
-  const loadMore = (nodeData: ICategoryListItem): Promise<void> => {
+  const loadMore = (node: TreeNodeData): Promise<void> => {
     return new Promise((resolve) => {
-      getCategoryList({ parentId: nodeData.id, openness: 0 }).then((res) => {
-        nodeData.children = res.data.map((item: ICategoryListItem) => {
-          item.isLeaf = true;
-          return item;
-        });
-        resolve();
-      });
+      getCategoryList({ parentId: node.key as number, openness: 0 }).then(
+        (res) => {
+          node.children = res.data.map((item) => ({
+            key: item.id,
+            title: item.name,
+            isLeaf: true,
+          }));
+          resolve();
+        }
+      );
     });
   };
 
-  const handleSelect = (data: ICategoryListItem): void => {
+  const handleSelect = (data: TreeNodeData): void => {
     instance?.proxy?.$Bus.emit('changeNavList', data);
   };
 
-  const handleEdit = (nodeData: ICategoryListItem): void => {
+  const handleEdit = (nodeData: TreeNodeData): void => {
     router.push({
       path: '/navigation/editCategory',
       query: {
-        id: nodeData.id,
+        id: nodeData.key,
       },
     });
   };
 
-  const handleDelete = (nodeData: ICategoryListItem): void => {
-    delCategory(nodeData.id!).then(() => {
+  const handleDelete = (nodeData: TreeNodeData): void => {
+    delCategory(nodeData.key as number).then(() => {
       Message.success({
         content: '删除成功!',
       });
