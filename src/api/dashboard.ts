@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { TableData } from '@arco-design/web-vue/es/table/interface';
+// import type { TableData } from '@arco-design/web-vue/es/table/interface';
 
 export interface ContentDataRecord {
   x: string;

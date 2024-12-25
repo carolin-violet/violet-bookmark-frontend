@@ -1,5 +1,5 @@
 import * as axios from 'axios';
 
 declare module 'axios' {
-  export interface AxiosResponse<T = any> extends Promise<T> {}
+  export type AxiosResponse<T = any> = Promise<T>;
 }

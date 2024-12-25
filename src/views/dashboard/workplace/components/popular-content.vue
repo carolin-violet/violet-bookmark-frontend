@@ -73,49 +73,50 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import useLoading from '@/hooks/loading';
-import { queryPopularList } from '@/api/dashboard';
-import type { TableData } from '@arco-design/web-vue/es/table/interface';
+  import { ref } from 'vue';
+  import useLoading from '@/hooks/loading';
+  import { queryPopularList } from '@/api/dashboard';
+  import type { TableData } from '@arco-design/web-vue/es/table/interface';
 
-const type = ref('text');
-const { loading, setLoading } = useLoading();
-const renderList = ref<TableData[]>();
-const fetchData = async (contentType: string) => {
-  try {
-    setLoading(true);
-    const { data } = await queryPopularList({ type: contentType });
-    renderList.value = data;
-  } catch (err) {
-    // you can report use errorHandler or other
-  } finally {
-    setLoading(false);
-  }
-};
-const typeChange = (contentType: string) => {
-  // fetchData(contentType);
-};
-// fetchData('text');
+  const type = ref('text');
+  const { loading, setLoading } = useLoading();
+  const renderList = ref<TableData[]>();
+  const fetchData = async (contentType: string) => {
+    try {
+      setLoading(true);
+      const { data } = await queryPopularList({ type: contentType });
+      renderList.value = data;
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
+    }
+  };
+  const typeChange = (contentType: string) => {
+    // fetchData(contentType);
+  };
+  // fetchData('text');
 </script>
 
 <style scoped lang="less">
-.general-card {
-  min-height: 395px;
-}
-
-:deep(.arco-table-tr) {
-  height: 44px;
-
-  .arco-typography {
-    margin-bottom: 0;
+  .general-card {
+    min-height: 395px;
   }
-}
 
-.increases-cell {
-  display: flex;
-  align-items: center;
+  :deep(.arco-table-tr) {
+    height: 44px;
 
-  span {
-    margin-right: 4px;
+    .arco-typography {
+      margin-bottom: 0;
+    }
   }
-}</style>
+
+  .increases-cell {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 4px;
+    }
+  }
+</style>
