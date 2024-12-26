@@ -1,7 +1,7 @@
 // 1. 引入 mitt，是一个函数
 import mitt from 'mitt';
 import { createApp } from 'vue';
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue, { Icon } from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import globalComponents from '@/components';
 import router from './router';
@@ -38,5 +38,10 @@ declare module 'vue' {
   }
 }
 app.config.globalProperties.$Bus = Mit;
+
+const IconFont = Icon.addFromIconFontCn({
+  src: 'https://at.alicdn.com/t/c/font_4430049_9giizwf6nlf.js',
+});
+app.component('IconFont', IconFont);
 
 app.mount('#app');

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="preview-header-container">
     <div class="search-container">
       <Search />
     </div>
@@ -10,7 +10,8 @@
         class="public-category"
         :class="{ active: item.id === props.activeId }"
       >
-        {{ item.name }}
+        <icon-font :type="item.icon || 'icon-chat'" :size="28" />
+        <span>{{ item.name }}</span>
       </div>
     </div>
   </div>
@@ -18,7 +19,6 @@
 
 <script lang="ts" setup>
   import type { Category } from '@/api/category';
-
   import Search from './Search.vue';
 
   const props = defineProps({
@@ -33,7 +33,7 @@
 </script>
 
 <style lang="less" scoped>
-  .container {
+  .preview-header-container {
     position: relative;
     width: 100%;
     height: 100%;
@@ -46,6 +46,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .public-category-titles {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      .public-category {
+        width: 88px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 </style>

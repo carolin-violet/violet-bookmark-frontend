@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { PageResponse } from '@/types/global';
+import type { PageResponse, PageRequest } from '@/types/global';
 
 // 获取导航列表
 
@@ -13,7 +13,7 @@ export interface Navigation {
   ladder: number;
 }
 
-export interface NavigationParam {
+export interface NavigationParam extends PageRequest {
   pageNum: number;
   pageSize: number;
   name: string;

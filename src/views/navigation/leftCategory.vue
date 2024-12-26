@@ -12,9 +12,13 @@
         </a-button>
       </a-space>
 
-      <a-tree :data="treeData" :load-more="loadMore">
+      <a-tree
+        :data="treeData"
+        :field-names="{ title: 'name', key: 'id' }"
+        :load-more="loadMore"
+      >
         <template #title="nodeData">
-          <span @click="handleSelect(nodeData)">{{ nodeData.title }}</span>
+          <span @click="handleSelect(nodeData)">{{ nodeData.name }}</span>
         </template>
         <template #extra="nodeData">
           <icon-edit
@@ -50,15 +54,21 @@
 
 <script lang="ts" setup>
   import { Message } from '@arco-design/web-vue';
-  import { ref, computed, onMounted, getCurrentInstance } from 'vue';
+  import { IconUser, IconUserGroup } from '@arco-design/web-vue/es/icon';
+  import { ref, computed, onMounted, getCurrentInstance, h } from 'vue';
   import { getCategoryList, delCategory } from '@/api/category';
   import { useRouter } from 'vue-router';
+  import { useUserStore } from '@/store';
   import type { Ref } from 'vue';
+  import type { Category } from '@/api/category';
   import Tool from './Tool.vue';
 
   interface TreeNodeData {
     [key: string]: any;
   }
+
+  const userStore = useUserStore();
+  const { userRole } = userStore;
 
   const router = useRouter();
   const instance = getCurrentInstance();
@@ -100,11 +110,14 @@
   });
 
   const getData = () => {
-    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
-      originTreeData.value = res.data.map((item) => ({
-        key: item.id,
-        title: item.name,
-        children: [],
+    const params =
+      userRole === 'admin'
+        ? { parentId: -1, pageSize: 1000 }
+        : { parentId: -1, openness: 0, pageSize: 1000 };
+    getCategoryList(params).then((res) => {
+      originTreeData.value = res.data.records.map((item) => ({
+        ...item,
+        icon: () => h(item.openness ? IconUserGroup : IconUser),
         isLeaf: false,
       }));
     });
@@ -113,16 +126,22 @@
   // 动态加载数据
   const loadMore = (node: TreeNodeData): Promise<void> => {
     return new Promise((resolve) => {
-      getCategoryList({ parentId: node.key as number, openness: 0 }).then(
-        (res) => {
-          node.children = res.data.map((item) => ({
-            key: item.id,
-            title: item.name,
-            isLeaf: true,
-          }));
-          resolve();
-        }
-      );
+      const params =
+        userRole === 'admin'
+          ? { pageSize: 1000, parentId: node.id as number }
+          : {
+              openness: 0,
+              pageSize: 1000,
+              parentId: node.id as number,
+            };
+      getCategoryList(params).then((res) => {
+        node.children = res.data.records.map((item) => ({
+          ...item,
+          icon: () => h(item.openness ? IconUserGroup : IconUser),
+          isLeaf: true,
+        }));
+        resolve();
+      });
     });
   };
 
@@ -134,13 +153,13 @@
     router.push({
       path: '/navigation/editCategory',
       query: {
-        id: nodeData.key,
+        id: nodeData.id,
       },
     });
   };
 
   const handleDelete = (nodeData: TreeNodeData): void => {
-    delCategory(nodeData.key as number).then(() => {
+    delCategory(nodeData.id as number).then(() => {
       Message.success({
         content: '删除成功!',
       });

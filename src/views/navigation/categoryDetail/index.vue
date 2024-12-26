@@ -45,7 +45,7 @@
             <a-option
               v-for="category in options"
               :key="category.id"
-              :value="category.id"
+              :value="category.parentId"
               >{{ category.name }}</a-option
             >
           </a-select>
@@ -58,7 +58,9 @@
             v-model="formData.openness"
             :placeholder="$t('categoryManagement.form.openness.placeholder')"
           >
-            <a-option :value="1">公开</a-option>
+            <a-option v-if="userStore.userRole === 'admin'" :value="1"
+              >公开</a-option
+            >
             <a-option :value="0">私有</a-option>
           </a-select>
         </a-form-item>
@@ -115,7 +117,7 @@
     id: undefined,
     userId: undefined,
     name: '',
-    parentId: 0,
+    parentId: -1,
     create_time: '',
     openness: 0,
     icon: '',
@@ -159,7 +161,10 @@
 
   const getTopCategories = () => {
     getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
-      options.value = [...res.data, { id: 0, name: '无父级', parentId: -1 }];
+      options.value = [
+        ...res.data.records,
+        { id: 0, name: '无父级', parentId: -1 },
+      ];
     });
   };
 

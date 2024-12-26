@@ -3,7 +3,11 @@
     <a-layout class="navigation-layout">
       <a-layout-header>
         <div class="top-panel">
-          <a-button type="primary" @click="handleCreate">
+          <a-button
+            type="primary"
+            :disabled="!ifSelectCategory"
+            @click="handleCreate"
+          >
             <template #icon>
               <icon-plus-circle />
             </template>
@@ -11,7 +15,7 @@
           </a-button>
           <span style="margin-left: 20px">
             {{
-              currentCategory?.parentId != -1 && currentCategory?.id
+              ifSelectCategory
                 ? `当前选中分类：${currentCategory?.name}`
                 : '请选择一个二级分类'
             }}</span
@@ -78,7 +82,7 @@
 
 <script lang="ts" setup>
   import { Message } from '@arco-design/web-vue';
-  import { ref, getCurrentInstance } from 'vue';
+  import { ref, getCurrentInstance, computed } from 'vue';
   import { useRouter } from 'vue-router';
   import { getNavigationList, delNavigation } from '@/api/navigation';
   import useLoading from '@/hooks/loading';
@@ -92,13 +96,18 @@
   const { loading, setLoading } = useLoading(true);
   const navList: Ref<Navigation[]> = ref([]);
 
-  const currentCategory = ref<TreeCategoryNode>(undefined!);
+  const currentCategory = ref<Partial<TreeCategoryNode>>({});
   const params: Ref<Partial<NavigationParam>> = ref({
     pageNum: 1,
     pageSize: 10,
     name: '',
   });
   const total: Ref<number> = ref(0);
+
+  const ifSelectCategory = computed(() => {
+    const { parentId, id } = currentCategory.value || {};
+    return Number(parentId) !== -1 && id;
+  });
 
   const getDataList = () => {
     setLoading(true);

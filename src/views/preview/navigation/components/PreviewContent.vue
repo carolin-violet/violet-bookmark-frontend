@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="preview-content-container">
     <div class="private-category-titles">
       <div
         v-for="category in props.list"
@@ -52,4 +52,7 @@
   });
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .preview-content-container {
+  }
+</style>

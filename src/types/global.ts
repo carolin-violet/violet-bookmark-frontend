@@ -48,3 +48,10 @@ export interface PageResponse<T> {
   maxLimit: number;
   records: T[];
 }
+
+export interface PageRequest {
+  current: number;
+  pageSize: number;
+  sortFields: string;
+  sortOrder: 'ascend' | 'descend';
+}

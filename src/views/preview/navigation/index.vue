@@ -23,23 +23,25 @@
   import PreviewHeader from './components/PreviewHeader.vue';
   import PreviewContent from './components/PreviewContent.vue';
 
-  const publicCategoryList = ref<Category[]>([]);
+  const publicCategoryList = ref<[]>([]);
   const categoryList = ref<Category[]>([]);
   const activePublicCategoryId = ref<number>(0);
   const activePersonalCategoryId = ref<number>(0);
 
   // 获取公共分类列表
   function getPublicCategories() {
-    getCategoryList({ openness: 1 }).then((res) => {
-      publicCategoryList.value = res.data;
+    getCategoryList({ parentId: -1, openness: 1, pageSize: 10 }).then((res) => {
+      publicCategoryList.value = res.data.records;
     });
   }
 
   // 获取一级分类列表
   function getTopCategories() {
-    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
-      categoryList.value = res.data;
-    });
+    getCategoryList({ parentId: -1, openness: 0, pageSize: 1000 }).then(
+      (res) => {
+        categoryList.value = res.data.records;
+      }
+    );
   }
 
   onMounted(() => {
@@ -52,8 +54,13 @@
   .preview-container {
     width: 100%;
     min-height: 100vh;
+    background-color: cadetblue;
     .preview-header {
-      height: 500px;
+      height: 400px;
+    }
+    .preview-content {
+      height: calc(100vh - 400px);
+      background-color: #333;
     }
   }
 </style>

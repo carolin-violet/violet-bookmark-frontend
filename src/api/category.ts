@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { Navigation } from '@/api/navigation';
+import type { PageResponse, PageRequest } from '@/types/global';
 
 /** 导航分类类型 */
 
@@ -25,7 +26,7 @@ export interface CategoryOption {
   name?: string;
 }
 
-export interface CategoryParam {
+export interface CategoryParam extends PageRequest {
   id: number;
   userId: number;
   parentId: number;
@@ -44,7 +45,7 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @returns 分类列表
  */
 export function getCategoryList(params: Partial<CategoryParam>) {
-  return axios.get<Category[]>(`${prefix}/category/list`, {
+  return axios.get<PageResponse<Category[]>>(`${prefix}/category/list`, {
     params,
   });
 }
