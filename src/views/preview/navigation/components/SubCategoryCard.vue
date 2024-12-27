@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="private-category-title"></div>
+  <div class="sub-category-card-container">
+    <div class="sub-category-title"></div>
     <div class="main-content">
       <div
         v-for="website in props.category.navigation"
@@ -23,4 +23,11 @@
   });
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .sub-category-card-container {
+    color: rgb(176, 180, 201);
+    background-color: rgb(56, 60, 82);
+    .sub-category-title {
+    }
+  }
+</style>

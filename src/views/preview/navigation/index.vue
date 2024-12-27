@@ -1,16 +1,10 @@
 <template>
   <div class="preview-container">
     <section class="preview-header">
-      <PreviewHeader
-        :list="publicCategoryList"
-        :active-id="activePublicCategoryId"
-      />
+      <PreviewHeader :list="publicCategoryList" />
     </section>
-    <section class="preview-content">
-      <PreviewContent
-        :list="categoryList"
-        :active-id="activePersonalCategoryId"
-      />
+    <section v-if="categoryList.length" class="preview-content">
+      <PreviewContent ref="previewContentRef" :list="categoryList" />
     </section>
   </div>
 </template>
@@ -25,9 +19,6 @@
 
   const publicCategoryList = ref<[]>([]);
   const categoryList = ref<Category[]>([]);
-  const activePublicCategoryId = ref<number>(0);
-  const activePersonalCategoryId = ref<number>(0);
-
   // 获取公共分类列表
   function getPublicCategories() {
     getCategoryList({ parentId: -1, openness: 1, pageSize: 10 }).then((res) => {
@@ -59,7 +50,7 @@
       height: 400px;
     }
     .preview-content {
-      height: calc(100vh - 400px);
+      min-height: calc(100vh - 400px);
       background-color: #333;
     }
   }
