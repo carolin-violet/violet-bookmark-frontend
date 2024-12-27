@@ -148,7 +148,10 @@
   };
 
   const handleSelect = (data: TreeNodeData): void => {
-    if (data) instance?.proxy?.$Bus.emit('changeNavList', data);
+    // console.log('data', data)
+    if (data.parentId !== -1) {
+      instance?.proxy?.$Bus.emit('changeNavList', data);
+    }
   };
 
   const handleEdit = (nodeData: TreeNodeData): void => {
