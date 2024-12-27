@@ -41,11 +41,12 @@
           <a-select
             v-model="formData.parentId"
             :placeholder="$t('categoryManagement.form.parentId.placeholder')"
+            @change="handleParentChange"
           >
             <a-option
               v-for="category in options"
               :key="category.id"
-              :value="category.parentId"
+              :value="category.id"
               >{{ category.name }}</a-option
             >
           </a-select>
@@ -56,6 +57,7 @@
         >
           <a-select
             v-model="formData.openness"
+            :disabled="disableOpennessSelector"
             :placeholder="$t('categoryManagement.form.openness.placeholder')"
           >
             <a-option v-if="userStore.userRole === 'admin'" :value="1"
@@ -124,6 +126,7 @@
   });
 
   const options = ref<any[]>([]);
+  const disableOpennessSelector = ref<boolean>(false);
 
   const isEdit = computed<boolean>(() => !!route.query.id);
 
@@ -160,11 +163,16 @@
   };
 
   const getTopCategories = () => {
-    getCategoryList({ parentId: -1, openness: 0 }).then((res) => {
-      options.value = [
-        ...res.data.records,
-        { id: 0, name: '无父级', parentId: -1 },
-      ];
+    const params =
+      userStore.userRole === 'admin'
+        ? { parentId: -1, pageSize: 1000 }
+        : {
+            openness: 0,
+            parentId: -1,
+            pageSize: 1000,
+          };
+    getCategoryList(params).then((res) => {
+      options.value = [...res.data.records, { id: -1, name: '无父级' }];
     });
   };
 
@@ -186,6 +194,21 @@
   };
   const reset = async () => {
     await formRef.value?.resetFields();
+  };
+
+  const handleParentChange = () => {
+    // 顶级分类
+    if (formData.value.parentId === -1) {
+      disableOpennessSelector.value = false;
+    } else {
+      // 二级分类
+      disableOpennessSelector.value = true;
+      const parentCategory = options.value.find(
+        (topCategory) => topCategory.id === formData.value.parentId
+      );
+      formData.value.openness = parentCategory.openness;
+    }
+    //
   };
 
   onMounted(() => {

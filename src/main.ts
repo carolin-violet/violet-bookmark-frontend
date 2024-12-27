@@ -40,7 +40,7 @@ declare module 'vue' {
 app.config.globalProperties.$Bus = Mit;
 
 const IconFont = Icon.addFromIconFontCn({
-  src: 'https://at.alicdn.com/t/c/font_4430049_9giizwf6nlf.js',
+  src: 'https://at.alicdn.com/t/c/font_4430049_nq8wfa6j1hl.js',
 });
 app.component('IconFont', IconFont);
 

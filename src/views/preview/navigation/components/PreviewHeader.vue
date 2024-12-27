@@ -48,6 +48,7 @@
       align-items: center;
     }
     .public-category-titles {
+      width: 95%;
       display: flex;
       position: absolute;
       bottom: 0;

@@ -10,12 +10,17 @@
         {{ category.name }}
       </div>
     </div>
-    <div class="main-content">
+    <div v-if="isLogin()" class="main-content">
       <SubCategoryCard
         v-for="subCategory in dataList"
         :key="subCategory.id"
         :category="subCategory"
       />
+    </div>
+    <div v-else>
+      <a-empty>
+        <a-button>登录</a-button>
+      </a-empty>
     </div>
   </div>
 </template>
@@ -23,6 +28,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { getSubCategoryAndWebsites } from '@/api/category';
+  import { isLogin } from '@/utils/auth';
 
   import type { Category, TreeCategoryNode } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';

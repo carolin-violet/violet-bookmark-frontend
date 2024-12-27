@@ -16,14 +16,14 @@
       <select v-model="searchPrefix">
         <option
           v-for="approach in searchApproachList"
-          :key="approach.url"
-          :value="approach.url"
+          :key="approach.name"
+          :value="approach.name"
           >{{ approach.name }}</option
         >
       </select>
       <icon-caret-down :size="12" />
     </div>
-    <div class="suffix">
+    <div class="suffix" @click="search">
       <icon-search :size="28" />
     </div>
   </div>
@@ -72,7 +72,10 @@
   ];
 
   const search = () => {
-    const url = searchPrefix.value + searchText.value;
+    const prePath = searchApproachList.find(
+      (item) => item.name === searchPrefix.value
+    )?.url;
+    const url = prePath + searchText.value;
     window.open(url, '_blank');
   };
 </script>
@@ -167,6 +170,7 @@
       color: #999;
       background-color: rgba(255, 255, 255, 0.7);
       border-radius: 0 24px 24px 0;
+      cursor: pointer;
     }
   }
 </style>

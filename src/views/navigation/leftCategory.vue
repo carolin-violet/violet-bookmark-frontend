@@ -135,18 +135,20 @@
               parentId: node.id as number,
             };
       getCategoryList(params).then((res) => {
-        node.children = res.data.records.map((item) => ({
-          ...item,
-          icon: () => h(item.openness ? IconUserGroup : IconUser),
-          isLeaf: true,
-        }));
+        node.children = res.data.records.map((item) => {
+          const { icon, ...nodeItem } = item;
+          return {
+            ...nodeItem,
+            isLeaf: true,
+          };
+        });
         resolve();
       });
     });
   };
 
   const handleSelect = (data: TreeNodeData): void => {
-    instance?.proxy?.$Bus.emit('changeNavList', data);
+    if (data) instance?.proxy?.$Bus.emit('changeNavList', data);
   };
 
   const handleEdit = (nodeData: TreeNodeData): void => {
