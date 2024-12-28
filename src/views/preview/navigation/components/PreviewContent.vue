@@ -48,7 +48,8 @@
 
   const { setPosition, setContainer } = useWaterfall(
     instance?.proxy?.$refs.waterfallContainerRef as HTMLElement,
-    300
+    20,
+    5
   );
 
   // 一级分类对应的二级分类列表及所有站点导航

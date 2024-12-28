@@ -1,19 +1,14 @@
 // 分类模块的瀑布流布局
-// 容器宽度、间距宽度、元素个数固定，元素宽度自适应
+// 容器宽度和元素宽度固定，间距自适应
 import { onBeforeUnmount } from 'vue';
 
 /**
  *
  * @param container 瀑布流容器
- * @param gapWidth 元素间隙宽度
- * @param columnCount 每一行元素个数
+ * @param width 每一个瀑布流元素的宽度
  */
 
-function useWaterfall(
-  originalContainer: HTMLElement,
-  gapWidth: number,
-  columnCount: number
-) {
+function useWaterfall(originalContainer: HTMLElement, width: number) {
   let container: HTMLElement = originalContainer;
   let itemList: HTMLElement[];
 
@@ -25,31 +20,34 @@ function useWaterfall(
 
   // 计算列数和间隙宽度
   const calc = () => {
-    const gapCount = columnCount - 1;
+    const columns = Math.floor(container.clientWidth / width);
 
-    const leftSpace = container.clientWidth - gapWidth * gapCount;
-    const columnWith = leftSpace / columnCount;
+    const gapCount = columns + 1;
+    const leftSpace = container.clientWidth % width;
+    const gapWidth = leftSpace / gapCount;
 
     return {
-      columnWith,
+      columns,
+      gapWidth,
     };
   };
 
   // 设置瀑布流元素的位置
   const setPosition = () => {
+    console.log('container', container);
     if (!container) return;
     itemList = Array.from(container.children) as HTMLElement[];
     container.style.position = 'relative';
-    const { columnWith } = calc();
+    const { columns, gapWidth } = calc();
 
-    const columnHeight = new Array(columnCount).fill(0);
+    const columnHeight = new Array(columns).fill(0);
 
     // 遍历每一个元素，使其填充到最短列的下面
     for (let i = 0; i < itemList.length; i += 1) {
       const item: HTMLElement = itemList[i];
       console.log('item', item);
 
-      item.style.width = `${columnWith}px`;
+      item.style.width = `${width}px`;
 
       // 确定子分类模块与顶部的距离
       const top = Math.min(...columnHeight);
@@ -60,7 +58,7 @@ function useWaterfall(
       columnHeight[index] += item.clientHeight + gapWidth;
 
       // 确定子分类模块与左边的距离
-      const left = index * gapWidth + index * columnWith;
+      const left = (index + 1) * gapWidth + index * width;
       item.style.left = `${left}px`;
 
       item.style.position = 'absolute';
