@@ -1,6 +1,6 @@
 // 分类模块的瀑布流布局
 // 容器宽度、间距宽度、元素个数固定，元素宽度自适应
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 
 /**
  *
@@ -9,13 +9,10 @@ import { onBeforeUnmount } from 'vue';
  * @param columnCount 每一行元素个数
  */
 
-function useWaterfall(
-  originalContainer: HTMLElement,
-  gapWidth: number,
-  columnCount: number
-) {
+function useWaterfall(originalContainer: HTMLElement, gapWidth: number) {
   let container: HTMLElement = originalContainer;
   let itemList: HTMLElement[];
+  let columnCount: number;
 
   let timer: number = null!;
 
@@ -47,7 +44,6 @@ function useWaterfall(
     // 遍历每一个元素，使其填充到最短列的下面
     for (let i = 0; i < itemList.length; i += 1) {
       const item: HTMLElement = itemList[i];
-      console.log('item', item);
 
       item.style.width = `${columnWith}px`;
 
@@ -71,8 +67,29 @@ function useWaterfall(
     container.style.height = `${height}px`;
   };
 
+  // 根据页面宽度设置展示多少列
+  const setColumnCount = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 380) {
+      columnCount = 1;
+    } else if (screenWidth < 768) {
+      columnCount = 2;
+    } else if (screenWidth < 1200) {
+      columnCount = 3;
+    } else if (screenWidth < 1600) {
+      columnCount = 4;
+    } else if (screenWidth < 1920) {
+      columnCount = 5;
+    } else if (screenWidth < 2560) {
+      columnCount = 6;
+    } else {
+      columnCount = 7;
+    }
+  };
+
   // 监听页面缩放
   const handleResize = () => {
+    setColumnCount();
     if (timer) {
       clearTimeout(timer);
     }
@@ -80,6 +97,10 @@ function useWaterfall(
   };
 
   window.addEventListener('resize', handleResize);
+
+  onMounted(() => {
+    setColumnCount();
+  });
 
   onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize);

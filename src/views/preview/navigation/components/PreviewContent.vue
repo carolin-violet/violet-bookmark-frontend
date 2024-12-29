@@ -15,9 +15,15 @@
     </div>
     <div v-if="isLogin()" ref="waterfallContainerRef" class="main-content">
       <SubCategoryCard
-        v-for="subCategory in dataList"
+        v-for="(subCategory, index) in dataList"
         :key="subCategory.id"
         :category="subCategory"
+        class="animate__animated"
+        :style="{
+          color: colorPalette[index % colorPalette.length].color,
+          backgroundColor:
+            colorPalette[index % colorPalette.length].backgroundColor,
+        }"
       />
     </div>
     <div v-else>
@@ -33,6 +39,10 @@
   import { getSubCategoryAndWebsites } from '@/api/category';
   import { isLogin } from '@/utils/auth';
   import useWaterfall from '@/hooks/waterfall';
+  import useLazyLoadIcon from '@/hooks/useLazyLoadImg';
+  import useHidden from '@/hooks/useHidden';
+
+  import colorPalette from '@/views/preview/data';
 
   import type { Category, TreeCategoryNode } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';
@@ -46,10 +56,11 @@
 
   const instance = getCurrentInstance();
 
+  const { init } = useHidden();
+  const { loadImg } = useLazyLoadIcon();
   const { setPosition, setContainer } = useWaterfall(
     instance?.proxy?.$refs.waterfallContainerRef as HTMLElement,
-    20,
-    5
+    20
   );
 
   // 一级分类对应的二级分类列表及所有站点导航
@@ -61,13 +72,19 @@
     getSubCategoryAndWebsites(categoryId).then((res) => {
       dataList.value = res.data;
       activeId.value = categoryId;
-      console.log('222', instance?.proxy?.$refs.waterfallContainerRef);
+
       nextTick(() => {
         // 设置瀑布流布局
         setContainer(
           instance?.proxy?.$refs.waterfallContainerRef as HTMLElement
         );
         setPosition();
+
+        // 设置图标懒加载
+        loadImg(instance?.proxy?.$refs.waterfallContainerRef as HTMLElement);
+
+        // 监听元素显示隐藏
+        init(instance?.proxy?.$refs.waterfallContainerRef as HTMLElement);
       });
     });
   }

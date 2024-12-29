@@ -37,6 +37,10 @@
     position: relative;
     width: 100%;
     height: 100%;
+    background-image: url('@/assets/images/bg/bg.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
     .search-container {
       position: absolute;
       top: 200px;

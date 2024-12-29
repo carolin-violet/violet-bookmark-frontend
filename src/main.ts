@@ -16,6 +16,9 @@ import App from './App.vue';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
 
+// AnimateCss动画库
+import 'animate.css';
+
 const app = createApp(App);
 
 app.use(ArcoVue, {});

@@ -15,11 +15,16 @@
       >
         <div class="icon">
           <img
-            :src="`https://www.google.com/s2/favicons?domain=${website.url}`"
+            src="@/assets/browser.svg"
+            :data-src="`https://www.google.com/s2/favicons?domain=${website.url}`"
             alt=""
           />
         </div>
-        <div class="name">{{ website.name }}</div>
+        <div class="name">{{
+          website.description
+            ? `${website.name}-${website.description}`
+            : website.name
+        }}</div>
       </a>
     </div>
   </div>
@@ -91,6 +96,10 @@
         -webkit-user-drag: none;
         &:hover {
           color: inherit !important;
+          .icon {
+            animation: iconImg 0.5s ease-out infinite;
+            animation-direction: alternate;
+          }
           .name::before {
             transform: scale3d(1, 0.5, 1);
           }
@@ -141,6 +150,19 @@
           }
         }
       }
+    }
+  }
+
+  @keyframes iconImg {
+    0% {
+      transform: translateY(0);
+    }
+
+    60% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(2px);
     }
   }
 </style>
