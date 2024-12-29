@@ -1,43 +1,22 @@
 <template>
-  <div class="preview-content-container">
-    <div class="private-category-titles">
-      <div
-        v-for="category in props.list"
-        :key="category.id"
-        class="category"
-        :class="{ active: category.id === activeId }"
-        @click="getSubCategoriesAndNavs(category.id)"
-      >
-        <span class="category-title">
-          {{ category.name }}
-        </span>
-      </div>
-    </div>
-    <div v-if="isLogin()" ref="waterfallContainerRef" class="main-content">
-      <SubCategoryCard
-        v-for="(subCategory, index) in dataList"
-        :key="subCategory.id"
-        :category="subCategory"
-        class="animate__animated"
-        :style="{
-          color: colorPalette[index % colorPalette.length].color,
-          backgroundColor:
-            colorPalette[index % colorPalette.length].backgroundColor,
-        }"
-      />
-    </div>
-    <div v-else>
-      <a-empty>
-        <a-button>登录</a-button>
-      </a-empty>
-    </div>
+  <div ref="waterfallContainerRef" class="preview-content-container">
+    <SubCategoryCard
+      v-for="(subCategory, index) in dataList"
+      :key="subCategory.id"
+      :category="subCategory"
+      class="animate__animated"
+      :style="{
+        color: colorPalette[index % colorPalette.length].color,
+        backgroundColor:
+          colorPalette[index % colorPalette.length].backgroundColor,
+      }"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, getCurrentInstance, nextTick } from 'vue';
+  import { onMounted, ref, getCurrentInstance, nextTick, watch } from 'vue';
   import { getSubCategoryAndWebsites } from '@/api/category';
-  import { isLogin } from '@/utils/auth';
   import useWaterfall from '@/hooks/waterfall';
   import useLazyLoadIcon from '@/hooks/useLazyLoadImg';
   import useHidden from '@/hooks/useHidden';
@@ -48,9 +27,9 @@
   import SubCategoryCard from './SubCategoryCard.vue';
 
   const props = defineProps({
-    list: {
-      type: Array as () => Category[],
-      default: () => [],
+    categoryId: {
+      type: Number,
+      require: true,
     },
   });
 
@@ -90,14 +69,22 @@
   }
 
   onMounted(() => {
-    const category = props.list[0];
-    getSubCategoriesAndNavs(category.id);
+    getSubCategoriesAndNavs(props.categoryId as number);
   });
+
+  watch(
+    () => props.categoryId,
+    () => {
+      getSubCategoriesAndNavs(props.categoryId as number);
+    }
+  );
 </script>
 
 <style lang="less" scoped>
   .preview-content-container {
     position: relative;
+    width: 80%;
+    margin: 12px auto 0;
     .private-category-titles {
       position: sticky;
       top: 0;

@@ -22,7 +22,7 @@
         </div>
         <div class="name">{{
           website.description
-            ? `${website.name}-${website.description}`
+            ? `${website.name} - ${website.description}`
             : website.name
         }}</div>
       </a>

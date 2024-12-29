@@ -4,10 +4,9 @@
       <PreviewHeader :list="publicCategoryList" />
     </section>
     <section class="preview-content">
-      <PreviewBody
-        v-if="categoryList.length"
-        ref="PreviewBodyRef"
-        :list="categoryList"
+      <PreviewContent
+        ref="previewContentRef"
+        :category-id="Number($route.query.categoryId)"
       />
     </section>
   </div>
@@ -19,10 +18,10 @@
   import type { Category } from '@/api/category';
 
   import PreviewHeader from './components/PreviewHeader.vue';
-  import PreviewBody from './components/PreviewBody.vue';
+  import PreviewContent from './components/PreviewContent.vue';
 
-  const publicCategoryList = ref<[]>([]);
-  const categoryList = ref<Category[]>([]);
+  const publicCategoryList = ref<Category[]>([]);
+
   // 获取公共分类列表
   function getPublicCategories() {
     getCategoryList({ parentId: -1, openness: 1, pageSize: 10 }).then((res) => {
@@ -30,18 +29,8 @@
     });
   }
 
-  // 获取一级分类列表
-  function getTopCategories() {
-    getCategoryList({ parentId: -1, openness: 0, pageSize: 1000 }).then(
-      (res) => {
-        categoryList.value = res.data.records;
-      }
-    );
-  }
-
   onMounted(() => {
     getPublicCategories();
-    getTopCategories();
   });
 </script>
 
@@ -56,6 +45,7 @@
     .preview-content {
       min-height: calc(100vh - 400px);
       background-color: #333;
+      overflow: hidden;
     }
   }
 </style>

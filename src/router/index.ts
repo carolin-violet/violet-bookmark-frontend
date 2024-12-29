@@ -28,6 +28,14 @@ const router = createRouter({
       name: 'navigationPreview',
       component: () => import('@/views//preview/navigation/index.vue'),
       meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/navigation-preview/public',
+      name: 'publicNavigationPreview',
+      component: () => import('@/views//preview/navigation/public.vue'),
+      meta: {
         requiresAuth: false,
       },
     },

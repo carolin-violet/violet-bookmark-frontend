@@ -140,8 +140,8 @@
     description: [
       {
         minLength: 0,
-        maxLength: 100,
-        message: '描述长度为0-100',
+        maxLength: 256,
+        message: '描述长度为0-256',
       },
     ],
     ladder: [

@@ -52,6 +52,7 @@
           </a-select>
         </a-form-item>
         <a-form-item
+          v-if="formData.parentId === -1"
           field="openness"
           :label="$t('categoryManagement.form.openness')"
         >
@@ -121,7 +122,7 @@
     name: '',
     parentId: -1,
     create_time: '',
-    openness: 0,
+    openness: null!,
     icon: '',
   });
 

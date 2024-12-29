@@ -32,9 +32,9 @@
             class="navigation-item"
             flex="200px"
           >
-            <a-link :href="item.url">
+            <a-link :href="item.url" @click.prevent>
               <div class="link">
-                <div class="left">
+                <div class="left" @click="open(item.url)">
                   <img
                     class="navigation-icon"
                     :src="`https://www.google.com/s2/favicons?domain=${item.url}`"
@@ -165,6 +165,10 @@
   const handlePageSizeChange = (pageSize: number) => {
     params.value.pageSize = pageSize;
     getDataList();
+  };
+
+  const open = (url: string) => {
+    window.open(url, '_blank');
   };
 
   const handler = (data: TreeCategoryNode) => {

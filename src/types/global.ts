@@ -24,7 +24,7 @@ export interface PostData {
 }
 
 export interface Pagination {
-  current: number;
+  pageNum: number;
   pageSize: number;
   total?: number;
 }
@@ -39,7 +39,7 @@ export interface GeneralChart {
 export interface PageResponse<T> {
   total: number;
   size: number;
-  current: number;
+  pageNum: number;
   pages: number;
   orders: string[];
   optimizeCountSql: boolean;
@@ -50,7 +50,7 @@ export interface PageResponse<T> {
 }
 
 export interface PageRequest {
-  current: number;
+  pageNum: number;
   pageSize: number;
   sortFields: string;
   sortOrder: 'ascend' | 'descend';
