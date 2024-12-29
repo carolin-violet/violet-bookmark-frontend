@@ -4,14 +4,17 @@
       <Search />
     </div>
     <div class="public-category-titles">
-      <div
-        v-for="item in props.list"
-        :key="item.id"
-        class="public-category"
-        @click="open(item.id)"
-      >
-        <icon-font class="icon" :type="item.icon || 'icon-chat'" :size="28" />
-        <span>{{ item.name }}</span>
+      <div class="left"> 占位 </div>
+      <div class="right">
+        <div
+          v-for="item in props.list"
+          :key="item.id"
+          class="public-category"
+          @click="open(item.id)"
+        >
+          <icon-font class="icon" :type="item.icon || 'icon-chat'" :size="28" />
+          <span>{{ item.name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +67,6 @@
     }
     .public-category-titles {
       width: 80%;
-      padding-left: 224px;
       display: flex;
       position: absolute;
       bottom: 0;
@@ -73,25 +75,33 @@
       border-radius: 12px 12px 0 0;
       transform: translateX(-50%);
       cursor: pointer;
-      .public-category {
-        width: 88px;
-        height: 70px;
+      .left {
+        width: 224px;
+      }
+      .right {
+        flex: 1;
         display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        color: rgb(187, 187, 187);
-        font-size: 12px;
-        transition: 0.2s all ease-out;
-        &:hover {
-          padding-bottom: 4px;
-          color: #36b36b;
-          .icon {
-            margin-top: -4px;
+        .public-category {
+          width: 88px;
+          height: 70px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: rgb(187, 187, 187);
+          font-size: 12px;
+          transition: 0.2s all ease-out;
+          &:hover {
+            padding-bottom: 4px;
+            color: #36b36b;
+            .icon {
+              margin-top: -4px;
+            }
           }
-        }
-        .icon {
-          margin-bottom: 4px;
+          .icon {
+            margin-bottom: 4px;
+          }
         }
       }
     }

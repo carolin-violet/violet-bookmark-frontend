@@ -45,7 +45,7 @@ const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
  * @returns 分类列表
  */
 export function getCategoryList(params: Partial<CategoryParam>) {
-  return axios.get<PageResponse<Category[]>>(`${prefix}/category/list`, {
+  return axios.get<PageResponse<Category>>(`${prefix}/category/list`, {
     params,
   });
 }

@@ -21,7 +21,7 @@
   import PreviewHeader from './components/PreviewHeader.vue';
   import PreviewBody from './components/PreviewBody.vue';
 
-  const publicCategoryList = ref<[]>([]);
+  const publicCategoryList = ref<Category[]>([]);
   const categoryList = ref<Category[]>([]);
   // 获取公共分类列表
   function getPublicCategories() {
@@ -48,8 +48,12 @@
 <style lang="less" scoped>
   .preview-container {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background-color: cadetblue;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     .preview-header {
       height: 400px;
     }
