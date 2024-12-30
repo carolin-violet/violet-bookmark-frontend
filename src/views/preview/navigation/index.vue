@@ -21,7 +21,7 @@
   import PreviewHeader from './components/PreviewHeader.vue';
   import PreviewBody from './components/PreviewBody.vue';
 
-  const publicCategoryList = ref<[]>([]);
+  const publicCategoryList = ref<Category[]>([]);
   const categoryList = ref<Category[]>([]);
   // 获取公共分类列表
   function getPublicCategories() {

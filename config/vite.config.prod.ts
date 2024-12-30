@@ -7,7 +7,7 @@ import configImageminPlugin from './plugin/imagemin';
 
 export default mergeConfig(
   {
-    base: '/navigation/', // 静态资源打包目录
+    base: '/', // 静态资源打包目录
     mode: 'production',
     plugins: [
       configCompressPlugin('gzip'),
