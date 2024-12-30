@@ -61,6 +61,10 @@ export function getSubCategoryAndWebsites(topCategoryId: number) {
   );
 }
 
+export function getAllCategory() {
+  return axios.get<TreeCategoryNode[]>(`${prefix}/category/all`);
+}
+
 /**
  * 获取分类详情
  * @param id 分类ID
