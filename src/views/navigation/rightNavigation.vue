@@ -188,6 +188,7 @@
   };
 
   instance?.proxy?.$Bus.on('changeNavList', handler as any);
+  instance?.proxy?.$Bus.on('transferSuccess', getDataList);
 
   const dialogVisible = ref<boolean>(false);
   const websiteId = ref<number>(undefined!);
@@ -212,7 +213,7 @@
       .navigation-list {
         .navigation-item {
           .link {
-            width: 200px;
+            width: 240px;
             display: flex;
             align-items: center;
             column-gap: 8px;
