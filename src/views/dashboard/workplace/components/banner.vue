@@ -16,7 +16,7 @@
   const userStore = useUserStore();
   const userInfo = computed(() => {
     return {
-      name: userStore.username,
+      name: userStore.userName,
     };
   });
 </script>

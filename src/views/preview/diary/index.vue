@@ -1,5 +1,5 @@
 <template>
-  <div>日记管理</div>
+  <div>日记预览</div>
 </template>
 
 <script lang="ts" setup></script>

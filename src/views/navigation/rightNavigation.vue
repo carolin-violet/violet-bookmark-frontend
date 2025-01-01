@@ -54,6 +54,10 @@
                     style="margin-right: 4px"
                     @click.prevent="handleEdit(item)"
                   />
+                  <icon-share-internal
+                    style="margin-right: 4px"
+                    @click.prevent="handleTransfer(item)"
+                  />
                   <a-popconfirm
                     content="确认删除该导航？"
                     type="warning"
@@ -77,6 +81,12 @@
         />
       </a-layout-footer>
     </a-layout>
+
+    <Transfer
+      v-if="dialogVisible"
+      v-model="dialogVisible"
+      :website-id="websiteId"
+    />
   </div>
 </template>
 
@@ -90,6 +100,7 @@
   import type { Ref } from 'vue';
   import type { Navigation, NavigationParam } from '@/api/navigation';
   import type { TreeCategoryNode } from '@/api/category';
+  import Transfer from './components/Transfer.vue';
 
   const router = useRouter();
   const instance = getCurrentInstance();
@@ -177,6 +188,14 @@
   };
 
   instance?.proxy?.$Bus.on('changeNavList', handler as any);
+  instance?.proxy?.$Bus.on('transferSuccess', getDataList);
+
+  const dialogVisible = ref<boolean>(false);
+  const websiteId = ref<number>(undefined!);
+  const handleTransfer = (nav: Navigation) => {
+    websiteId.value = nav.id;
+    dialogVisible.value = true;
+  };
 </script>
 
 <style lang="less" scoped>
@@ -194,7 +213,7 @@
       .navigation-list {
         .navigation-item {
           .link {
-            width: 200px;
+            width: 240px;
             display: flex;
             align-items: center;
             column-gap: 8px;

@@ -60,8 +60,7 @@
   import { useRouter } from 'vue-router';
   import { useUserStore } from '@/store';
   import type { Ref } from 'vue';
-  import type { Category } from '@/api/category';
-  import Tool from './Tool.vue';
+  import Tool from './components/Tool.vue';
 
   interface TreeNodeData {
     [key: string]: any;
