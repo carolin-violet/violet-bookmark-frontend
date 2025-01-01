@@ -57,8 +57,9 @@
     background-size: cover;
     .search-container {
       position: absolute;
-      top: 200px;
+      top: 50%;
       left: 0;
+      transform: translateY(-50%);
       width: 100%;
       height: 200px;
       display: flex;
@@ -75,17 +76,21 @@
       border-radius: 12px 12px 0 0;
       transform: translateX(-50%);
       cursor: pointer;
+      overflow: hidden;
       .left {
-        width: 224px;
+        flex: 0 0 224px;
       }
       .right {
         flex: 1;
         display: flex;
         justify-content: center;
+
         .public-category {
           width: 88px;
           height: 70px;
           display: flex;
+          flex-wrap: wrap;
+          overflow: hidden;
           flex-direction: column;
           align-items: center;
           justify-content: center;

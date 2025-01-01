@@ -1,5 +1,5 @@
 export default {
-  'login.form.title': '登录 Violet User Center',
+  'login.form.title': '登录 violet bookmark',
   'login.form.userAccount.errMsg': '用户名不能为空',
   'login.form.userPassword.errMsg': '密码不能为空',
   'login.form.login.errMsg': '登录出错，轻刷新重试',
