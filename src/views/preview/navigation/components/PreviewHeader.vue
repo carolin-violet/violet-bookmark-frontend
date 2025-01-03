@@ -11,10 +11,7 @@
         @click="open(item.id)"
       >
         <div class="icon">
-          <img
-            :src="`../../../../../src/assets/icon/${item.icon}.png`"
-            alt=""
-          />
+          <img :src="`/icon/${item.icon}.png`" :alt="item.name" />
         </div>
         <div class="name">{{ item.name }}</div>
       </div>
