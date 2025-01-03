@@ -9,7 +9,7 @@ const NAVIGATION: AppRouteRecordRaw = {
     locale: 'menu.navigation',
     requiresAuth: true,
     icon: 'icon-user',
-    order: 1,
+    order: 2,
   },
   children: [
     {

@@ -12,4 +12,7 @@ export default {
   'menu.diary': '日记',
   'menu.diary.list': '日记列表',
   'menu.diary.analysis': '日记分析',
+
+  'menu.blog': '博客',
+  'menu.github': 'Github',
 };

@@ -12,4 +12,7 @@ export default {
   'menu.diary': 'Diary',
   'menu.diary.list': 'Diary List',
   'menu.diary.analysis': 'Diary Analysis',
+
+  'menu.blog': 'Blog',
+  'menu.github': 'Github',
 };

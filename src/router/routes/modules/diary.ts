@@ -9,7 +9,7 @@ const DIARY: AppRouteRecordRaw = {
     locale: 'menu.diary',
     requiresAuth: true,
     icon: 'icon-share-alt',
-    order: 2,
+    order: 3,
   },
   children: [
     {
