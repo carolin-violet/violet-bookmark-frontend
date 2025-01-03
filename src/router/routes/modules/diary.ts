@@ -19,7 +19,7 @@ const DIARY: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.diary.list',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin'],
       },
     },
     {
@@ -29,7 +29,7 @@ const DIARY: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.diary.analysis',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin'],
       },
     },
   ],

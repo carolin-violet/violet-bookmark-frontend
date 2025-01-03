@@ -19,7 +19,7 @@ const NAVIGATION: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.navigation.list',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -30,7 +30,7 @@ const NAVIGATION: AppRouteRecordRaw = {
         locale: 'menu.navigation.category.add',
         hideInMenu: true,
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -41,7 +41,7 @@ const NAVIGATION: AppRouteRecordRaw = {
         locale: 'menu.navigation.category.edit',
         hideInMenu: true,
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -52,7 +52,7 @@ const NAVIGATION: AppRouteRecordRaw = {
         locale: 'menu.navigation.website.add',
         hideInMenu: true,
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
     {
@@ -63,17 +63,7 @@ const NAVIGATION: AppRouteRecordRaw = {
         locale: 'menu.navigation.website.edit',
         hideInMenu: true,
         requiresAuth: true,
-        roles: ['*'],
-      },
-    },
-    {
-      path: 'share',
-      name: 'ShareNavigationList',
-      component: () => import('@/views/navigation/share/index.vue'),
-      meta: {
-        locale: 'menu.navigation.share.list',
-        requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin', 'user'],
       },
     },
   ],
