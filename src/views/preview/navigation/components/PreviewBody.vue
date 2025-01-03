@@ -13,18 +13,12 @@
         </span>
       </div>
     </div>
-    <PreviewContent v-if="isLogin()" :category-id="activeId" />
-    <div v-else>
-      <a-empty>
-        <a-button>登录</a-button>
-      </a-empty>
-    </div>
+    <PreviewContent :category-id="activeId" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { isLogin } from '@/utils/auth';
 
   import type { Category } from '@/api/category';
   import PreviewContent from './PreviewContent.vue';

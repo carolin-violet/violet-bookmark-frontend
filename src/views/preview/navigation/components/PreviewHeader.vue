@@ -11,7 +11,7 @@
         @click="open(item.id)"
       >
         <icon-font class="icon" :type="item.icon || 'icon-chat'" :size="28" />
-        <span>{{ item.name }}</span>
+        <span class="name">{{ item.name }}</span>
       </div>
     </div>
   </div>
@@ -83,6 +83,11 @@
         color: rgb(187, 187, 187);
         font-size: 12px;
         transition: 0.2s all ease-out;
+        .name {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         &:hover {
           padding-bottom: 4px;
           color: #36b36b;
