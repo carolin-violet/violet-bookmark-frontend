@@ -1,6 +1,6 @@
 <template>
   <a-layout class="navigation-layout">
-    <a-layout-sider :width="500">
+    <a-layout-sider :width="400">
       <Category />
     </a-layout-sider>
     <a-layout-content>

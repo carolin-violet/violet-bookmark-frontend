@@ -68,6 +68,7 @@
           </a-select>
         </a-form-item>
         <a-form-item
+          v-if="formData.parentId === -1"
           field="icon"
           :label="$t('categoryManagement.form.icon')"
           validate-trigger="change"

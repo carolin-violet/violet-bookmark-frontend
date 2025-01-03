@@ -42,12 +42,12 @@
       top: 0;
       margin: 0 auto;
       width: 80%;
-      height: 40px;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       background-color: rgb(63, 63, 63);
       z-index: 1;
       .category {
-        flex: 1 1 120px;
+        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
