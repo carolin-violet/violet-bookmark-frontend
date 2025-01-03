@@ -4,14 +4,17 @@
       <Search />
     </div>
     <div class="public-category-titles">
-      <div
-        v-for="item in props.list"
-        :key="item.id"
-        class="public-category"
-        @click="open(item.id)"
-      >
-        <icon-font class="icon" :type="item.icon || 'icon-chat'" :size="28" />
-        <span class="name">{{ item.name }}</span>
+      <div class="left"> 占位 </div>
+      <div class="right">
+        <div
+          v-for="item in props.list"
+          :key="item.id"
+          class="public-category"
+          @click="open(item.id)"
+        >
+          <icon-font class="icon" :type="item.icon || 'icon-chat'" :size="28" />
+          <span class="name">{{ item.name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -54,8 +57,9 @@
     background-size: cover;
     .search-container {
       position: absolute;
-      top: 200px;
+      top: 50%;
       left: 0;
+      transform: translateY(-50%);
       width: 100%;
       height: 200px;
       display: flex;
@@ -64,7 +68,6 @@
     }
     .public-category-titles {
       width: 80%;
-      padding-left: 224px;
       display: flex;
       position: absolute;
       bottom: 0;
@@ -73,30 +76,42 @@
       border-radius: 12px 12px 0 0;
       transform: translateX(-50%);
       cursor: pointer;
-      .public-category {
-        width: 88px;
-        height: 70px;
+      overflow: hidden;
+      .left {
+        flex: 0 0 224px;
+      }
+      .right {
+        flex: 1;
         display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        color: rgb(187, 187, 187);
-        font-size: 12px;
-        transition: 0.2s all ease-out;
-        .name {
+
+        .public-category {
+          width: 88px;
+          height: 70px;
+          display: flex;
+          flex-wrap: wrap;
           overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-        &:hover {
-          padding-bottom: 4px;
-          color: #36b36b;
-          .icon {
-            margin-top: -4px;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: rgb(187, 187, 187);
+          font-size: 12px;
+          transition: 0.2s all ease-out;
+          &:hover {
+            padding-bottom: 4px;
+            color: #36b36b;
+            .icon {
+              margin-top: -4px;
+            }
           }
-        }
-        .icon {
-          margin-bottom: 4px;
+          .name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .icon {
+            margin-bottom: 4px;
+          }
         }
       }
     }
