@@ -1,32 +1,33 @@
 <template>
-  <div>
-    <a-space
-      style="width: 100%; height: 100%; padding: 8px; background-color: white"
-      size="large"
-    >
-      <a-upload :custom-request="customRequest">
-        <template #upload-button>
-          <a-button type="primary">
-            <template #icon>
-              <icon-upload />
-            </template>
-            <template #default>导入数据</template>
-          </a-button>
-        </template>
-      </a-upload>
-      <a-button type="primary" @click="handleExport">
-        <template #icon>
-          <icon-download />
-        </template>
-        <template #default>导出数据</template>
-      </a-button>
-      <a-link @click="toSite">
-        <template #icon>
-          <icon-launch />
-        </template>
-        导航站点
-      </a-link>
-    </a-space>
+  <div class="tool-container">
+    <a-upload :custom-request="customRequest">
+      <template #upload-button>
+        <a-button type="primary">
+          <template #icon>
+            <icon-upload />
+          </template>
+          <template #default>导入数据</template>
+        </a-button>
+      </template>
+    </a-upload>
+    <a-button type="primary" @click="handleExport">
+      <template #icon>
+        <icon-download />
+      </template>
+      <template #default>导出数据</template>
+    </a-button>
+    <a-button type="primary" @click="handleAdd">
+      <template #icon>
+        <icon-plus-circle />
+      </template>
+      <template #default>添加分类</template>
+    </a-button>
+    <a-link @click="toSite">
+      <template #icon>
+        <icon-launch />
+      </template>
+      导航站点
+    </a-link>
   </div>
 </template>
 
@@ -43,6 +44,12 @@
       path: '/navigation-preview',
     });
     window.open(routeData.href, '_blank');
+  };
+
+  const handleAdd = (): void => {
+    router.push({
+      path: '/navigation/addCategory',
+    });
   };
 
   const handleExport = () => {
@@ -86,5 +93,21 @@
   };
 </script>
 
-<!-- <style lang="less" scoped>
-</style> -->
+<style lang="less" scoped>
+  .tool-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 110px);
+    grid-template-rows: repeat(2, 32px);
+    gap: 16px;
+  }
+</style>
+
+<style lang="less" scoped>
+  @media (max-width: @screen-sm) {
+    .tool-container {
+      grid-template-columns: 110px;
+      grid-template-rows: repeat(4, 32px);
+    }
+  }
+</style>

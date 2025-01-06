@@ -2,15 +2,8 @@
   <div class="category-container">
     <a-space class="tree-container" direction="vertical">
       <Tool />
-      <a-space>
-        <a-input-search v-model="searchKey" />
-        <a-button type="primary" @click="handleAdd">
-          <template #icon>
-            <icon-plus-circle />
-          </template>
-          <template #default>添加分类</template>
-        </a-button>
-      </a-space>
+
+      <a-input-search v-model="searchKey" />
 
       <a-tree
         :data="treeData"
@@ -171,12 +164,6 @@
     });
   };
 
-  const handleAdd = (): void => {
-    router.push({
-      path: '/navigation/addCategory',
-    });
-  };
-
   onMounted(() => {
     getData();
   });
@@ -193,9 +180,7 @@
     .tree-container {
       width: 100%;
       height: 100%;
-      padding-top: 6px;
-      padding-left: 8px;
-      padding-bottom: 0;
+      padding: 6px 8px 0 8px;
       background-color: var(--color-bg-2);
     }
   }

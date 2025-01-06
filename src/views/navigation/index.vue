@@ -1,6 +1,6 @@
 <template>
   <a-layout class="navigation-layout">
-    <a-layout-sider :width="500">
+    <a-layout-sider class="side">
       <Category />
     </a-layout-sider>
     <a-layout-content>
@@ -18,5 +18,18 @@
 <style lang="less" scoped>
   .navigation-layout {
     min-height: calc(100vh - 115px);
+    .side {
+      width: 320px !important;
+    }
+  }
+</style>
+
+<style lang="less" scoped>
+  @media (max-width: @screen-sm) {
+    .navigation-layout {
+      .side {
+        width: 200px !important;
+      }
+    }
   }
 </style>

@@ -6,6 +6,7 @@
           <a-button
             type="primary"
             :disabled="!ifSelectCategory"
+            style="margin-right: 20px"
             @click="handleCreate"
           >
             <template #icon>
@@ -13,7 +14,7 @@
             </template>
             <template #default>添加导航</template>
           </a-button>
-          <span style="margin-left: 20px">
+          <span style="display: inline-block">
             {{
               ifSelectCategory
                 ? `当前选中分类：${currentCategory?.name}`
@@ -213,12 +214,12 @@
       .navigation-list {
         .navigation-item {
           .link {
-            width: 240px;
+            width: 200px;
             display: flex;
             align-items: center;
             column-gap: 8px;
             .left {
-              width: 150px;
+              width: 100px;
               display: flex;
               align-items: center;
               column-gap: 6px;
