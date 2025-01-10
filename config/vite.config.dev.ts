@@ -16,7 +16,7 @@ export default mergeConfig(
           changeOrigin: true,
         },
         '/violet-bookmark-api': {
-          target: 'http://127.0.0.1:8102',
+          target: 'http://127.0.0.1:8100',
           changeOrigin: true,
         },
       },

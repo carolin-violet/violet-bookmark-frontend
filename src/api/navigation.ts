@@ -20,7 +20,7 @@ export interface NavigationParam extends PageRequest {
   categoryId: number;
 }
 
-const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
+const prefix = `${import.meta.env.VITE_API_NAVIGATION_PREFIX}/bookmark-core`;
 
 /**
  *  获取导航列表

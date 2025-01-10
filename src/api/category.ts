@@ -37,7 +37,7 @@ export interface CategoryParam extends PageRequest {
   update_time: string;
 }
 
-const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
+const prefix = `${import.meta.env.VITE_API_NAVIGATION_PREFIX}/bookmark-core`;
 
 /**
  * 获取分类列表
