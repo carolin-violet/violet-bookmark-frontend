@@ -38,7 +38,7 @@ export interface GeneralChart {
 
 export interface PageResponse<T> {
   total: number;
-  size: number;
+  pageSize: number;
   pageNum: number;
   pages: number;
   orders: string[];

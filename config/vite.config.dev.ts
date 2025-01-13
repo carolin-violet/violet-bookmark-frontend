@@ -12,11 +12,11 @@ export default mergeConfig(
       },
       proxy: {
         '/user-center-api': {
-          target: 'http://127.0.0.1:8101',
+          target: 'http://127.0.0.1:8100',
           changeOrigin: true,
         },
         '/violet-bookmark-api': {
-          target: 'http://127.0.0.1:8100',
+          target: 'http://127.0.0.1:8101', // 转到网关
           changeOrigin: true,
         },
       },
