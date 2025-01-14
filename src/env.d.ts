@@ -7,5 +7,5 @@ declare module '*.vue' {
   export default component;
 }
 interface ImportMetaEnv {
-  readonly VITE_API_NAVIGATION_PREFIX: string;
+  readonly VITE_API_BOOKMARK_PREFIX: string;
 }

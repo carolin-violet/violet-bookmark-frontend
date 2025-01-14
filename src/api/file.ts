@@ -3,7 +3,7 @@ import axios from 'axios';
 const { CancelToken } = axios;
 export const source = CancelToken.source();
 
-const prefix = `${import.meta.env.VITE_API_NAVIGATION_PREFIX}/bookmark-core`;
+const prefix = `${import.meta.env.VITE_API_BOOKMARK_PREFIX}/core`;
 
 export function exportData() {
   return axios.get<any>(`${prefix}/file/export`);

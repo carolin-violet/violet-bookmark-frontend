@@ -15,10 +15,14 @@ export default mergeConfig(
           target: 'http://127.0.0.1:8100',
           changeOrigin: true,
         },
-        '/violet-bookmark-api': {
+        '/violet-bookmark': {
           target: 'http://127.0.0.1:8101', // 转到网关
           changeOrigin: true,
         },
+        // '/violet-bookmark-core': {
+        //   target: 'http://127.0.0.1:8102',
+        //   changeOrigin: true,
+        // },
       },
     },
     plugins: [
