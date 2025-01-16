@@ -137,7 +137,8 @@
   };
 
   const toRegister = () => {
-    window.open('http://localhost:5174/register', '_blank');
+    // @ts-ignore
+    window.open(`${window.extraConfig.userCenterUrl}/register`, '_blank');
   };
 </script>
 
