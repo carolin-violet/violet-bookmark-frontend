@@ -53,7 +53,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    background-image: url('@/assets/images/bg/bg.png');
+    background-image: url('@/assets/images/bg/bg.webp');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
