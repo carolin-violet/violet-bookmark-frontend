@@ -211,7 +211,7 @@
   const locales = [...LOCALE_OPTIONS];
   const avatar = computed(() => {
     // return userStore.avatar;
-    return 'https://raw.githubusercontent.com/carolin-violet/navigation/master/src/assets/images/avatar.jpeg';
+    return 'https://raw.githubusercontent.com/carolin-violet/website/master/src/assets/images/avatar.jpeg';
   });
   const theme = computed(() => {
     return appStore.theme;

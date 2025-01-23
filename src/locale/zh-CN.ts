@@ -2,7 +2,7 @@ import localeMessageBox from '@/components/message-box/locale/zh-CN';
 import localeLogin from '@/views/login/locale/zh-CN';
 
 import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
-import localeNavigation from '@/views/navigation/locale/zh-CN';
+import localeWebsite from '@/views/website/locale/zh-CN';
 
 import localeMenu from '@/router/locale/zh-CN';
 
@@ -28,6 +28,6 @@ export default {
   ...localeMessageBox,
   ...localeLogin,
   ...localeWorkplace,
-  ...localeNavigation,
+  ...localeWebsite,
   ...localeMenu,
 };

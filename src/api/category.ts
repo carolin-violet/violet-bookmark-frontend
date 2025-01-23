@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Navigation } from '@/api/navigation';
+import type { Website } from '@/api/website';
 import type { PageResponse, PageRequest } from '@/types/global';
 
 /** 导航分类类型 */
@@ -17,7 +17,7 @@ export interface Category {
 
 export interface TreeCategoryNode extends Category {
   children: TreeCategoryNode[];
-  navigation: Partial<Navigation>[];
+  website: Partial<Website>[];
   isLeaf: boolean;
 }
 

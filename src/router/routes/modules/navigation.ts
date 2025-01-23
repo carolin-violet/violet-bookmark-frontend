@@ -2,11 +2,11 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const NAVIGATION: AppRouteRecordRaw = {
-  path: '/navigation',
-  name: 'PersonalNavigation',
+  path: '/website',
+  name: 'PersonalWebsite',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.navigation',
+    locale: 'menu.website',
     requiresAuth: true,
     icon: 'icon-user',
     order: 2,
@@ -14,20 +14,20 @@ const NAVIGATION: AppRouteRecordRaw = {
   children: [
     {
       path: 'list',
-      name: 'PersonalNavigationList',
-      component: () => import('@/views/navigation/index.vue'),
+      name: 'PersonalWebsiteList',
+      component: () => import('@/views/website/index.vue'),
       meta: {
-        locale: 'menu.navigation.list',
+        locale: 'menu.website.list',
         requiresAuth: true,
         roles: ['admin', 'user'],
       },
     },
     {
       path: 'addCategory',
-      name: 'PersonalNavigationAddCategory',
-      component: () => import('@/views/navigation/categoryDetail/index.vue'),
+      name: 'PersonalWebsiteAddCategory',
+      component: () => import('@/views/website/categoryDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.category.add',
+        locale: 'menu.website.category.add',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['admin', 'user'],
@@ -35,32 +35,32 @@ const NAVIGATION: AppRouteRecordRaw = {
     },
     {
       path: 'editCategory',
-      name: 'PersonalNavigationEditCategory',
-      component: () => import('@/views/navigation/categoryDetail/index.vue'),
+      name: 'PersonalWebsiteEditCategory',
+      component: () => import('@/views/website/categoryDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.category.edit',
+        locale: 'menu.website.category.edit',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['admin', 'user'],
       },
     },
     {
-      path: 'addNavigation',
-      name: 'PersonalNavigationAddNavigation',
-      component: () => import('@/views/navigation/navigationDetail/index.vue'),
+      path: 'addWebsite',
+      name: 'PersonalWebsiteAddWebsite',
+      component: () => import('@/views/website/websiteDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.website.add',
+        locale: 'menu.website.website.add',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['admin', 'user'],
       },
     },
     {
-      path: 'editNavigation',
-      name: 'PersonalNavigationEditNavigation',
-      component: () => import('@/views/navigation/navigationDetail/index.vue'),
+      path: 'editWebsite',
+      name: 'PersonalWebsiteEditWebsite',
+      component: () => import('@/views/website/websiteDetail/index.vue'),
       meta: {
-        locale: 'menu.navigation.website.edit',
+        locale: 'menu.website.website.edit',
         hideInMenu: true,
         requiresAuth: true,
         roles: ['admin', 'user'],

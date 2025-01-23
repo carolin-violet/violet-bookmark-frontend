@@ -12,17 +12,20 @@ export default mergeConfig(
       },
       proxy: {
         '/user-center-api': {
-          target: 'http://127.0.0.1:8100',
+          target: 'http://127.0.0.1:8200',
           changeOrigin: true,
         },
-        '/violet-bookmark': {
-          target: 'http://127.0.0.1:8101', // 转到网关
-          changeOrigin: true,
-        },
-        // '/violet-bookmark-core': {
-        //   target: 'http://127.0.0.1:8102',
+        // 转到网关
+        // '/violet-bookmark': {
+        //   target: 'http://127.0.0.1:8101',
         //   changeOrigin: true,
         // },
+        // 直接转到core
+        '/violet-bookmark': {
+          target: 'http://127.0.0.1:8202',
+          changeOrigin: true,
+          rewrite: (path) => path.replace('/violet-bookmark', ''),
+        },
       },
     },
     plugins: [
