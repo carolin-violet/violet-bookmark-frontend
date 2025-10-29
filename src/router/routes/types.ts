@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue';
-import type { RouteMeta, WebsiteGuard } from 'vue-router';
+// import type { RouteMeta, WebsiteGuard } from 'vue-router';
+import type { RouteMeta } from 'vue-router';
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
@@ -15,6 +16,7 @@ export interface AppRouteRecordRaw {
   children?: AppRouteRecordRaw[];
   alias?: string | string[];
   props?: Record<string, any>;
-  beforeEnter?: WebsiteGuard | WebsiteGuard[];
+  // beforeEnter?: WebsiteGuard | WebsiteGuard[];
+  beforeEnter?: any;
   fullPath?: string;
 }
