@@ -192,7 +192,7 @@
     ],
   };
 
-  const handleChangeTabKey = (val) => {
+  const handleChangeTabKey = (val: any) => {
     tableKey.value = val;
   };
 
