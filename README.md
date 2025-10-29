@@ -1,7 +1,8 @@
 # 项目说明
 
 - violet-bookmark 是一个站点收藏网站，可查看一些公共的导航，也可以自己添加私人的书签收藏
-- 演示环境：[https://bookmark.carolin-violet.cn/](https://bookmark.carolin-violet.cn/)
+- 演示环境：[http://bookmark.carolin-violet.cn:8000/](http://bookmark.carolin-violet.cn:8000/)
+- 账户 user 12345678
 
 # 运行环境
 
@@ -23,3 +24,4 @@ node >= 18.20.5
 - [ ] 添加前端埋点 (一些点击次数,导航点击次数)
 - [ ] 添加图表分析统计（拥有分类数目包含大分类小分类，各自分类拥有导航站点数，总共收纳分类数和导航站点数目，点击打开数量排行）
 - [ ] 词云图
+- [ ] 美化页面,添加拖拽支持
