@@ -1,5 +1,5 @@
 const extraConfig = {
-  userCenterUrl: 'https://user-center.carolin-violet.cn',
+  userCenterUrl: 'http://user-center.carolin-violet.cn:8000',
 };
 
 window.extraConfig = extraConfig;
