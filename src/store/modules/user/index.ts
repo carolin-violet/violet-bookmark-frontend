@@ -1,10 +1,15 @@
 import { defineStore } from 'pinia';
 import {
-  login as userLogin,
-  logout as userLogout,
+  // login as userLogin,
+  // logout as userLogout,
   getUserInfo,
-  LoginData,
+  // LoginData,
 } from '@/api/user';
+import {
+  ssoLogin as userLogin,
+  ssoLogout as userLogout,
+  LoginData,
+} from '@/api/sso';
 import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
@@ -55,9 +60,12 @@ const useUserStore = defineStore('user', {
     // Login
     async login(loginForm: LoginData) {
       try {
-        const res = await userLogin(loginForm);
-        this.setInfo(res.data);
-        setToken(res.data.token ?? '');
+        const loginRes = await userLogin(loginForm);
+        // console.log('loginRes', loginRes);
+        const userInfo = await getUserInfo();
+        // console.log('userInfo', userInfo);
+        this.setInfo(userInfo.data);
+        setToken(loginRes.data ?? '');
       } catch (err) {
         clearToken();
         throw err;

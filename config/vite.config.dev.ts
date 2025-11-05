@@ -12,7 +12,7 @@ export default mergeConfig(
       },
       proxy: {
         '/api/user-center': {
-          target: 'http://127.0.0.1:8201',
+          target: 'http://127.0.0.1:8200',
           changeOrigin: true,
         },
         // 转到网关
@@ -24,7 +24,7 @@ export default mergeConfig(
         '/api/bookmark': {
           target: 'http://127.0.0.1:8202',
           changeOrigin: true,
-          rewrite: (path) => path.replace('/api/bookmark', ''),
+          // rewrite: (path) => path.replace('/api/bookmark', ''),
         },
       },
     },
