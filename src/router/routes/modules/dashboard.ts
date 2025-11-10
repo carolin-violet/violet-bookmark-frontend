@@ -19,7 +19,8 @@ const DASHBOARD: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.dashboard.workplace',
         requiresAuth: true,
-        roles: ['admin', 'user'],
+        // roles: ['admin', 'user'],
+        roles: ['admin'],
       },
     },
   ],

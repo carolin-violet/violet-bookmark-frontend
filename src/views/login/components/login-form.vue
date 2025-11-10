@@ -91,7 +91,7 @@
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    userAccount: 'admin',
+    userAccount: 'user',
     userPassword: '12345678',
   });
   const userInfo = reactive({
