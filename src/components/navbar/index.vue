@@ -210,8 +210,11 @@
   const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
   const locales = [...LOCALE_OPTIONS];
   const avatar = computed(() => {
-    // return userStore.avatar;
-    return 'https://raw.githubusercontent.com/carolin-violet/website/master/src/assets/images/avatar.jpeg';
+    return (
+      userStore.userAvatar ||
+      'http://halo.carolin-violet.cn:8000/upload/cddbcaab-0d7d-4179-865d-afaf7e449c2f.png'
+    );
+    // return 'http://halo.carolin-violet.cn:8000/upload/cddbcaab-0d7d-4179-865d-afaf7e449c2f.png';
   });
   const theme = computed(() => {
     return appStore.theme;
