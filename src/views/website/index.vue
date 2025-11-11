@@ -18,8 +18,17 @@
 <style lang="less" scoped>
   .website-layout {
     min-height: calc(100vh - 115px);
+    gap: 16px;
+    // 优化内容区：统一内边距与滚动容器
+    :deep(.arco-layout-content) {
+      padding-top: 16px;
+      padding-right: 16px;
+      background-color: var(--color-fill-2);
+      border-radius: 6px;
+      overflow: auto;
+    }
     .side {
-      width: 320px !important;
+      width: 280px !important;
     }
   }
 </style>

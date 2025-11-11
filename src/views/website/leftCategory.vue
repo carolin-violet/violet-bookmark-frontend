@@ -3,7 +3,7 @@
     <a-space class="tree-container" direction="vertical">
       <Tool />
 
-      <a-input-search v-model="searchKey" />
+      <a-input-search v-model="searchKey" allow-clear @search="searchData" />
 
       <a-tree
         :data="treeData"
@@ -75,8 +75,8 @@
       const result: TreeNodeData[] = [];
       data.forEach((item) => {
         if (
-          item.title &&
-          item.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+          item.name &&
+          item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1
         ) {
           result.push({ ...item });
         } else if (item.children) {
@@ -91,7 +91,6 @@
       });
       return result;
     };
-
     return loop(originTreeData.value);
   };
 
@@ -173,15 +172,25 @@
   .category-container {
     width: 100%;
     height: 100%;
-    padding: 16px 20px;
+    padding: 12px 12px;
     padding-bottom: 0;
     background-color: var(--color-fill-2);
 
     .tree-container {
-      width: 100%;
+      // 横向更贴边一些，拉宽可视区域
+      width: calc(100% + 16px);
+      margin-left: -8px;
       height: 100%;
-      padding: 6px 8px 0 8px;
+      padding: 6px 8px 8px 8px;
       background-color: var(--color-bg-2);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      overflow: auto;
+      // 搜索与工具区间距优化
+      :deep(.arco-input-search) {
+        margin-top: 4px;
+        margin-bottom: 8px;
+      }
     }
   }
 </style>

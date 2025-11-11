@@ -2,7 +2,7 @@
   <div class="tool-container">
     <a-upload :custom-request="customRequest">
       <template #upload-button>
-        <a-button type="primary">
+        <a-button type="primary" size="small">
           <template #icon>
             <icon-upload />
           </template>
@@ -10,13 +10,13 @@
         </a-button>
       </template>
     </a-upload>
-    <a-button type="primary" @click="handleExport">
+    <a-button type="primary" size="small" @click="handleExport">
       <template #icon>
         <icon-download />
       </template>
       <template #default>导出数据</template>
     </a-button>
-    <a-button type="primary" @click="handleAdd">
+    <a-button type="primary" size="small" @click="handleAdd">
       <template #icon>
         <icon-plus-circle />
       </template>

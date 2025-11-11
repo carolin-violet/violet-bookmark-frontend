@@ -204,41 +204,82 @@
     padding: 16px 20px;
     padding-bottom: 0;
     height: 100%;
-    background-color: var(--color-fill-2);
+    background-color: #fff;
 
     .website-layout {
-      padding: 16px 20px;
       padding-bottom: 0;
-      height: 100%;
+      height: calc(100% - 24px);
       background-color: var(--color-bg-2);
+      // 头部工具条更紧凑
+      :deep(.arco-layout-header) {
+        padding: 8px 0 0 0;
+      }
+      .top-panel {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
       .website-list {
+        margin-top: 8px;
+        // 每项增加呼吸间距
         .website-item {
+          padding: 4px;
           .link {
-            width: 200px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             column-gap: 8px;
+            padding: 12px 14px;
+            min-height: 48px;
+            border-radius: 8px;
+            background-color: var(--color-bg-2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+            &:hover {
+              transform: translateY(-1px);
+              box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            }
             .left {
-              width: 100px;
+              flex: 1;
+              min-width: 0;
               display: flex;
               align-items: center;
-              column-gap: 6px;
+              column-gap: 8px;
               .website-icon {
-                width: 16px;
+                width: 18px;
+                height: 18px;
               }
               .website-name {
                 flex: 1;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                font-weight: 500;
               }
             }
             .right {
-              flex: 1;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 8px;
               font-size: 16px;
+              color: rgb(var(--gray-8));
+              :deep(.arco-icon) {
+                cursor: pointer;
+                transition: color 0.2s ease;
+                &:hover {
+                  color: rgb(var(--arcoblue-6));
+                }
+              }
             }
           }
         }
+      }
+      :deep(.arco-layout-footer) {
+        border-top: 1px solid rgb(var(--gray-2));
+        padding-top: 12px;
+        background: transparent;
       }
     }
   }
