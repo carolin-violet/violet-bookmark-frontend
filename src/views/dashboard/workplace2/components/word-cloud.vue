@@ -56,7 +56,7 @@
       );
       const weightFactor = (size: number) => {
         // 根据容器尺寸调整权重因子，让文字更大，填满空间
-        const factor = Math.max(10, containerWidth / 100);
+        const factor = Math.max(6, containerWidth / 150);
         return size * factor;
       };
 
@@ -85,8 +85,9 @@
         rotateRatio: 0.3,
         rotationSteps: 2,
         // 不设置 shape，让文字自由排列，避免出现蓝色区域
-        minSize: 12,
+        minSize: 8,
         drawOutOfBound: false,
+        shrinkToFit: true, // 让库自动缩小已放置的词以腾出空间
       });
     } catch (error) {
       // 如果是内存溢出错误，尝试使用更小的尺寸重试

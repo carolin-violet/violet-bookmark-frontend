@@ -27,6 +27,7 @@ declare module 'wordcloud' {
     shape?: string;
     minSize?: number;
     drawOutOfBound?: boolean;
+    shrinkToFit?: boolean;
   };
 
   function WordCloud(
