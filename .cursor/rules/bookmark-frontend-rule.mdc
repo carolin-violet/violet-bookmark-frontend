@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+该项目是基于 arco-design-pro-vue 框架进行开发的，使用的组件库也是配套的@arco-design/web-vue

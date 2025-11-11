@@ -12,7 +12,8 @@ export default mergeConfig(
       },
       proxy: {
         '/api/user-center': {
-          target: 'http://127.0.0.1:8200',
+          // target: 'http://127.0.0.1:8201',
+          target: 'http://user-center.carolin-violet.cn:8000',
           changeOrigin: true,
         },
         // 转到网关

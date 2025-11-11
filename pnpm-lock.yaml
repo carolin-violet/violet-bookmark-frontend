@@ -70,6 +70,9 @@ importers:
       vue-router:
         specifier: ^4.0.14
         version: 4.1.6(vue@3.2.47)
+      wordcloud:
+        specifier: ^1.2.3
+        version: 1.2.3
     devDependencies:
       '@arco-plugins/vite-vue':
         specifier: ^1.4.5
@@ -4801,6 +4804,9 @@ packages:
   word-wrap@1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
+
+  wordcloud@1.2.3:
+    resolution: {integrity: sha512-9by77b7Sd9e1K75kSmVeAD+JnGpiLR1Z4EX1mYQL91jKrU1/4bHw4h4DExQ+dzfT+PvihDcH7OS7V4Y5UkbF2w==}
 
   wrap-ansi@6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
@@ -9980,6 +9986,8 @@ snapshots:
       isexe: 2.0.0
 
   word-wrap@1.2.3: {}
+
+  wordcloud@1.2.3: {}
 
   wrap-ansi@6.2.0:
     dependencies:
