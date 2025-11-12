@@ -23,7 +23,8 @@ export default mergeConfig(
         // },
         // 直接转到core
         '/api/bookmark': {
-          target: 'http://127.0.0.1:8202',
+          // target: 'http://127.0.0.1:8202',
+          target: 'http://bookmark.carolin-violet.cn:8000',
           changeOrigin: true,
           // rewrite: (path) => path.replace('/api/bookmark', ''),
         },
