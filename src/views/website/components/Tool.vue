@@ -83,7 +83,9 @@
         Message.success({
           content: '导入成功!',
         });
-        window.location.reload();
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 500);
       })
       .catch((err) => {
         console.log('err', err);
