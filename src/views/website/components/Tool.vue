@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { Message } from '@arco-design/web-vue';
   import { useRouter } from 'vue-router';
   // import FileSaver from 'file-saver'
   import save from '@/utils/save';
@@ -79,10 +80,17 @@
       .then((res) => {
         console.log('res', res);
         onSuccess(res);
+        Message.success({
+          content: '导入成功!',
+        });
+        window.location.reload();
       })
       .catch((err) => {
         console.log('err', err);
         onError(err);
+        Message.error({
+          content: '导入失败，请稍后重试',
+        });
       });
 
     return {
