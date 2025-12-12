@@ -1,12 +1,12 @@
 export default {
   // 收藏导航
-  'menu.navigation': 'Navigation',
-  'menu.navigation.list': 'Navigation List',
-  'menu.navigation.category.add': 'Category Add',
-  'menu.navigation.category.edit': 'Category Edit',
-  'menu.navigation.website.add': 'Website Add',
-  'menu.navigation.website.edit': 'Website Edit',
-  'menu.navigation.share.list': 'Share List',
+  'menu.website': 'Website',
+  'menu.website.list': 'Website List',
+  'menu.website.category.add': 'Category Add',
+  'menu.website.category.edit': 'Category Edit',
+  'menu.website.website.add': 'Website Add',
+  'menu.website.website.edit': 'Website Edit',
+  'menu.website.share.list': 'Share List',
 
   // 日记
   'menu.diary': 'Diary',

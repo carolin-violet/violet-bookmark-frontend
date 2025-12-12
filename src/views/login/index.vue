@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
   import Footer from '@/components/footer/index.vue';
-  import LoginBanner from './components/banner.vue';
+  // import LoginBanner from './components/banner.vue';
   import LoginForm from './components/login-form.vue';
 </script>
 
@@ -29,6 +29,12 @@
   .container {
     display: flex;
     height: 100vh;
+    background-image: url('@/assets/images/bg/login-bg.webp');
+    // background-image: url('@/assets/images/bg/login-bg.jpg'),
+    //   url('@/assets/images/bg/login-bg.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
 
     .banner {
       width: 550px;

@@ -20,7 +20,10 @@ function useLazyLoadImg() {
       });
     }, options);
     imgs.forEach((img) => {
-      imageObserver.observe(img);
+      // 只有添加了data-src的img标签才监听
+      if (img.dataset.src) {
+        imageObserver.observe(img);
+      }
     });
   }
 

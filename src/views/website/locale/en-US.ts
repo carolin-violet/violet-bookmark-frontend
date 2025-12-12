@@ -1,26 +1,26 @@
 export default {
   // 导航管理菜单
-  'menu.navigationManagement.personal': 'Personal Navigation',
-  'menu.navigationManagement.personal.add': 'Add Navigation',
-  'menu.navigationManagement.personal.edit': 'Edit Navigation',
+  'menu.websiteManagement.personal': 'Personal Website',
+  'menu.websiteManagement.personal.add': 'Add Website',
+  'menu.websiteManagement.personal.edit': 'Edit Website',
 
   // 操作
-  'operation.navigationManagement.personal.add': 'Add Navigation',
-  'operation.navigationManagement.personal.edit': 'Edit Navigation',
-  'operation.navigationManagement.save': 'Save',
-  'operation.navigationManagement.reset': 'Reset',
+  'operation.websiteManagement.personal.add': 'Add Website',
+  'operation.websiteManagement.personal.edit': 'Edit Website',
+  'operation.websiteManagement.save': 'Save',
+  'operation.websiteManagement.reset': 'Reset',
 
   // 表单
-  'navigationManagement.form.name': 'Navigation Name',
-  'navigationManagement.form.url': 'Navigation URL',
-  'navigationManagement.form.description': 'Navigation Description',
-  'navigationManagement.form.ladder': 'Need Ladder',
+  'websiteManagement.form.name': 'Website Name',
+  'websiteManagement.form.url': 'Website URL',
+  'websiteManagement.form.description': 'Website Description',
+  'websiteManagement.form.ladder': 'Need Ladder',
 
   // 表单输入
-  'navigationManagement.form.name.placeholder': 'Please enter navigation name',
-  'navigationManagement.form.url.placeholder': 'Please enter navigation URL',
-  'navigationManagement.form.description.placeholder':
-    'Please enter navigation description',
+  'websiteManagement.form.name.placeholder': 'Please enter website name',
+  'websiteManagement.form.url.placeholder': 'Please enter website URL',
+  'websiteManagement.form.description.placeholder':
+    'Please enter website description',
 
   // 分类管理菜单
   'menu.categoryManagement.personal': 'Personal Category',

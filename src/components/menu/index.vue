@@ -126,6 +126,7 @@
       };
 
       return () => (
+        // @ts-ignore
         <a-menu
           mode={topMenu.value ? 'horizontal' : 'vertical'}
           v-model:collapsed={collapsed.value}

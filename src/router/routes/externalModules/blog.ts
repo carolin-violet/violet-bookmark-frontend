@@ -1,5 +1,5 @@
 export default {
-  path: 'https://blog.carolin-violet.cn/',
+  path: 'http://halo.carolin-violet.cn:8000/',
   name: 'blog',
   meta: {
     locale: 'menu.blog',

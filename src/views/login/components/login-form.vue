@@ -59,7 +59,12 @@
         <a-button type="primary" html-type="submit" long :loading="loading">
           {{ $t('login.form.login') }}
         </a-button>
-        <a-button type="text" long class="login-form-register-btn">
+        <a-button
+          type="text"
+          long
+          class="login-form-register-btn"
+          @click="toRegister"
+        >
           {{ $t('login.form.register') }}
         </a-button>
       </a-space>
@@ -86,8 +91,8 @@
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    userAccount: '',
-    userPassword: '',
+    userAccount: 'user',
+    userPassword: '12345678',
   });
   const userInfo = reactive({
     userAccount: loginConfig.value.userAccount,
@@ -129,6 +134,11 @@
   };
   const setRememberPassword = (value: boolean) => {
     loginConfig.value.rememberPassword = value;
+  };
+
+  const toRegister = () => {
+    // @ts-ignore
+    window.open(`${window.extraConfig.userCenterUrl}/register`, '_blank');
   };
 </script>
 

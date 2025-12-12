@@ -29,8 +29,7 @@ export interface UserQueryRequest {
   userRole: string;
 }
 
-// const prefix: string = import.meta.env.VITE_API_USER_CENTER_PREFIX;
-const prefix: string = import.meta.env.VITE_API_NAVIGATION_PREFIX;
+const prefix: string = import.meta.env.VITE_API_USER_CENTER_PREFIX;
 
 /**
  * 登录

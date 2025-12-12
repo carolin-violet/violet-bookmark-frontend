@@ -1,11 +1,12 @@
 <template>
-  <div class="navigation-container">
-    <a-layout class="navigation-layout">
+  <div class="website-container">
+    <a-layout class="website-layout">
       <a-layout-header>
         <div class="top-panel">
           <a-button
             type="primary"
             :disabled="!ifSelectCategory"
+            style="margin-right: 20px"
             @click="handleCreate"
           >
             <template #icon>
@@ -13,7 +14,7 @@
             </template>
             <template #default>添加导航</template>
           </a-button>
-          <span style="margin-left: 20px">
+          <span style="display: inline-block">
             {{
               ifSelectCategory
                 ? `当前选中分类：${currentCategory?.name}`
@@ -25,25 +26,25 @@
         <a-divider />
       </a-layout-header>
       <a-layout-content>
-        <a-row :gutter="[20, 12]" class="navigation-list">
+        <a-row :gutter="[20, 12]" class="website-list">
           <a-col
             v-for="item in navList"
             :key="item.id"
-            class="navigation-item"
+            class="website-item"
             flex="200px"
           >
             <a-link :href="item.url" @click.prevent>
               <div class="link">
                 <div class="left" @click="open(item.url)">
                   <img
-                    class="navigation-icon"
+                    class="website-icon"
                     :src="`https://www.google.com/s2/favicons?domain=${item.url}`"
                     alt=""
                     width="16"
                     height="16"
                   />
                   <span
-                    class="navigation-name"
+                    class="website-name"
                     :style="{ color: item.ladder ? 'red' : 'blue' }"
                     :title="item.description"
                     >{{ item.name }}</span
@@ -94,21 +95,21 @@
   import { Message } from '@arco-design/web-vue';
   import { ref, getCurrentInstance, computed } from 'vue';
   import { useRouter } from 'vue-router';
-  import { getNavigationList, delNavigation } from '@/api/navigation';
+  import { getWebsiteList, delWebsite } from '@/api/website';
   import useLoading from '@/hooks/loading';
 
   import type { Ref } from 'vue';
-  import type { Navigation, NavigationParam } from '@/api/navigation';
+  import type { Website, WebsiteParam } from '@/api/website';
   import type { TreeCategoryNode } from '@/api/category';
   import Transfer from './components/Transfer.vue';
 
   const router = useRouter();
   const instance = getCurrentInstance();
   const { loading, setLoading } = useLoading(true);
-  const navList: Ref<Navigation[]> = ref([]);
+  const navList: Ref<Website[]> = ref([]);
 
   const currentCategory = ref<Partial<TreeCategoryNode>>({});
-  const params: Ref<Partial<NavigationParam>> = ref({
+  const params: Ref<Partial<WebsiteParam>> = ref({
     pageNum: 1,
     pageSize: 10,
     name: '',
@@ -122,7 +123,7 @@
 
   const getDataList = () => {
     setLoading(true);
-    getNavigationList({
+    getWebsiteList({
       ...params.value,
       categoryId: currentCategory.value?.id,
     })
@@ -137,16 +138,16 @@
 
   const handleCreate = () => {
     router.push({
-      path: '/navigation/addNavigation',
+      path: '/website/addWebsite',
       query: {
         categoryId: currentCategory.value.id,
       },
     });
   };
 
-  const handleEdit = (nav: Navigation) => {
+  const handleEdit = (nav: Website) => {
     router.push({
-      path: '/navigation/editNavigation',
+      path: '/website/editWebsite',
       query: {
         id: nav.id,
         categoryId: currentCategory.value.id,
@@ -154,9 +155,9 @@
     });
   };
 
-  const handleDelete = (nav: Navigation) => {
+  const handleDelete = (nav: Website) => {
     setLoading(true);
-    delNavigation(nav.id)
+    delWebsite(nav.id)
       .then(() => {
         Message.success({
           content: '删除成功!',
@@ -192,52 +193,93 @@
 
   const dialogVisible = ref<boolean>(false);
   const websiteId = ref<number>(undefined!);
-  const handleTransfer = (nav: Navigation) => {
+  const handleTransfer = (nav: Website) => {
     websiteId.value = nav.id;
     dialogVisible.value = true;
   };
 </script>
 
 <style lang="less" scoped>
-  .navigation-container {
+  .website-container {
     padding: 16px 20px;
     padding-bottom: 0;
     height: 100%;
-    background-color: var(--color-fill-2);
+    background-color: #fff;
 
-    .navigation-layout {
-      padding: 16px 20px;
+    .website-layout {
       padding-bottom: 0;
-      height: 100%;
+      height: calc(100% - 24px);
       background-color: var(--color-bg-2);
-      .navigation-list {
-        .navigation-item {
+      // 头部工具条更紧凑
+      :deep(.arco-layout-header) {
+        padding: 8px 0 0 0;
+      }
+      .top-panel {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .website-list {
+        margin-top: 8px;
+        // 每项增加呼吸间距
+        .website-item {
+          padding: 4px;
           .link {
-            width: 240px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             column-gap: 8px;
+            padding: 12px 14px;
+            min-height: 48px;
+            border-radius: 8px;
+            background-color: var(--color-bg-2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+            &:hover {
+              transform: translateY(-1px);
+              box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            }
             .left {
-              width: 150px;
+              flex: 1;
+              min-width: 0;
               display: flex;
               align-items: center;
-              column-gap: 6px;
-              .navigation-icon {
-                width: 16px;
+              column-gap: 8px;
+              .website-icon {
+                width: 18px;
+                height: 18px;
               }
-              .navigation-name {
+              .website-name {
                 flex: 1;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                font-weight: 500;
               }
             }
             .right {
-              flex: 1;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 8px;
               font-size: 16px;
+              color: rgb(var(--gray-8));
+              :deep(.arco-icon) {
+                cursor: pointer;
+                transition: color 0.2s ease;
+                &:hover {
+                  color: rgb(var(--arcoblue-6));
+                }
+              }
             }
           }
         }
+      }
+      :deep(.arco-layout-footer) {
+        border-top: 1px solid rgb(var(--gray-2));
+        padding-top: 12px;
+        background: transparent;
       }
     }
   }

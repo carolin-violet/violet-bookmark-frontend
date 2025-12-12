@@ -23,7 +23,7 @@
 
   import colorPalette from '@/views/preview/data';
 
-  import type { Category, TreeCategoryNode } from '@/api/category';
+  import type { TreeCategoryNode } from '@/api/category';
   import SubCategoryCard from './SubCategoryCard.vue';
 
   const props = defineProps({

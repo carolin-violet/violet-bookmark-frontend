@@ -24,17 +24,17 @@ const router = createRouter({
       },
     },
     {
-      path: '/navigation-preview',
-      name: 'navigationPreview',
-      component: () => import('@/views//preview/navigation/index.vue'),
+      path: '/website-preview',
+      name: 'websitePreview',
+      component: () => import('@/views//preview/website/index.vue'),
       meta: {
         requiresAuth: true,
       },
     },
     {
-      path: '/navigation-preview/public',
-      name: 'publicNavigationPreview',
-      component: () => import('@/views//preview/navigation/public.vue'),
+      path: '/website-preview/public',
+      name: 'publicWebsitePreview',
+      component: () => import('@/views//preview/website/public.vue'),
       meta: {
         requiresAuth: false,
       },
@@ -42,7 +42,7 @@ const router = createRouter({
     // {
     //   path: '/test',
     //   name: 'test',
-    //   component: () => import('@/views/navigation/personal/category/index.vue'),
+    //   component: () => import('@/views/website/personal/category/index.vue'),
     //   meta: {
     //     requiresAuth: false,
     //   },

@@ -24,7 +24,7 @@
   import { ref, computed, onMounted, h, getCurrentInstance } from 'vue';
   import { Message } from '@arco-design/web-vue';
   import { IconUser, IconUserGroup } from '@arco-design/web-vue/es/icon';
-  import { updateNavigation } from '@/api/navigation';
+  import { updateWebsite } from '@/api/website';
   import { getAllCategory } from '@/api/category';
   import type { TreeCategoryNode } from '@/api/category';
 
@@ -92,7 +92,7 @@
 
   const changeCategory = () => {
     const formData = { id: props.websiteId, categoryId: categoryId.value };
-    updateNavigation(formData).then(() => {
+    updateWebsite(formData).then(() => {
       Message.success('修改成功');
       instance?.proxy?.$Bus.emit('transferSuccess');
     });

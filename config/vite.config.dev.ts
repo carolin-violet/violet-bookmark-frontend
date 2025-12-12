@@ -11,13 +11,22 @@ export default mergeConfig(
         strict: true,
       },
       proxy: {
-        '/user-center-api': {
-          target: 'http://127.0.0.1:8101',
+        '/api/user-center': {
+          // target: 'http://127.0.0.1:8201',
+          target: 'http://user-center.carolin-violet.cn:8000',
           changeOrigin: true,
         },
-        '/violet-bookmark-api': {
-          target: 'http://127.0.0.1:8102',
+        // 转到网关
+        // '/violet-bookmark': {
+        //   target: 'http://127.0.0.1:8101',
+        //   changeOrigin: true,
+        // },
+        // 直接转到core
+        '/api/bookmark': {
+          // target: 'http://127.0.0.1:8202',
+          target: 'http://bookmark.carolin-violet.cn:8000',
           changeOrigin: true,
+          // rewrite: (path) => path.replace('/api/bookmark', ''),
         },
       },
     },
