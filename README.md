@@ -1,19 +1,81 @@
-# 项目说明
+# violet-bookmark 前端
 
-- violet-bookmark 是一个站点收藏网站，可查看一些公共的导航，也可以自己添加私人的书签收藏
-- 演示环境：[https://bookmark.carolin-violet.cn/](https://bookmark.carolin-violet.cn/)
+基于 Vue 3 + Vite + Arco Design 的书签/导航管理站点，支持公共导航展示与个人书签收藏。
 
-# 运行环境
+- 在线预览：<https://bookmark.carolin-violet.cn/>
+- 代码仓库：<https://github.com/carolin-violet/violet-bookmark-frontend>
 
-node >= 18.20.5
+## 技术栈
 
-# 项目启动
+- 框架：Vue 3、TypeScript、Vite
+- UI：Arco Design Vue、Animate.css
+- 状态与路由：Pinia、Vue Router
+- 工具：Axios、ECharts、mitt、lodash、vue-i18n
+- 质量保障：ESLint、Prettier、Stylelint、Husky + lint-staged、vue-tsc
 
-- 先运行 git clone https://github.com/carolin-violet/violet-bookmark-frontend.git 命令拉取前端代码
-- 进入项目根目录运行 pnpm install 命令安装依赖
-- 运行 npm run dev 命令启动
+## 功能亮点
 
-# 待办事项
+- 公共导航展示与分类检索，支持书签详情预览
+- 私人书签管理（增删改查）、登录/权限指令骨架
+- 仪表盘数据面板、基础图表与内容占比展示
+- 国际化（中/英）、深浅色主题、动画效果
+- 内置 Mock 数据与接口拦截器，便于本地开发
 
-- [ ] 添加权限控制
-- [ ] 添加图表分析统计
+## 环境要求
+
+- Node.js >= 18.20.5（建议使用 pnpm）
+
+## 快速开始
+
+```bash
+git clone https://github.com/carolin-violet/violet-bookmark-frontend.git
+cd violet-bookmark-frontend
+pnpm install          # 安装依赖
+pnpm dev              # 本地启动（默认使用 config/vite.config.dev.ts）
+```
+
+### 常用命令
+
+- `pnpm dev`：启动开发环境
+- `pnpm build`：类型检查 + 生产构建
+- `pnpm preview`：本地预览打包产物
+- `pnpm type:check`：仅进行类型检查
+- `pnpm lint-staged`：按 lint-staged 规则格式化/校验暂存区
+
+## 项目结构
+
+```
+.
+├─ config/              # Vite 分环境配置与插件
+├─ src/
+│  ├─ api/              # 请求封装与模块化接口
+│  ├─ assets/           # 全局样式、静态资源
+│  ├─ components/       # 通用组件（导航栏、面包屑、图表等）
+│  ├─ directive/        # 自定义指令（权限、滚动等）
+│  ├─ hooks/            # 通用 hooks（权限、主题、懒加载等）
+│  ├─ layout/           # 布局组件
+│  ├─ locale/           # i18n 配置
+│  ├─ router/           # 路由与守卫
+│  ├─ store/            # Pinia 模块
+│  ├─ utils/            # 工具方法、监控与存储封装
+│  └─ views/            # 页面（导航、预览、仪表盘、登录等）
+├─ deployment/          # Nginx 示例配置
+├─ Dockerfile           # 容器化构建示例
+└─ public/              # 静态资源
+```
+
+## 部署说明
+
+- 生产构建：`pnpm build`，产物位于 `dist/`
+- 预览产物：`pnpm preview --host`
+- 可参考 `deployment/nginx.conf` 或 `Dockerfile` 进行部署
+
+## 开发提示
+
+- 项目已启用 Mock，默认从 `src/mock` 注入数据；真实接口对接时可关闭或替换
+- 自定义主题样式参考 `config/plugin/arcoStyleImport.ts` 与 `src/assets/style/global.less`
+
+## 待办事项
+
+- [ ] 添加更细粒度的权限控制
+- [ ] 添加图表分析统计（如书签趋势/来源分布）
